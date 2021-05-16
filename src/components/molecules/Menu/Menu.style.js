@@ -47,8 +47,13 @@ export const StyledLink = styled(NavLink)`
   }
 
   @media (min-width: 1024px) {
-    padding: 10px 0;
+    padding: 10px;
     font-size: ${({ theme: { fontSize } }) => fontSize.m};
+    transition: 0.3s;
+
+    &:hover {
+      transform: translateX(15px);
+    }
 
     &.active {
       transform: translateX(15px);

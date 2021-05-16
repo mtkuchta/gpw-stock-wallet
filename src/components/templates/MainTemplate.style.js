@@ -13,6 +13,13 @@ export const Wrapper = styled.div`
 `;
 
 export const StyledMain = styled.main`
-  width: 75%;
+  width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (min-width: 1024px) {
+    width: 75%;
+  }
 `;
