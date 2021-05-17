@@ -1,5 +1,6 @@
 {
   "singleQuote": true,
   "endOfLine": "auto",
-  "printWidth": 130
+  "printWidth": 130,
+  "semicolons": true
 }

@@ -1,9 +1,10 @@
 export const userData = {
   user: { name: 'Mateusz' },
-  deposit: { curreny: PLN, amount: 18000 },
+  deposit: { currency: 'PLN', amount: 18000 },
   wallet: {
     clc: {
       companyName: 'Columbus Energy',
+      index: 'none',
       positions: [
         { id: 1, openDate: '25.08.2020', volume: 15, openPrice: 71.0, commission: 5 },
         { id: 2, openDate: '18.09.2020', volume: 7, openPrice: 74.2, commission: 5 },
@@ -12,6 +13,7 @@ export const userData = {
     },
     eur: {
       companyName: 'Eurocash',
+      index: 'mWIG40',
       positions: [
         { id: 1, openDate: '04.02.2020', volume: 75, openPrice: 19.47, commission: 10 },
         { id: 2, openDate: '08.07.2020', volume: 70, openPrice: 16.92, commission: 5 },
@@ -20,6 +22,7 @@ export const userData = {
     },
     fmf: {
       companyName: 'Famur',
+      index: 'mWIG40',
       positions: [
         { id: 1, openDate: '31.01.2020', volume: 470, openPrice: 3.195, commission: 10 },
         { id: 2, openDate: '12.06.2020', volume: 300, openPrice: 2.095, commission: 5 },
@@ -28,6 +31,7 @@ export const userData = {
     },
     pkp: {
       companyName: 'PKP Cargo',
+      index: 'mWIG40',
       positions: [
         { id: 1, openDate: '12.02.2020', volume: 60, openPrice: 17.5, commission: 10 },
         { id: 2, openDate: '21.02.2020', volume: 66, openPrice: 15.24, commission: 10 },

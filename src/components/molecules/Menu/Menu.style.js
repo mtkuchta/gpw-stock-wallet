@@ -33,6 +33,9 @@ export const StyledLink = styled(NavLink)`
   text-decoration: none;
   padding: 20px 0;
   transition: transform 0.6s;
+  color: ${({ theme: { colors } }) => colors.default.link};
+  font-weight: bold;
+  letter-spacing: 1px;
 
   &:visited {
     color: inherit;
