@@ -1,20 +1,42 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { UserContext } from '../../../providers/UserProvider';
 import DashboardContainer from '../DashboardContainer/DashboardContainer';
-import { StyledText } from './AccountSummary.style';
+import { StyledText, ButtonsContainer } from './AccountSummary.style';
+import { calculateFreeMargin } from '../../../assets/helpers/calculateFreeMargin';
+import Button from '../../atoms/Button/Button';
+import useModal from '../../../hooks/useModal';
+import Modal from '../../organisms/Modal/Modal';
+import AccountForm from '../AccountForm/AccountForm';
 
 const AccountSummary = () => {
-  const { deposit } = useContext(UserContext);
+  const { deposit, wallet } = useContext(UserContext);
+  const { isOpen, handleOpenModal, handleCloseModal } = useModal();
+  const [operation, setOperation] = useState();
+
+  const handleClick = (e) => {
+    setOperation(e.target.name);
+    handleOpenModal();
+  };
+
   return (
     <DashboardContainer title="account">
       <StyledText>
         Account value: <span>{deposit.amount} </span>PLN
       </StyledText>
-
       <StyledText>
-        Free margin: <span> 2000 </span>PLN
+        Free margin: <span> {calculateFreeMargin(deposit.amount, wallet)}</span> PLN
       </StyledText>
-      <StyledText></StyledText>
+      <ButtonsContainer>
+        <Button title="Deposit" onClick={handleClick} />
+        <Button title="Withdrawal" onClick={handleClick} />
+      </ButtonsContainer>
+      <Modal isOpen={isOpen} handleClose={handleCloseModal}>
+        <AccountForm
+          operation={operation}
+          freeMargin={calculateFreeMargin(deposit.amount, wallet)}
+          handleCloseModal={handleCloseModal}
+        />
+      </Modal>
     </DashboardContainer>
   );
 };

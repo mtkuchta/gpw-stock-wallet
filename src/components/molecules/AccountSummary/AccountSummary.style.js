@@ -14,3 +14,13 @@ export const StyledText = styled.h3`
     font-size: ${({ theme }) => theme.fontSize.m};
   }
 `;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+
+  @media (min-width: 1024px) {
+    justify-content: flex-start;
+  }
+`;

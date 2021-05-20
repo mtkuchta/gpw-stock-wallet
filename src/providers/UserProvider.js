@@ -8,7 +8,15 @@ export const UserProvider = ({ children }) => {
   const [deposit, setDeposit] = useState(userData.deposit);
   const [wallet, setWallet] = useState(userData.wallet);
 
-  return <UserContext.Provider value={{ user, deposit, wallet }}>{children}</UserContext.Provider>;
+  const handleDepositOperations = (operation, value) => {
+    if (operation === 'Withdrawal') {
+      setDeposit({ ...deposit, amount: deposit.amount - Number(value) });
+    } else {
+      setDeposit({ ...deposit, amount: deposit.amount + Number(value) });
+    }
+  };
+
+  return <UserContext.Provider value={{ user, deposit, wallet, handleDepositOperations }}>{children}</UserContext.Provider>;
 };
 
 export default UserProvider;

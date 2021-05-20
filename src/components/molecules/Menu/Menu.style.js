@@ -51,15 +51,15 @@ export const StyledLink = styled(NavLink)`
 
   @media (min-width: 1024px) {
     padding: 10px;
-    font-size: ${({ theme: { fontSize } }) => fontSize.m};
+    font-size: ${({ theme: { fontSize } }) => fontSize.l};
     transition: 0.3s;
 
     &:hover {
-      transform: translateX(15px);
+      transform: translateX(-15px);
     }
 
     &.active {
-      transform: translateX(15px);
+      transform: translateX(-20px);
     }
   }
 `;

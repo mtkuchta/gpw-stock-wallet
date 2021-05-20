@@ -34,4 +34,10 @@ a,button,input{
     font-family:'Montserrat', sans-serif;
 }
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
 `;
