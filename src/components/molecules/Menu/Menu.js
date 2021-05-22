@@ -1,4 +1,5 @@
 import { Wrapper, StyledLink } from './Menu.style';
+import PropTypes from 'prop-types';
 
 const routes = ['dashboard', 'wallet', 'history', 'taxes'];
 
@@ -14,6 +15,11 @@ const Menu = ({ isOpen, handleIsOpen }) => {
       })}
     </Wrapper>
   );
+};
+
+Menu.propTypes = {
+  isOpen: PropTypes.bool,
+  handleIsOpen: PropTypes.func,
 };
 
 export default Menu;

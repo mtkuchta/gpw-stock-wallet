@@ -10,9 +10,9 @@ export const UserProvider = ({ children }) => {
 
   const handleDepositOperations = (operation, value) => {
     if (operation === 'Withdrawal') {
-      setDeposit({ ...deposit, amount: deposit.amount - Number(value) });
+      setDeposit({ ...deposit, amount: deposit.amount - value });
     } else {
-      setDeposit({ ...deposit, amount: deposit.amount + Number(value) });
+      setDeposit({ ...deposit, amount: deposit.amount + value });
     }
   };
 

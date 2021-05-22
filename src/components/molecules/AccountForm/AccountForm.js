@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import Button from '../../atoms/Button/Button';
 import FormError from '../../atoms/FormError/FormError';
 import { UserContext } from '../../../providers/UserProvider';
+import PropTypes from 'prop-types';
 
 const AccountForm = ({ operation, freeMargin, handleCloseModal }) => {
   const {
@@ -15,7 +16,7 @@ const AccountForm = ({ operation, freeMargin, handleCloseModal }) => {
   const withdrawalLimit = operation === 'Withdrawal' ? freeMargin : 'infinity';
 
   const onSubmit = (data) => {
-    handleDepositOperations(operation, data.amount);
+    handleDepositOperations(operation, Number(data.amount));
     handleCloseModal();
   };
 
@@ -45,6 +46,12 @@ const AccountForm = ({ operation, freeMargin, handleCloseModal }) => {
       </StyledForm>
     </Wrapper>
   );
+};
+
+AccountForm.propTypes = {
+  operation: PropTypes.string,
+  freeMargin: PropTypes.number,
+  handleCloseModal: PropTypes.func,
 };
 
 export default AccountForm;
