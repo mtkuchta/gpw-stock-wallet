@@ -1,11 +1,11 @@
-import { Wrapper, ContainerTitle } from './DashboardContainer.style';
+import { Wrapper, ContainerTitle, ContentContainer } from './DashboardContainer.style';
 import PropTypes from 'prop-types';
 
 const DashboardContainer = ({ title, children }) => {
   return (
     <Wrapper>
       <ContainerTitle>{title}</ContainerTitle>
-      <div>{children}</div>
+      <ContentContainer>{children}</ContentContainer>
     </Wrapper>
   );
 };

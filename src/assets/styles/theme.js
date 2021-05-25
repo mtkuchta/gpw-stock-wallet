@@ -16,6 +16,10 @@ export const theme = {
       buttonText: '#333745',
       buttonHover: '#EEF5DB',
       inputBackground: 'rgba(238,245,219,0.1)',
+      stockBorder: '#EEF5DB',
+      WIG20: '#E63462',
+      mWIG40: '#FE5F55',
+      sWIG80: '#C7EFCF',
     },
   },
   fontSize: {
@@ -24,5 +28,6 @@ export const theme = {
     l: '24px',
     m: '18px',
     s: '14px',
+    xs: '10px',
   },
 };

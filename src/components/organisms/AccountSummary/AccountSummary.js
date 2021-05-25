@@ -1,12 +1,12 @@
 import { useContext, useState } from 'react';
 import { UserContext } from '../../../providers/UserProvider';
-import DashboardContainer from '../DashboardContainer/DashboardContainer';
+import DashboardContainer from '../../molecules/DashboardContainer/DashboardContainer';
 import { StyledText, ButtonsContainer } from './AccountSummary.style';
 import { calculateFreeMargin } from '../../../assets/helpers/calculateFreeMargin';
 import Button from '../../atoms/Button/Button';
 import useModal from '../../../hooks/useModal';
-import Modal from '../../organisms/Modal/Modal';
-import AccountForm from '../AccountForm/AccountForm';
+import Modal from '../Modal/Modal';
+import AccountForm from '../../molecules/AccountForm/AccountForm';
 
 const AccountSummary = () => {
   const { deposit, wallet } = useContext(UserContext);

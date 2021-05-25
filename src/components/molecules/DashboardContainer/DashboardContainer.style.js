@@ -5,11 +5,11 @@ export const Wrapper = styled.div`
   border: 2px solid ${({ theme: { colors } }) => colors.default.borderColor};
   border-radius: 10px;
   margin: 15px 0;
+`;
 
-  div {
-    width: 100%;
-    padding: 10px 15px;
-  }
+export const ContentContainer = styled.div`
+  width: 100%;
+  padding: 10px 15px;
 `;
 
 export const ContainerTitle = styled.h2`
