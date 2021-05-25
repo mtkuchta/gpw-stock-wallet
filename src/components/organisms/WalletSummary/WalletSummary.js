@@ -1,17 +1,10 @@
+import { StocksList } from './WalletSummary.style';
 import { useContext } from 'react';
 import DashboardContainer from '../../molecules/DashboardContainer/DashboardContainer';
 import { sortByTotalPositionsValue } from '../../../assets/helpers/sortByTotalPositionsValue';
 
-import styled from 'styled-components';
 import { UserContext } from '../../../providers/UserProvider';
 import Stock from '../../atoms/Stock/Stock';
-
-const StocksList = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  flex-grow: 0;
-`;
 
 const WalletSummary = () => {
   const { wallet } = useContext(UserContext);

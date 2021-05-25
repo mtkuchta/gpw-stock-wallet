@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  width: 90%;
+  width: 95%;
   border: 2px solid ${({ theme: { colors } }) => colors.default.borderColor};
   border-radius: 10px;
   margin: 15px 0;
