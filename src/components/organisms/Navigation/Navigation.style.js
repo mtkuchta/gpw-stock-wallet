@@ -4,7 +4,7 @@ export const Wrapper = styled.nav`
   width: 100%;
   height: 8%;
   display: flex;
-  background-color: ${({ theme: { colors } }) => colors.default.backgroundColorSecondary};
+  background-color: ${({ theme: { colors } }) => colors.default.backgroundSecondary};
 
   @media (min-width: 1024px) {
     width: 25%;
@@ -40,7 +40,7 @@ export const Logo = styled.div`
     height: 140px;
     flex-direction: column;
     justify-content: center;
-    background-color: ${({ theme: { colors } }) => colors.default.backgroundColorSecondary};
+    background-color: ${({ theme: { colors } }) => colors.default.backgroundSecondary};
     margin-top: 40px;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;

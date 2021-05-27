@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
   div {
     width: 42px;
     height: 4px;
-    background-color: ${({ theme: { colors } }) => colors.default.backgroundColorPrimary};
+    background-color: ${({ theme: { colors } }) => colors.default.backgroundPrimary};
     margin: 4px 0 4px 0;
     border-radius: 5px;
     transition: 0.6s;

@@ -9,7 +9,7 @@ export const Wrapper = styled.nav`
   align-items: center;
   position: absolute;
   top: 8%;
-  background-color: ${({ theme: { colors } }) => colors.default.backgroundColorPrimary};
+  background-color: ${({ theme: { colors } }) => colors.default.backgroundPrimary};
   color: ${({ theme: { colors } }) => colors.default.link};
   border: none;
   transition: 0.6s;

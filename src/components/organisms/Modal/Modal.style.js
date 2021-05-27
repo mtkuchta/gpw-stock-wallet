@@ -8,7 +8,7 @@ export const ModalWrapper = styled(ReactModal)`
   width: 90%;
   min-height: 20%;
   transform: translate(-50%, -50%);
-  background-color: ${({ theme: { colors } }) => colors.default.backgroundColorPrimary};
+  background-color: ${({ theme: { colors } }) => colors.default.backgroundPrimary};
   border-radius: 15px;
 
   @media (min-width: 1024px) {

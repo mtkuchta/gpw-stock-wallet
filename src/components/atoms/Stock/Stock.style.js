@@ -30,7 +30,7 @@ export const StyledIndex = styled.div`
 `;
 
 export const StyledName = styled.h3`
-  color: ${({ theme: { colors } }) => colors.default.textColorPrimary};
+  color: ${({ theme: { colors } }) => colors.default.textPrimary};
   font-size: ${({ theme: { fontSize } }) => fontSize.s};
 
   @media (min-width: 1200px) {

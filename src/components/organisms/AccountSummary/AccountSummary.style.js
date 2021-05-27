@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledText = styled.h3`
-  color: ${({ theme: { colors } }) => colors.default.textColorPrimary};
+  color: ${({ theme: { colors } }) => colors.default.textPrimary};
   font-size: ${({ theme }) => theme.fontSize.s};
   font-weight: normal;
   letter-spacing: 1px;

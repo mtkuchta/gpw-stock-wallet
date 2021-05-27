@@ -14,7 +14,7 @@ export const StyledForm = styled.form`
     width: 100%;
     margin-bottom: 20px;
     padding-left: 10px;
-    color: ${({ theme: { colors } }) => colors.default.textColorPrimary};
+    color: ${({ theme: { colors } }) => colors.default.textPrimary};
     font-size: ${({ theme: { fontSize } }) => fontSize.m};
     letter-spacing: 1px;
     font-weight: normal;
@@ -44,7 +44,7 @@ export const StyledInput = styled.input`
   border-radius: 15px;
   padding: 8px 15px;
   text-align: right;
-  color: ${({ theme: { colors } }) => colors.default.textColorPrimary};
+  color: ${({ theme: { colors } }) => colors.default.textPrimary};
   font-weight: bold;
   letter-spacing: 1px;
 
@@ -56,6 +56,6 @@ export const StyledInput = styled.input`
 export const StyledLabel = styled.label`
   font-size: ${({ theme: { fontSize } }) => fontSize.m};
   padding-left: 15px;
-  color: ${({ theme: { colors } }) => colors.default.textColorPrimary};
+  color: ${({ theme: { colors } }) => colors.default.textPrimary};
   letter-spacing: 1px;
 `;

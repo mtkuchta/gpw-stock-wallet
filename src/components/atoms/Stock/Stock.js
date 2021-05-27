@@ -4,7 +4,7 @@ const Stock = ({ stock, index }) => {
   return (
     <Wrapper>
       <StyledName>{stock.toUpperCase()}</StyledName>
-      {index != 'none' && <StyledIndex color={index}>{index}</StyledIndex>}
+      {index !== 'none' && <StyledIndex color={index}>{index}</StyledIndex>}
     </Wrapper>
   );
 };

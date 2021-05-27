@@ -15,7 +15,7 @@ export const ContentContainer = styled.div`
 export const ContainerTitle = styled.h2`
   width: 100%;
   padding-left: 10px;
-  color: ${({ theme: { colors } }) => colors.default.textColorSecondary};
+  color: ${({ theme: { colors } }) => colors.default.textHeaders};
   margin: 5px 0;
   font-size: ${({ theme }) => theme.fontSize.s};
 

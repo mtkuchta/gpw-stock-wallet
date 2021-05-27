@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
 
 export const StyledDate = styled.div`
   font-size: ${({ theme: { fontSize } }) => fontSize.s};
-  color: ${({ theme: { colors } }) => colors.default.textColorPrimary};
+  color: ${({ theme: { colors } }) => colors.default.textPrimary};
 
   @media (min-width: 1024px) {
     font-size: ${({ theme: { fontSize } }) => fontSize.l};
@@ -20,7 +20,7 @@ export const StyledDate = styled.div`
 
 export const StyledClock = styled.div`
   font-size: ${({ theme: { fontSize } }) => fontSize.s};
-  color: ${({ theme: { colors } }) => colors.default.textColorPrimary};
+  color: ${({ theme: { colors } }) => colors.default.textPrimary};
   font-weight: bold;
   letter-spacing: 1px;
 

@@ -6,6 +6,7 @@ import { GlobalStyle } from '../assets/styles/GlobalStyle';
 import MainTemplate from '../components/templates/MainTemplate';
 import { UserProvider } from '../providers/UserProvider';
 import Dashboard from '../views/Dahboard/Dashboard';
+import Wallet from '../views/Wallet/Wallet';
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
                 </Route>
                 <Route path="/dashboard">
                   <Dashboard />
+                </Route>
+                <Route path="/wallet">
+                  <Wallet />
                 </Route>
               </Switch>
             </Wrapper>
