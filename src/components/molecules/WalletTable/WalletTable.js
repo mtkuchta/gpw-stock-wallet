@@ -1,7 +1,28 @@
 import { Wrapper } from './WalletTable.style';
+import { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { UserContext } from '../../../providers/UserProvider';
+import { sortByTotalPositionsValue } from '../../../assets/helpers/sortByTotalPositionsValue';
+import { createStockTableData } from '../../../assets/helpers/createStockTableData';
+import { getMatchingStocks } from '../../../assets/helpers/getMatchingStocks';
 
-const WalletTable = ({ stocksTable }) => {
-  console.log(stocksTable);
+const WalletTable = () => {
+  const params = useParams();
+  const { wallet } = useContext(UserContext);
+  const [stocksTable, setStocksTable] = useState([]);
+  const [matchingStocks, setMatchingStocks] = useState([]);
+
+  useEffect(async () => {
+    const stocks = Object.values(wallet).sort(sortByTotalPositionsValue);
+    const stocksTable = createStockTableData(stocks);
+    await setStocksTable(stocksTable);
+    setMatchingStocks(stocksTable);
+  }, []);
+
+  useEffect(() => {
+    setMatchingStocks(getMatchingStocks(stocksTable, params.index));
+  }, [params]);
+
   return (
     <Wrapper>
       <table>
@@ -15,7 +36,7 @@ const WalletTable = ({ stocksTable }) => {
           </tr>
         </thead>
         <tbody>
-          {stocksTable.map(({ averagePrice, index, name, value, volume }) => (
+          {matchingStocks.map(({ averagePrice, index, name, value, volume }) => (
             <tr key={name}>
               <td>{name}</td>
               <td color={index}>{index}</td>

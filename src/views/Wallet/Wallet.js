@@ -1,25 +1,15 @@
 import { useContext } from 'react';
 import { UserContext } from '../../providers/UserProvider';
 
-import { sortByTotalPositionsValue } from '../../assets/helpers/sortByTotalPositionsValue';
-import { createStockTableData } from '../../assets/helpers/createStockTableData';
-
-import styled from 'styled-components';
+import { Wrapper } from './Wallet.style';
 import WalletTable from '../../components/molecules/WalletTable/WalletTable';
-
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-`;
+import IndexMenu from '../../components/molecules/IndexMenu/IndexMenu';
 
 const Wallet = () => {
-  const { wallet } = useContext(UserContext);
-  const stocks = Object.values(wallet).sort(sortByTotalPositionsValue);
-  const stocksTable = createStockTableData(stocks);
-
   return (
     <Wrapper>
-      <WalletTable stocksTable={stocksTable} />
+      <IndexMenu />
+      <WalletTable />
     </Wrapper>
   );
 };

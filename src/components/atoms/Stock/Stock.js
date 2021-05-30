@@ -1,4 +1,5 @@
 import { Wrapper, StyledName, StyledIndex } from './Stock.style';
+import PropTypes from 'prop-types';
 
 const Stock = ({ stock, index }) => {
   return (
@@ -7,6 +8,11 @@ const Stock = ({ stock, index }) => {
       {index !== 'none' && <StyledIndex color={index}>{index}</StyledIndex>}
     </Wrapper>
   );
+};
+
+Stock.propTypes = {
+  stock: PropTypes.string,
+  index: PropTypes.string,
 };
 
 export default Stock;
