@@ -6,7 +6,7 @@ import { sortByTotalPositionsValue } from '../../../assets/helpers/sortByTotalPo
 import { createStockTableData } from '../../../assets/helpers/createStockTableData';
 import { getMatchingStocks } from '../../../assets/helpers/getMatchingStocks';
 
-const WalletTable = () => {
+const WalletTable = ({ openModal }) => {
   const params = useParams();
   const { wallet } = useContext(UserContext);
   const [stocksTable, setStocksTable] = useState([]);
@@ -28,7 +28,7 @@ const WalletTable = () => {
       <table>
         <thead>
           <tr>
-            <th>Company Name</th>
+            <th>Ticker</th>
             <th>Index</th>
             <th>Avg Price</th>
             <th>Vol.</th>
@@ -37,7 +37,7 @@ const WalletTable = () => {
         </thead>
         <tbody>
           {matchingStocks.map(({ averagePrice, index, name, value, volume }) => (
-            <tr key={name}>
+            <tr key={name} id={name} onClick={openModal}>
               <td>{name}</td>
               <td color={index}>{index}</td>
               <td>{averagePrice}</td>
