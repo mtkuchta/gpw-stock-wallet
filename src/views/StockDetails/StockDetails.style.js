@@ -17,8 +17,21 @@ export const StyledHeader = styled.header`
 
   h3 {
     width: 100%;
+    font-size: ${({ theme: { fontSize } }) => fontSize.s};
     text-align: center;
     letter-spacing: 1px;
     margin: 3px 0;
+  }
+
+  @media (min-width: 1200px) {
+    padding: 15px 0;
+
+    h2 {
+      font-size: ${({ theme: { fontSize } }) => fontSize.l};
+    }
+
+    h3 {
+      font-size: ${({ theme: { fontSize } }) => fontSize.m};
+    }
   }
 `;

@@ -7,6 +7,7 @@ import MainTemplate from '../components/templates/MainTemplate';
 import { UserProvider } from '../providers/UserProvider';
 import Dashboard from '../views/Dahboard/Dashboard';
 import Wallet from '../views/Wallet/Wallet';
+import StockDetails from '../views/StockDetails/StockDetails';
 
 function App() {
   return (
@@ -28,6 +29,9 @@ function App() {
                 </Route>
                 <Route exact path="/wallet/">
                   <Redirect to="/wallet/all" />
+                </Route>
+                <Route path="/stock/:ticker">
+                  <StockDetails />
                 </Route>
               </Switch>
             </Wrapper>
