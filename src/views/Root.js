@@ -24,13 +24,13 @@ function App() {
                 <Route path="/dashboard">
                   <Dashboard />
                 </Route>
-                <Route path="/wallet/:index">
+                <Route exact path="/wallet/:index">
                   <Wallet />
                 </Route>
                 <Route exact path="/wallet/">
                   <Redirect to="/wallet/all" />
                 </Route>
-                <Route path="/stock/:ticker">
+                <Route exact path="/wallet/stock/:ticker">
                   <StockDetails />
                 </Route>
               </Switch>

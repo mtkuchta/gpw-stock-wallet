@@ -12,6 +12,8 @@ const StockDetails = () => {
     return stock.ticker === params.ticker;
   });
 
+  console.log(params);
+
   useEffect(() => {
     const stock = Object.values(wallet).filter((stock) => {
       return stock.ticker === params.ticker;

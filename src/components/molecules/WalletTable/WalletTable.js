@@ -15,7 +15,7 @@ const WalletTable = () => {
 
   const routePath = (e) => {
     e.preventDefault();
-    const newPath = `/stock/${e.target.parentNode.id}`;
+    const newPath = `/wallet/stock/${e.target.parentNode.id}`;
     history.push(newPath);
   };
 
