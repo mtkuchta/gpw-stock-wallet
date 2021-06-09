@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   width: 100%;
+  overflow: hidden;
 
   table {
     width: 100%;
@@ -53,7 +54,7 @@ export const Wrapper = styled.div`
           transition: 0.6s;
           letter-spacing: 1px;
 
-          &:hover {
+          &.active:hover {
             background-color: ${({ theme: { colors } }) => colors.default.backgroundSecondary};
             color: ${({ theme: { colors } }) => colors.default.textSecondary};
           }

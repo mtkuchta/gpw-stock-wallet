@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const StyledButton = styled.button`
-  width: 125px;
-  height: 32px;
+  width: ${({ small }) => (small ? '60px' : '125px')};
+  height: ${({ small }) => (small ? '20px' : '32px')};
   margin: 0 5px;
-  font-size: ${({ theme: { fontSize } }) => fontSize.s};
+  font-size: ${({ theme: { fontSize }, small }) => (small ? fontSize.xs : fontSize.s)};
   font-weight: bold;
   color: ${({ theme: { colors } }) => colors.default.buttonText};
   border-radius: 16px;

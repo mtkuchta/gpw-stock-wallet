@@ -1,4 +1,4 @@
-import { Wrapper } from './WalletTable.style';
+import { Wrapper } from '../Table/Table.style';
 import { useContext, useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { UserContext } from '../../../providers/UserProvider';
@@ -45,7 +45,7 @@ const WalletTable = () => {
         <tbody>
           {matchingStocks.length != 0 &&
             matchingStocks.map(({ averagePrice, index, name, value, volume }) => (
-              <tr key={name} id={name} onClick={routePath}>
+              <tr className="active" key={name} id={name} onClick={routePath}>
                 <td>{name}</td>
                 <td color={index}>{index}</td>
                 <td>{averagePrice}</td>

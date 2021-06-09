@@ -6,6 +6,7 @@ import StockInfo from '../StockInfo/StockInfo';
 const Wrapper = styled.div`
   width: 100%;
   padding: 0 2%;
+  margin-bottom: 5%;
 `;
 
 const InfoContainer = styled.div`
