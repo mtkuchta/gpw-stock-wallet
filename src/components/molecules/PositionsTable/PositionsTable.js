@@ -23,7 +23,7 @@ const PositionsTable = ({ stock: { positions } }) => {
                 <td>{volume}</td>
                 <td>{commission}</td>
                 <td>
-                  <Button small title="close" />
+                  <Button small title="sell" />
                 </td>
               </tr>
             ))}
