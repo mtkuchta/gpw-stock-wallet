@@ -7,3 +7,10 @@ export const Wrapper = styled.header`
   justify-content: space-between;
   border-bottom: 2px solid ${({ theme: { colors } }) => colors.default.borderColor};
 `;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+`;

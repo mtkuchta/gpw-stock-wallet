@@ -1,12 +1,16 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  width: 40%;
+  width: 50%;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-evenly;
+
+  @media (min-width: 1200px) {
+    width: 65%;
+  }
 `;
 
 export const StyledDate = styled.div`

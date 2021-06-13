@@ -2,9 +2,11 @@ import { useAuth } from '../../../hooks/useAuth';
 import { StyledForm, StyledInput, ButtonContainer, StyledHeader } from './LoginForm.style';
 import { useForm } from 'react-hook-form';
 import Button from '../../atoms/Button/Button';
+import FormError from '../../atoms/FormError/FormError';
+import { StyledError } from '../../atoms/FormError/FormError.style';
 
 const LoginForm = ({ openModal }) => {
-  const { signIn } = useAuth();
+  const { signIn, authError } = useAuth();
 
   const {
     register,
@@ -21,10 +23,12 @@ const LoginForm = ({ openModal }) => {
       <StyledHeader>Login</StyledHeader>
       <StyledInput type="email" placeholder="e-mail" id="email" {...register('email', { required: true })} />
       <StyledInput type="password" placeholder="password" id="password" {...register('password', { required: true })} />
+      {authError && <FormError text={authError.message} />}
       <div>
         Do you need an account?
         <span onClick={openModal}> Sign Up</span>
       </div>
+
       <ButtonContainer>
         <Button type="submit" title="Login" />
       </ButtonContainer>
