@@ -1,5 +1,4 @@
 export const userData = {
-  user: { name: 'Mateusz' },
   deposit: { currency: 'PLN', amount: 18000 },
   wallet: {
     eur: {

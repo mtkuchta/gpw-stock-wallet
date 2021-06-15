@@ -17,6 +17,10 @@ export const Wrapper = styled.div`
     color: ${({ theme: { colors } }) => colors.default.textPrimary};
     font-size: ${({ theme: { fontSize } }) => fontSize.s};
     letter-spacing: 1px;
+
+    &::first-letter {
+      text-transform: uppercase;
+    }
   }
 
   @media (min-width: 1024px) {

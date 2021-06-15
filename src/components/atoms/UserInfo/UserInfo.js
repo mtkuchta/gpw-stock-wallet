@@ -1,14 +1,12 @@
-import { useContext } from 'react';
 import { Wrapper } from './UserInfo.style';
-
-import { UserContext } from '../../../providers/UserProvider';
+import { useAuth } from '../../../hooks/useAuth';
 
 const UserInfo = () => {
-  const { user } = useContext(UserContext);
+  const { user } = useAuth();
   return (
     <Wrapper>
       <p>Hello,</p>
-      <h2>{user.name}</h2>
+      <h2>{user.displayName}</h2>
     </Wrapper>
   );
 };

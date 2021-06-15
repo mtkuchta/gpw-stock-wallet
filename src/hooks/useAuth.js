@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { authFirebase } from '../services/firebase';
+import { authFirebase, database } from '../services/firebase';
+import { userData } from '../assets/userData';
 
 const AuthContext = React.createContext({});
 
@@ -18,16 +19,27 @@ export const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  const signUp = (email, password) => {
-    authFirebase
+  const signUp = async (email, password, userName, accountBalance) => {
+    await authFirebase
       .createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
         setUser(userCredential.user);
       })
       .catch((error) => {
-        console.log(error);
         setAuthError(error);
       });
+    await createUserName(userName);
+    await createUserInDatabase(accountBalance);
+  };
+
+  const createUserName = async (userName) => {
+    await authFirebase.currentUser.updateProfile({ displayName: userName });
+  };
+
+  const createUserInDatabase = (accountBalance) => {
+    const user = authFirebase.currentUser;
+    const userRef = database.ref(user.uid);
+    userRef.set({ deposit: { currency: 'PLN', amount: accountBalance ? accountBalance : 0 } });
   };
 
   const signIn = (email, password) => {

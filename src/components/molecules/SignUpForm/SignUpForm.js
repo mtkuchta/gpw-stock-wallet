@@ -18,7 +18,7 @@ const SignUpForm = () => {
   const onSubmit = (data) => {
     setIsPasswordConfirmed(true);
     if (data.password === data.confirmedPassword) {
-      signUp(data.email, data.password);
+      signUp(data.email, data.password, data.userName, Number(data.accountBalance));
     } else {
       setIsPasswordConfirmed(false);
     }
@@ -28,10 +28,11 @@ const SignUpForm = () => {
       <StyledHeader>Create an account:</StyledHeader>
       <StyledInput type="text" placeholder="User name" id="userName" {...register('userName', { required: true })} />
       <StyledInput type="email" placeholder="e-mail" {...register('email', { required: true })} />
-      <StyledInput type="number" placeholder="Account balance" />
+      <StyledInput type="number" placeholder="Account balance" {...register('accountBalance')} />
       <StyledInput type="password" placeholder="Password" {...register('password', { required: true })} />
       <StyledInput type="password" placeholder="Confirm password" {...register('confirmedPassword', { required: true })} />
-      {isPasswordConfirmed && <FormError text="Passwords are different " />}
+      {!isPasswordConfirmed && <FormError text="Passwords are different " />}
+      {authError && <FormError text={authError.message} />}
       <ButtonContainer>
         <Button type="submit" title="Sign Up" />
       </ButtonContainer>

@@ -3,7 +3,6 @@ import { StyledForm, StyledInput, ButtonContainer, StyledHeader } from './LoginF
 import { useForm } from 'react-hook-form';
 import Button from '../../atoms/Button/Button';
 import FormError from '../../atoms/FormError/FormError';
-import { StyledError } from '../../atoms/FormError/FormError.style';
 
 const LoginForm = ({ openModal }) => {
   const { signIn, authError } = useAuth();
@@ -14,8 +13,8 @@ const LoginForm = ({ openModal }) => {
     handleSubmit,
   } = useForm();
 
-  const onSubmit = (data) => {
-    signIn(data.email, data.password);
+  const onSubmit = async (data) => {
+    await signIn(data.email, data.password);
   };
 
   return (
@@ -28,7 +27,6 @@ const LoginForm = ({ openModal }) => {
         Do you need an account?
         <span onClick={openModal}> Sign Up</span>
       </div>
-
       <ButtonContainer>
         <Button type="submit" title="Login" />
       </ButtonContainer>
