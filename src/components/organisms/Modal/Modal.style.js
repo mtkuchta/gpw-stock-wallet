@@ -11,6 +11,10 @@ export const ModalWrapper = styled(ReactModal)`
   background-color: ${({ theme: { colors } }) => colors.default.backgroundPrimary};
   border-radius: 15px;
 
+  &:focus {
+    outline: none;
+  }
+
   @media (min-width: 1024px) {
     max-width: 400px;
   }

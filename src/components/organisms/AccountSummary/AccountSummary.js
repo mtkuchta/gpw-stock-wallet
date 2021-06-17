@@ -1,5 +1,4 @@
-import { useContext, useState } from 'react';
-import { UserContext } from '../../../providers/UserProvider';
+import { useState } from 'react';
 import DashboardContainer from '../../molecules/DashboardContainer/DashboardContainer';
 import { StyledText, ButtonsContainer } from './AccountSummary.style';
 import { calculateFreeMargin } from '../../../assets/helpers/calculateFreeMargin';
@@ -7,9 +6,10 @@ import Button from '../../atoms/Button/Button';
 import useModal from '../../../hooks/useModal';
 import Modal from '../Modal/Modal';
 import AccountForm from '../../molecules/AccountForm/AccountForm';
+import { useDatabase } from '../../../hooks/useDatabase';
 
 const AccountSummary = () => {
-  const { deposit, wallet } = useContext(UserContext);
+  const { deposit, wallet } = useDatabase();
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
   const [operation, setOperation] = useState();
 

@@ -40,6 +40,7 @@ export const AuthProvider = ({ children }) => {
     const user = authFirebase.currentUser;
     const userRef = database.ref(user.uid);
     userRef.set({ deposit: { currency: 'PLN', amount: accountBalance ? accountBalance : 0 } });
+    // userRef.set(userData);
   };
 
   const signIn = (email, password) => {

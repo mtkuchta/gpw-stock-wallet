@@ -12,7 +12,6 @@ const UserPanel = () => {
       <UserInfo />
       <ButtonsContainer>
         <Button title="Sign Out" small onClick={signOut} />
-        <Button title="User" small />
       </ButtonsContainer>
     </Wrapper>
   );

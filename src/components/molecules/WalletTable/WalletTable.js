@@ -1,14 +1,14 @@
 import { Wrapper } from '../Table/Table.style';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { UserContext } from '../../../providers/UserProvider';
 import { sortByTotalPositionsValue } from '../../../assets/helpers/sortByTotalPositionsValue';
 import { createStockTableData } from '../../../assets/helpers/createStockTableData';
 import { getMatchingStocks } from '../../../assets/helpers/getMatchingStocks';
+import { useDatabase } from '../../../hooks/useDatabase';
 
 const WalletTable = () => {
   const params = useParams();
-  const { wallet } = useContext(UserContext);
+  const { wallet } = useDatabase();
   const [stocksTable, setStocksTable] = useState([]);
   const [matchingStocks, setMatchingStocks] = useState([]);
   let history = useHistory();

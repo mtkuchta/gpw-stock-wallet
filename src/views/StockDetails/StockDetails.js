@@ -1,14 +1,14 @@
 import { Wrapper, StyledHeader } from './StockDetails.style';
-import { useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import StockSummary from '../../components/molecules/StockSummary/StockSummary';
-import { UserContext } from '../../providers/UserProvider';
 import PositionsTable from '../../components/molecules/PositionsTable/PositionsTable';
+import { useDatabase } from '../../hooks/useDatabase';
 
 const StockDetails = () => {
   const params = useParams();
   const [activeStock, setActiveStock] = useState(null);
-  const { wallet } = useContext(UserContext);
+  const { wallet } = useDatabase();
 
   useEffect(() => {
     const stock = Object.values(wallet).filter((stock) => {

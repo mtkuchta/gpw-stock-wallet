@@ -5,6 +5,7 @@ import Button from '../../atoms/Button/Button';
 import FormError from '../../atoms/FormError/FormError';
 import { UserContext } from '../../../providers/UserProvider';
 import PropTypes from 'prop-types';
+import { useDatabase } from '../../../hooks/useDatabase';
 
 const AccountForm = ({ operation, freeMargin, handleCloseModal }) => {
   const {
@@ -12,7 +13,7 @@ const AccountForm = ({ operation, freeMargin, handleCloseModal }) => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const { handleDepositOperations } = useContext(UserContext);
+  const { handleDepositOperations } = useDatabase();
   const withdrawalLimit = operation === 'Withdrawal' ? freeMargin : 'infinity';
 
   const onSubmit = (data) => {
