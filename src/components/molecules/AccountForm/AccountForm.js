@@ -1,9 +1,7 @@
 import { Wrapper, StyledForm, StyledInput, StyledLabel } from './AccountForm.style';
-import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from '../../atoms/Button/Button';
 import FormError from '../../atoms/FormError/FormError';
-import { UserContext } from '../../../providers/UserProvider';
 import PropTypes from 'prop-types';
 import { useDatabase } from '../../../hooks/useDatabase';
 

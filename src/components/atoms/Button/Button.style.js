@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const StyledButton = styled.button`
   /* width: ${({ small }) => (small ? '60px' : '125px')}; */
+  min-width: 60px;
   height: ${({ small }) => (small ? '20px' : '32px')};
   margin: 0 5px;
   font-size: ${({ theme: { fontSize }, small }) => (small ? fontSize.xs : fontSize.s)};

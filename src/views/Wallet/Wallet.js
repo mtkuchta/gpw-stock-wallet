@@ -4,6 +4,7 @@ import IndexMenu from '../../components/molecules/IndexMenu/IndexMenu';
 import Button from '../../components/atoms/Button/Button';
 import useModal from '../../hooks/useModal';
 import Modal from '../../components/organisms/Modal/Modal';
+import BuyStocksForm from '../../components/molecules/BuyStocksForm/BuyStocksForm';
 
 const Wallet = () => {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
@@ -13,9 +14,11 @@ const Wallet = () => {
       <IndexMenu />
       <WalletTable />
       <ButtonsContainer>
-        <Button title="Buy stocks" onClick={handleOpenModal} />
+        <Button title="Add stocks" onClick={handleOpenModal} />
       </ButtonsContainer>
-      <Modal isOpen={isOpen} handleClose={handleCloseModal}></Modal>
+      <Modal isOpen={isOpen} handleClose={handleCloseModal}>
+        <BuyStocksForm />
+      </Modal>
     </Wrapper>
   );
 };

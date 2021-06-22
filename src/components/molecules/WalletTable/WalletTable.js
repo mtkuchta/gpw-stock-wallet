@@ -24,7 +24,7 @@ const WalletTable = () => {
     const stocksTable = createStockTableData(stocks);
     await setStocksTable(stocksTable);
     setMatchingStocks(stocksTable);
-  }, []);
+  }, [wallet]);
 
   useEffect(() => {
     setMatchingStocks(getMatchingStocks(stocksTable, params.index));
