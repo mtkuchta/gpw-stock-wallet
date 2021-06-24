@@ -3,12 +3,20 @@ import DashboardContainer from '../../molecules/DashboardContainer/DashboardCont
 import { sortByTotalPositionsValue } from '../../../assets/helpers/sortByTotalPositionsValue';
 import Stock from '../../atoms/Stock/Stock';
 import { useDatabase } from '../../../hooks/useDatabase';
+import { useEffect, useState } from 'react';
 
 const WalletSummary = () => {
   const { wallet } = useDatabase();
+  const [stocks, setStocks] = useState([]);
+  const [sortedStocks, setSortedStocks] = useState([]);
 
-  const stocks = Object.values(wallet);
-  const sortedStocks = stocks.sort(sortByTotalPositionsValue);
+  useEffect(() => {
+    setSortedStocks(stocks.sort(sortByTotalPositionsValue));
+  }, [stocks]);
+
+  useEffect(() => {
+    setStocks(Object.values(wallet));
+  }, [wallet]);
 
   return (
     <DashboardContainer title="stocks">

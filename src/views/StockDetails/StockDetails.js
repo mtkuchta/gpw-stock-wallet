@@ -15,7 +15,7 @@ const StockDetails = () => {
       return stock.ticker === params.ticker;
     });
     setActiveStock(stock[0]);
-  }, []);
+  }, [wallet]);
 
   return (
     <Wrapper>

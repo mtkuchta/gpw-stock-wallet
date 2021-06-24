@@ -1,4 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { createNewPosition } from '../assets/helpers/createNewPosition';
+import { createNewStock } from '../assets/helpers/createNewStock';
 import { database } from '../services/firebase';
 import { useAuth } from './useAuth';
 
@@ -37,16 +39,29 @@ export const DatabaseProvider = ({ children }) => {
   const handleDepositOperations = (operation, value) => {
     let newMargin = deposit.amount;
     const depositRef = database.ref(`${user.uid}/deposit`);
-    if (operation === 'Withdrawal') {
+    if (operation === 'Withdrawal' || operation === 'Buy') {
       newMargin -= value;
     } else {
       newMargin += value;
     }
-
     depositRef.update({ amount: newMargin });
   };
 
-  return <DatabaseContext.Provider value={{ deposit, wallet, handleDepositOperations }}>{children}</DatabaseContext.Provider>;
+  const handleAddStocksToWallet = (data) => {
+    if (wallet[data.ticker]) {
+      const updatedPositions = [...wallet[data.ticker].positions];
+      updatedPositions.push(createNewPosition(data, wallet[data.ticker]));
+      database.ref(`${user.uid}/wallet/${data.ticker}/positions`).update(updatedPositions);
+    } else {
+      database.ref(`${user.uid}/wallet/`).update({ [data.ticker]: createNewStock(data) });
+    }
+  };
+
+  return (
+    <DatabaseContext.Provider value={{ deposit, wallet, handleDepositOperations, handleAddStocksToWallet }}>
+      {children}
+    </DatabaseContext.Provider>
+  );
 };
 
 export const useDatabase = () => {

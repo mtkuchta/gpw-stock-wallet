@@ -47,7 +47,7 @@ export const userData = {
     clc: {
       ticker: 'clc',
       companyName: 'Columbus Energy',
-      index: 'other',
+      index: 'none',
       positions: [
         { id: 1, openDate: '25.08.2020', volume: 15, openPrice: 71.0, commission: 5 },
         { id: 2, openDate: '18.09.2020', volume: 7, openPrice: 74.2, commission: 5 },

@@ -17,7 +17,7 @@ const Wallet = () => {
         <Button title="Add stocks" onClick={handleOpenModal} />
       </ButtonsContainer>
       <Modal isOpen={isOpen} handleClose={handleCloseModal}>
-        <BuyStocksForm />
+        <BuyStocksForm handleCloseModal={handleCloseModal} />
       </Modal>
     </Wrapper>
   );

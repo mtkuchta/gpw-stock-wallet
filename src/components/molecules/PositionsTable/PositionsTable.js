@@ -40,7 +40,7 @@ PositionsTable.propTypes = {
     index: PropTypes.string,
     positions: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number,
+        id: PropTypes.string,
         openDate: PropTypes.string,
         volume: PropTypes.number,
         openPrice: PropTypes.number,

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const StyledLabel = styled.label`
   position: relative;
   margin: 5px 0;
+
   p {
     position: absolute;
     top: 0;
@@ -33,6 +34,7 @@ export const StyledInput = styled.input`
     font-weight: 300;
   }
 
+
   &:focus {
     outline: none;
 
@@ -45,4 +47,6 @@ export const StyledInput = styled.input`
       opacity: 1;
     }
   }
+
+
 `;
