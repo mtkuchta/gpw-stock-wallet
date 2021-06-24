@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyledForm, StyledHeader, InputContainer, StyledSelect, StyledDate, ButtonContainer } from './BuyStocksForm.style';
 import { useForm } from 'react-hook-form';
 import Button from '../../atoms/Button/Button';
-import FormInput from '../FormInput/FormInput';
+import FormInput from '../../molecules/FormInput/FormInput';
 import FormError from '../../atoms/FormError/FormError';
 import { useDatabase } from '../../../hooks/useDatabase';
 import PropTypes from 'prop-types';
@@ -29,7 +29,6 @@ const BuyStocksForm = ({ handleCloseModal }) => {
     }
 
     if (isMarginSufficient(data, calculateFreeMargin(deposit.amount, wallet))) {
-      const operationValue = data.openPrice * data.volume + data.commission;
       handleAddStocksToWallet(data);
       handleCloseModal();
     } else {
