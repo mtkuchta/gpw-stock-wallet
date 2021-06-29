@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { useHistory } from 'react-router';
 import { createNewPosition } from '../assets/helpers/createNewPosition';
 import { createNewStock } from '../assets/helpers/createNewStock';
 import { database } from '../services/firebase';
@@ -10,6 +11,7 @@ export const DatabaseProvider = ({ children }) => {
   const { user } = useAuth();
   const [deposit, setDeposit] = useState(0);
   const [wallet, setWallet] = useState({});
+  const history = useHistory();
 
   useEffect(() => {
     if (user) {
@@ -57,8 +59,19 @@ export const DatabaseProvider = ({ children }) => {
     }
   };
 
+  const handleSellStocks = (ticker, operationValue, positionToSell) => {
+    if (wallet[ticker].positions.length === 1) {
+      database.ref(`${user.uid}/wallet/${ticker}/`).remove();
+      history.push('/wallet');
+    } else {
+      const updatedPositions = [...wallet[ticker].positions];
+      updatedPositions.splice(positionToSell, 1);
+      database.ref(`${user.uid}/wallet/${ticker}/`).update({ positions: updatedPositions });
+    }
+  };
+
   return (
-    <DatabaseContext.Provider value={{ deposit, wallet, handleDepositOperations, handleAddStocksToWallet }}>
+    <DatabaseContext.Provider value={{ deposit, wallet, handleDepositOperations, handleAddStocksToWallet, handleSellStocks }}>
       {children}
     </DatabaseContext.Provider>
   );

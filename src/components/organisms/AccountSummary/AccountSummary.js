@@ -21,11 +21,12 @@ const AccountSummary = () => {
   return (
     <DashboardContainer title="account">
       <StyledText>
-        Account value: <span>{deposit.amount} </span>PLN
+        Deposit: <span>{deposit.amount} </span>PLN
       </StyledText>
       <StyledText>
         Free margin: <span> {calculateFreeMargin(deposit.amount, wallet)}</span> PLN
       </StyledText>
+      <StyledText>Total stocks value:</StyledText>
       <ButtonsContainer>
         <Button title="Deposit" onClick={handleClick} />
         <Button title="Withdrawal" onClick={handleClick} />

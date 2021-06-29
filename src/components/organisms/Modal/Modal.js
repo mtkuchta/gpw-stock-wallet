@@ -11,7 +11,7 @@ const Modal = ({ children, isOpen, handleClose }) => {
 };
 
 Modal.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   isOpen: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
 };

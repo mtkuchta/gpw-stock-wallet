@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 
 import { StyledButton } from './Button.style';
 
-const Button = ({ title, small, onClick }) => {
+const Button = ({ title, small, onClick, id }) => {
   return (
-    <StyledButton small={small} name={title} onClick={onClick}>
+    <StyledButton small={small} name={title} onClick={onClick} id={id}>
       {title}
     </StyledButton>
   );

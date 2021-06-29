@@ -4,6 +4,6 @@ export const createNewPosition = (data, stock) => {
     openPrice: Number(data.openPrice),
     volume: Number(data.volume),
     commission: Number(data.commission),
-    id: stock ? `${data.ticker}_${stock.positions.length}` : `${data.ticker}_0`,
+    id: Date.now(),
   };
 };

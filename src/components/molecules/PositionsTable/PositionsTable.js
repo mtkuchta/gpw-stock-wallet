@@ -2,7 +2,7 @@ import { Wrapper } from '../Table/Table.style';
 import Button from '../../atoms/Button/Button';
 import PropTypes from 'prop-types';
 
-const PositionsTable = ({ stock: { positions } }) => {
+const PositionsTable = ({ stock: { positions }, handleSellStocks }) => {
   return (
     <Wrapper>
       <table>
@@ -15,7 +15,7 @@ const PositionsTable = ({ stock: { positions } }) => {
           </tr>
         </thead>
         <tbody>
-          {positions.length != 0 &&
+          {positions.length !== 0 &&
             positions.map(({ id, openDate, openPrice, volume, commission }) => (
               <tr key={id}>
                 <td>{openDate}</td>
@@ -23,7 +23,7 @@ const PositionsTable = ({ stock: { positions } }) => {
                 <td>{volume}</td>
                 <td>{commission}</td>
                 <td>
-                  <Button small title="sell" />
+                  <Button small title="sell" onClick={handleSellStocks} id={id} />
                 </td>
               </tr>
             ))}
@@ -40,7 +40,7 @@ PositionsTable.propTypes = {
     index: PropTypes.string,
     positions: PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.string,
+        id: PropTypes.number,
         openDate: PropTypes.string,
         volume: PropTypes.number,
         openPrice: PropTypes.number,
@@ -48,6 +48,7 @@ PositionsTable.propTypes = {
       })
     ),
   }),
+  handleOpenModal: PropTypes.func,
 };
 
 export default PositionsTable;
