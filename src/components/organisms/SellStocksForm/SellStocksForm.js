@@ -53,8 +53,7 @@ const SellStocksForm = ({ idToSell, stock: { ticker, positions }, handleCloseMod
   const commissionRef = React.createRef();
 
   const onSubmit = (data) => {
-    const operationValue = Number(data.volume) * Number(data.sellPrice) - Number(data.commission);
-    handleSellStocks(ticker, operationValue, positionToSell);
+    handleSellStocks(ticker, Number(data.volume), positionToSell);
     setIdToSell(null);
     handleCloseModal();
   };

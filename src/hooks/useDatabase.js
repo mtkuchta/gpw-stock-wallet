@@ -59,15 +59,24 @@ export const DatabaseProvider = ({ children }) => {
     }
   };
 
-  const handleSellStocks = (ticker, operationValue, positionToSell) => {
+  const handleSellStocks = (ticker, operationValue, sellVolume, positionToSell) => {
+    const positionToUpdate = wallet[ticker].positions[positionToSell];
+
+    if (positionToUpdate.volume !== sellVolume) {
+      const updatedVolume = positionToUpdate.volume - sellVolume;
+      database.ref(`${user.uid}/wallet/${ticker}/positions/`).child(positionToSell).update({ volume: updatedVolume });
+      return;
+    }
+
     if (wallet[ticker].positions.length === 1) {
       database.ref(`${user.uid}/wallet/${ticker}/`).remove();
       history.push('/wallet');
-    } else {
-      const updatedPositions = [...wallet[ticker].positions];
-      updatedPositions.splice(positionToSell, 1);
-      database.ref(`${user.uid}/wallet/${ticker}/`).update({ positions: updatedPositions });
+      return;
     }
+
+    const updatedPositions = [...wallet[ticker].positions];
+    updatedPositions.splice(positionToSell, 1);
+    database.ref(`${user.uid}/wallet/${ticker}/`).update({ positions: updatedPositions });
   };
 
   return (

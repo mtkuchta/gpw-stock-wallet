@@ -16,10 +16,13 @@ const StockDetails = () => {
   const { isOpen, handleCloseModal, handleOpenModal } = useModal();
 
   useEffect(() => {
-    const stock = Object.values(wallet).filter((stock) => {
-      return stock.ticker === params.ticker;
-    });
-    setActiveStock(stock[0]);
+    const unsubscribe = () => {
+      const stock = Object.values(wallet).filter((stock) => {
+        return stock.ticker === params.ticker;
+      });
+      if (stock) setActiveStock(stock[0]);
+    };
+    return unsubscribe();
   }, [wallet]);
 
   const handleSellStocks = (e) => {
