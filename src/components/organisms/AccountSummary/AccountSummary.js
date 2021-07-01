@@ -7,6 +7,8 @@ import useModal from '../../../hooks/useModal';
 import Modal from '../Modal/Modal';
 import AccountForm from '../../molecules/AccountForm/AccountForm';
 import { useDatabase } from '../../../hooks/useDatabase';
+import { calculateTotalStocksValue } from '../../../assets/helpers/calculateTotalStocksValue';
+import { calculateSumOfPayments } from '../../../assets/helpers/calculateSumOfPayments';
 
 const AccountSummary = () => {
   const { deposit, wallet } = useDatabase();
@@ -21,12 +23,14 @@ const AccountSummary = () => {
   return (
     <DashboardContainer title="account">
       <StyledText>
-        Deposit: <span>{deposit.amount} </span>PLN
+        Sum of payments: <span>{calculateSumOfPayments(deposit.operations)} </span>PLN
       </StyledText>
       <StyledText>
-        Free margin: <span> {calculateFreeMargin(deposit.amount, wallet)}</span> PLN
+        Free margin: <span> {deposit.amount}</span> PLN
       </StyledText>
-      <StyledText>Total stocks value:</StyledText>
+      <StyledText>
+        Total stocks value: <span>{calculateTotalStocksValue(wallet)} </span>PLN
+      </StyledText>
       <ButtonsContainer>
         <Button title="Deposit" onClick={handleClick} />
         <Button title="Withdrawal" onClick={handleClick} />

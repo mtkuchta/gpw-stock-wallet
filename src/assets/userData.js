@@ -1,5 +1,5 @@
 export const userData = {
-  deposit: { currency: 'PLN', amount: 18000 },
+  deposit: { currency: 'PLN', amount: 18000, operations: [18000] },
   wallet: {
     eur: {
       ticker: 'eur',

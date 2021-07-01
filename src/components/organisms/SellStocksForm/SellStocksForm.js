@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import FormInput from '../../molecules/FormInput/FormInput';
 import Button from '../../atoms/Button/Button';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import FormError from '../../atoms/FormError/FormError';
+import DateInput from '../../atoms/DateInput/DateInput';
 import { useDatabase } from '../../../hooks/useDatabase';
 
 const StyledForm = styled.form`
@@ -45,7 +46,7 @@ const SellStocksForm = ({ idToSell, stock: { ticker, positions }, handleCloseMod
     handleSubmit,
   } = useForm();
 
-  const { handleSellStocks } = useDatabase();
+  const { handleSellStocks, handleAddOperationToHistory } = useDatabase();
 
   const positionToSell = positions.findIndex((position) => position.id === idToSell);
   const volumeRef = React.createRef();
@@ -53,7 +54,9 @@ const SellStocksForm = ({ idToSell, stock: { ticker, positions }, handleCloseMod
   const commissionRef = React.createRef();
 
   const onSubmit = (data) => {
-    handleSellStocks(ticker, Number(data.volume), positionToSell);
+    const operationValue = Number(data.volume) * Number(data.sellPrice) - Number(data.commission);
+    handleAddOperationToHistory(positionToSell, Number(data.volume), Number(data.sellPrice));
+    handleSellStocks(ticker, Number(data.volume), positionToSell, operationValue);
     setIdToSell(null);
     handleCloseModal();
   };
@@ -71,6 +74,7 @@ const SellStocksForm = ({ idToSell, stock: { ticker, positions }, handleCloseMod
         required
       />
       {errors.volume ? <FormError text="Volume cannot be greater than position size!" /> : null}
+      <DateInput title="Sell date" {...register('date')} />
       <FormInput
         type="number"
         id="sellPrice"

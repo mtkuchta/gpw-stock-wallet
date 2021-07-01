@@ -43,7 +43,7 @@ const WalletTable = () => {
           </tr>
         </thead>
         <tbody>
-          {matchingStocks.length != 0 &&
+          {matchingStocks.length !== 0 &&
             matchingStocks.map(({ averagePrice, index, name, value, volume }) => (
               <tr className="active" key={name} id={name} onClick={routePath}>
                 <td>{name}</td>

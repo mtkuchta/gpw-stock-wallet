@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${({ theme: { colors } }) => colors.default.backgroundPrimary};
+  overflow: hidden;
 
   @media (min-width: 1024px) {
     flex-direction: row;

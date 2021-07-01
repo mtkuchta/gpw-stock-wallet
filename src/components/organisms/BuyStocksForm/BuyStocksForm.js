@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { StyledForm, StyledHeader, InputContainer, StyledSelect, StyledDate, ButtonContainer } from './BuyStocksForm.style';
+import { StyledForm, StyledHeader, InputContainer, StyledSelect, ButtonContainer } from './BuyStocksForm.style';
 import { useForm } from 'react-hook-form';
 import Button from '../../atoms/Button/Button';
 import FormInput from '../../molecules/FormInput/FormInput';
 import FormError from '../../atoms/FormError/FormError';
+import DateInput from '../../atoms/DateInput/DateInput';
 import { useDatabase } from '../../../hooks/useDatabase';
 import PropTypes from 'prop-types';
 import { isMarginSufficient } from '../../../assets/helpers/isMarginSufficient';
@@ -18,7 +19,7 @@ const BuyStocksForm = ({ handleCloseModal }) => {
 
   const [tickerError, setTickerError] = useState(null);
   const [marginError, setMarginError] = useState(null);
-  const { deposit, wallet, handleAddStocksToWallet, handleDepositOperations } = useDatabase();
+  const { deposit, wallet, handleAddStocksToWallet } = useDatabase();
 
   const onSubmit = (data) => {
     setTickerError(null);
@@ -64,10 +65,7 @@ const BuyStocksForm = ({ handleCloseModal }) => {
           <option value="sWIG80">sWIG80</option>
         </StyledSelect>
       </InputContainer>
-      <InputContainer>
-        <p>Open date: </p>
-        <StyledDate type="date" id="date" required {...register('date')} />
-      </InputContainer>
+      <DateInput title="Open date" {...register('date')} />
       <FormInput
         type="number"
         id="openPrice"

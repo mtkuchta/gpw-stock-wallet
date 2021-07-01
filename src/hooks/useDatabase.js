@@ -50,6 +50,8 @@ export const DatabaseProvider = ({ children }) => {
   };
 
   const handleAddStocksToWallet = (data) => {
+    const operationValue = Number(data.openPrice) * Number(data.volume) + Number(data.commission);
+    console.log(operationValue);
     if (wallet[data.ticker]) {
       const updatedPositions = [...wallet[data.ticker].positions];
       updatedPositions.push(createNewPosition(data, wallet[data.ticker]));
@@ -57,19 +59,22 @@ export const DatabaseProvider = ({ children }) => {
     } else {
       database.ref(`${user.uid}/wallet/`).update({ [data.ticker]: createNewStock(data) });
     }
+    handleDepositOperations('Buy', operationValue);
   };
 
-  const handleSellStocks = (ticker, operationValue, sellVolume, positionToSell) => {
+  const handleSellStocks = (ticker, sellVolume, positionToSell, operationValue) => {
     const positionToUpdate = wallet[ticker].positions[positionToSell];
 
     if (positionToUpdate.volume !== sellVolume) {
       const updatedVolume = positionToUpdate.volume - sellVolume;
       database.ref(`${user.uid}/wallet/${ticker}/positions/`).child(positionToSell).update({ volume: updatedVolume });
+      handleDepositOperations('Sell', operationValue);
       return;
     }
 
     if (wallet[ticker].positions.length === 1) {
       database.ref(`${user.uid}/wallet/${ticker}/`).remove();
+      handleDepositOperations('Sell', operationValue);
       history.push('/wallet');
       return;
     }
@@ -77,10 +82,15 @@ export const DatabaseProvider = ({ children }) => {
     const updatedPositions = [...wallet[ticker].positions];
     updatedPositions.splice(positionToSell, 1);
     database.ref(`${user.uid}/wallet/${ticker}/`).update({ positions: updatedPositions });
+    handleDepositOperations('Sell', operationValue);
   };
 
+  const handleAddOperationToHistory = (positionToSell, sellVolume, sellPrice, sellDate) => {};
+
   return (
-    <DatabaseContext.Provider value={{ deposit, wallet, handleDepositOperations, handleAddStocksToWallet, handleSellStocks }}>
+    <DatabaseContext.Provider
+      value={{ deposit, wallet, handleDepositOperations, handleAddStocksToWallet, handleSellStocks, handleAddOperationToHistory }}
+    >
       {children}
     </DatabaseContext.Provider>
   );

@@ -1,6 +1,6 @@
 export const createDatabaseStructure = (accountBallance) => {
   return {
-    deposit: { currency: 'PLN', amount: accountBallance ? accountBallance : 0 },
+    deposit: { currency: 'PLN', amount: accountBallance ? accountBallance : 0, operations: [] },
     wallet: {},
   };
 };

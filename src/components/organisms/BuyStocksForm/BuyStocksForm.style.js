@@ -49,17 +49,6 @@ export const InputContainer = styled.div`
   }
 `;
 
-export const StyledDate = styled.input`
-  background-color: ${({ theme: { colors } }) => colors.default.backgroundPrimary};
-  color: ${({ theme: { colors } }) => colors.default.textHeaders};
-  font-size: ${({ theme: { fontSize } }) => fontSize.s};
-  border: none;
-
-  &:focus {
-    outline: none;
-  }
-`;
-
 export const ButtonContainer = styled.div`
   width: 100%;
   display: flex;
