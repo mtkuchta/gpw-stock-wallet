@@ -55,8 +55,15 @@ const SellStocksForm = ({ idToSell, stock: { ticker, positions }, handleCloseMod
 
   const onSubmit = (data) => {
     const operationValue = Number(data.volume) * Number(data.sellPrice) - Number(data.commission);
-    handleAddOperationToHistory(positionToSell, Number(data.volume), Number(data.sellPrice));
     handleSellStocks(ticker, Number(data.volume), positionToSell, operationValue);
+    // handleAddOperationToHistory(
+    //   ticker,
+    //   positionToSell,
+    //   Number(data.volume),
+    //   Number(data.sellPrice),
+    //   data.date,
+    //   Number(data.commission)
+    // );
     setIdToSell(null);
     handleCloseModal();
   };
@@ -69,8 +76,8 @@ const SellStocksForm = ({ idToSell, stock: { ticker, positions }, handleCloseMod
         id="volume"
         placeholder="Volume"
         ref={volumeRef}
-        defaultValue={positions[positionToSell].volume}
-        {...register('volume', { min: 1, max: `${positions[positionToSell].volume}` })}
+        defaultValue={positions[positionToSell] ? positions[positionToSell].volume : 0}
+        {...register('volume', { min: 1, max: `${positions[positionToSell] ? positions[positionToSell].volume : 'none'}` })}
         required
       />
       {errors.volume ? <FormError text="Volume cannot be greater than position size!" /> : null}

@@ -1,4 +1,4 @@
-import { StocksList } from './WalletSummary.style';
+import { StocksList, StyledText } from './WalletSummary.style';
 import DashboardContainer from '../../molecules/DashboardContainer/DashboardContainer';
 import { sortByTotalPositionsValue } from '../../../assets/helpers/sortByTotalPositionsValue';
 import Stock from '../../atoms/Stock/Stock';
@@ -20,7 +20,7 @@ const WalletSummary = () => {
 
   return (
     <DashboardContainer title="stocks">
-      {stocks.length === 0 && `Your wallet is empty`}
+      {stocks.length === 0 && <StyledText>Your wallet is empty</StyledText>}
       <StocksList>
         {sortedStocks.map((stock, index) => {
           return <Stock key={index} stock={stock.ticker} index={stock.index} />;

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import DashboardContainer from '../../molecules/DashboardContainer/DashboardContainer';
 import { StyledText, ButtonsContainer } from './AccountSummary.style';
-import { calculateFreeMargin } from '../../../assets/helpers/calculateFreeMargin';
 import Button from '../../atoms/Button/Button';
 import useModal from '../../../hooks/useModal';
 import Modal from '../Modal/Modal';
@@ -36,11 +35,7 @@ const AccountSummary = () => {
         <Button title="Withdrawal" onClick={handleClick} />
       </ButtonsContainer>
       <Modal isOpen={isOpen} handleClose={handleCloseModal}>
-        <AccountForm
-          operation={operation}
-          freeMargin={calculateFreeMargin(deposit.amount, wallet)}
-          handleCloseModal={handleCloseModal}
-        />
+        <AccountForm operation={operation} freeMargin={deposit.amount} handleCloseModal={handleCloseModal} />
       </Modal>
     </DashboardContainer>
   );

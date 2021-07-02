@@ -8,7 +8,6 @@ import DateInput from '../../atoms/DateInput/DateInput';
 import { useDatabase } from '../../../hooks/useDatabase';
 import PropTypes from 'prop-types';
 import { isMarginSufficient } from '../../../assets/helpers/isMarginSufficient';
-import { calculateFreeMargin } from '../../../assets/helpers/calculateFreeMargin';
 
 const BuyStocksForm = ({ handleCloseModal }) => {
   const {
@@ -29,7 +28,7 @@ const BuyStocksForm = ({ handleCloseModal }) => {
       return;
     }
 
-    if (isMarginSufficient(data, calculateFreeMargin(deposit.amount, wallet))) {
+    if (isMarginSufficient(data, deposit.amount)) {
       handleAddStocksToWallet(data);
       handleCloseModal();
     } else {

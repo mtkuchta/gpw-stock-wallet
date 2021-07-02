@@ -20,10 +20,12 @@ const WalletTable = () => {
   };
 
   useEffect(async () => {
-    const stocks = Object.values(wallet).sort(sortByTotalPositionsValue);
-    const stocksTable = createStockTableData(stocks);
-    await setStocksTable(stocksTable);
-    setMatchingStocks(stocksTable);
+    if (wallet) {
+      const stocks = Object.values(wallet).sort(sortByTotalPositionsValue);
+      const stocksTable = createStockTableData(stocks);
+      await setStocksTable(stocksTable);
+      setMatchingStocks(stocksTable);
+    }
   }, [wallet]);
 
   useEffect(() => {

@@ -5,14 +5,22 @@ import Button from '../../components/atoms/Button/Button';
 import useModal from '../../hooks/useModal';
 import Modal from '../../components/organisms/Modal/Modal';
 import BuyStocksForm from '../../components/organisms/BuyStocksForm/BuyStocksForm';
+import { useDatabase } from '../../hooks/useDatabase';
 
 const Wallet = () => {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
+  const { wallet } = useDatabase();
 
   return (
     <Wrapper>
-      <IndexMenu />
-      <WalletTable />
+      {Object.keys(wallet).length === 0 ? (
+        'Your Wallet is Empty'
+      ) : (
+        <>
+          <IndexMenu />
+          <WalletTable />
+        </>
+      )}
       <ButtonsContainer>
         <Button title="Add stocks" onClick={handleOpenModal} />
       </ButtonsContainer>

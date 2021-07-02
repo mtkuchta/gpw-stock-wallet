@@ -38,6 +38,10 @@ export const DatabaseProvider = ({ children }) => {
     if (snapshot.val().wallet) setWallet(snapshot.val().wallet);
   };
 
+  const handleEmptyWallet = () => {
+    setWallet({});
+  };
+
   const handleDepositOperations = (operation, value) => {
     let newMargin = deposit.amount;
     const depositRef = database.ref(`${user.uid}/deposit`);
@@ -51,10 +55,10 @@ export const DatabaseProvider = ({ children }) => {
 
   const handleAddStocksToWallet = (data) => {
     const operationValue = Number(data.openPrice) * Number(data.volume) + Number(data.commission);
-    console.log(operationValue);
-    if (wallet[data.ticker]) {
+    if (wallet[data.ticker.toLowerCase()]) {
       const updatedPositions = [...wallet[data.ticker].positions];
       updatedPositions.push(createNewPosition(data, wallet[data.ticker]));
+      console.log(updatedPositions);
       database.ref(`${user.uid}/wallet/${data.ticker}/positions`).update(updatedPositions);
     } else {
       database.ref(`${user.uid}/wallet/`).update({ [data.ticker]: createNewStock(data) });
@@ -75,6 +79,7 @@ export const DatabaseProvider = ({ children }) => {
     if (wallet[ticker].positions.length === 1) {
       database.ref(`${user.uid}/wallet/${ticker}/`).remove();
       handleDepositOperations('Sell', operationValue);
+      if (Object.keys(wallet).length === 1) handleEmptyWallet();
       history.push('/wallet');
       return;
     }
@@ -85,11 +90,33 @@ export const DatabaseProvider = ({ children }) => {
     handleDepositOperations('Sell', operationValue);
   };
 
-  const handleAddOperationToHistory = (positionToSell, sellVolume, sellPrice, sellDate) => {};
+  const handleAddOperationToHistory = (ticker, positionToSell, sellVolume, sellPrice, sellDate, commission) => {
+    const position = wallet[ticker].positions[positionToSell];
+    const positionToHistory = {
+      ticker,
+      companyName: wallet[ticker].companyName,
+      openDate: position.openDate,
+      closeDate: position.sellDate,
+      volume: sellVolume,
+      openPrice: position.openPrice,
+      closePrice: sellPrice,
+      totalCommission: commission + position.commission,
+    };
+    // console.log(ticker, positionToSell, sellVolume, sellPrice, sellDate, commission);
+    console.log(positionToHistory);
+  };
 
   return (
     <DatabaseContext.Provider
-      value={{ deposit, wallet, handleDepositOperations, handleAddStocksToWallet, handleSellStocks, handleAddOperationToHistory }}
+      value={{
+        deposit,
+        wallet,
+        handleDepositOperations,
+        handleAddStocksToWallet,
+        handleSellStocks,
+        handleAddOperationToHistory,
+        handleEmptyWallet,
+      }}
     >
       {children}
     </DatabaseContext.Provider>
