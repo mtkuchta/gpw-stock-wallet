@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { createNewPosition } from '../assets/helpers/createNewPosition';
 import { createNewStock } from '../assets/helpers/createNewStock';
+import { updateDepositOperations } from '../assets/helpers/updateDepositOperations';
 import { database } from '../services/firebase';
 import { useAuth } from './useAuth';
 
@@ -51,6 +52,7 @@ export const DatabaseProvider = ({ children }) => {
       newMargin += value;
     }
     depositRef.update({ amount: newMargin });
+    database.ref(`${user.uid}/deposit/operations`).set(updateDepositOperations(deposit, operation, value));
   };
 
   const handleAddStocksToWallet = (data) => {
@@ -58,17 +60,15 @@ export const DatabaseProvider = ({ children }) => {
     if (wallet[data.ticker.toLowerCase()]) {
       const updatedPositions = [...wallet[data.ticker].positions];
       updatedPositions.push(createNewPosition(data, wallet[data.ticker]));
-      console.log(updatedPositions);
-      database.ref(`${user.uid}/wallet/${data.ticker}/positions`).update(updatedPositions);
+      database.ref(`${user.uid}/wallet/${data.ticker.toLowerCase()}/positions`).update(updatedPositions);
     } else {
-      database.ref(`${user.uid}/wallet/`).update({ [data.ticker]: createNewStock(data) });
+      database.ref(`${user.uid}/wallet/`).update({ [data.ticker.toLowerCase()]: createNewStock(data) });
     }
     handleDepositOperations('Buy', operationValue);
   };
 
   const handleSellStocks = (ticker, sellVolume, positionToSell, operationValue) => {
     const positionToUpdate = wallet[ticker].positions[positionToSell];
-
     if (positionToUpdate.volume !== sellVolume) {
       const updatedVolume = positionToUpdate.volume - sellVolume;
       database.ref(`${user.uid}/wallet/${ticker}/positions/`).child(positionToSell).update({ volume: updatedVolume });
@@ -102,8 +102,6 @@ export const DatabaseProvider = ({ children }) => {
       closePrice: sellPrice,
       totalCommission: commission + position.commission,
     };
-    // console.log(ticker, positionToSell, sellVolume, sellPrice, sellDate, commission);
-    console.log(positionToHistory);
   };
 
   return (

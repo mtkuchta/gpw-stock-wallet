@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import FormInput from '../../molecules/FormInput/FormInput';
 import Button from '../../atoms/Button/Button';
 import { useForm } from 'react-hook-form';

@@ -4,6 +4,7 @@ import { sortByTotalPositionsValue } from '../../../assets/helpers/sortByTotalPo
 import Stock from '../../atoms/Stock/Stock';
 import { useDatabase } from '../../../hooks/useDatabase';
 import { useEffect, useState } from 'react';
+import TextInfo from '../../atoms/TextInfo.js/TextInfo';
 
 const WalletSummary = () => {
   const { wallet } = useDatabase();
@@ -20,7 +21,7 @@ const WalletSummary = () => {
 
   return (
     <DashboardContainer title="stocks">
-      {stocks.length === 0 && <StyledText>Your wallet is empty</StyledText>}
+      {stocks.length === 0 && <TextInfo text="Your wallet is empty" />}
       <StocksList>
         {sortedStocks.map((stock, index) => {
           return <Stock key={index} stock={stock.ticker} index={stock.index} />;
