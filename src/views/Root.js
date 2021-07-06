@@ -4,6 +4,7 @@ import MainTemplate from '../components/templates/MainTemplate';
 import Dashboard from '../views/Dahboard/Dashboard';
 import Wallet from '../views/Wallet/Wallet';
 import StockDetails from '../views/StockDetails/StockDetails';
+import History from './History/History';
 import Login from './Login/Login';
 import { useAuth } from '../hooks/useAuth';
 
@@ -26,6 +27,9 @@ const AuthenticatedApp = () => {
           </Route>
           <Route exact path="/wallet/stock/:ticker">
             <StockDetails />
+          </Route>
+          <Route path="/history">
+            <History />
           </Route>
         </Switch>
       </Wrapper>

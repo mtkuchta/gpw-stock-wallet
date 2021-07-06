@@ -63,3 +63,8 @@ export const Wrapper = styled.div`
     }
   }
 `;
+
+export const StyledReward = styled.span`
+  color: ${({ color }) => color};
+  letter-spacing: 1px;
+`;

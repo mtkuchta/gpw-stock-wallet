@@ -21,6 +21,9 @@ export const StyledHeader = styled.header`
     text-align: center;
     letter-spacing: 1px;
     margin: 3px 0;
+    &::first-letter {
+      text-transform: uppercase;
+    }
   }
 
   @media (min-width: 1200px) {

@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { createNewPosition } from '../assets/helpers/createNewPosition';
 import { createNewStock } from '../assets/helpers/createNewStock';
+import { createPositionToHistory } from '../assets/helpers/createPositionToHistory';
+import { createUpdatedArchive } from '../assets/helpers/createUpdatedArchive';
 import { updateDepositOperations } from '../assets/helpers/updateDepositOperations';
 import { database } from '../services/firebase';
 import { useAuth } from './useAuth';
@@ -12,6 +14,7 @@ export const DatabaseProvider = ({ children }) => {
   const { user } = useAuth();
   const [deposit, setDeposit] = useState(0);
   const [wallet, setWallet] = useState({});
+  const [archive, setArchive] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
@@ -37,6 +40,7 @@ export const DatabaseProvider = ({ children }) => {
     if (!snapshot) return;
     if (snapshot.val().deposit) setDeposit(snapshot.val().deposit);
     if (snapshot.val().wallet) setWallet(snapshot.val().wallet);
+    if (snapshot.val().archive) setArchive(snapshot.val().archive);
   };
 
   const handleEmptyWallet = () => {
@@ -92,16 +96,14 @@ export const DatabaseProvider = ({ children }) => {
 
   const handleAddOperationToHistory = (ticker, positionToSell, sellVolume, sellPrice, sellDate, commission) => {
     const position = wallet[ticker].positions[positionToSell];
-    const positionToHistory = {
-      ticker,
-      companyName: wallet[ticker].companyName,
-      openDate: position.openDate,
-      closeDate: position.sellDate,
-      volume: sellVolume,
-      openPrice: position.openPrice,
-      closePrice: sellPrice,
-      totalCommission: commission + position.commission,
-    };
+    database
+      .ref(`${user.uid}/archive`)
+      .set(
+        createUpdatedArchive(
+          archive,
+          createPositionToHistory(ticker, wallet[ticker].companyName, sellVolume, sellPrice, sellDate, commission, position)
+        )
+      );
   };
 
   return (
@@ -109,6 +111,7 @@ export const DatabaseProvider = ({ children }) => {
       value={{
         deposit,
         wallet,
+        archive,
         handleDepositOperations,
         handleAddStocksToWallet,
         handleSellStocks,

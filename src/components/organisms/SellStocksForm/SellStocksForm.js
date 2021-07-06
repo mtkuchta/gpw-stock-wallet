@@ -56,14 +56,14 @@ const SellStocksForm = ({ idToSell, stock: { ticker, positions }, handleCloseMod
   const onSubmit = (data) => {
     const operationValue = Number(data.volume) * Number(data.sellPrice) - Number(data.commission);
     handleSellStocks(ticker, Number(data.volume), positionToSell, operationValue);
-    // handleAddOperationToHistory(
-    //   ticker,
-    //   positionToSell,
-    //   Number(data.volume),
-    //   Number(data.sellPrice),
-    //   data.date,
-    //   Number(data.commission)
-    // );
+    handleAddOperationToHistory(
+      ticker,
+      positionToSell,
+      Number(data.volume),
+      Number(data.sellPrice),
+      data.date,
+      Number(data.commission)
+    );
     setIdToSell(null);
     handleCloseModal();
   };
@@ -86,6 +86,7 @@ const SellStocksForm = ({ idToSell, stock: { ticker, positions }, handleCloseMod
         type="number"
         id="sellPrice"
         placeholder="Sell price"
+        step="0.01"
         ref={sellPriceRef}
         {...register('sellPrice', { min: 0.01 })}
         required
