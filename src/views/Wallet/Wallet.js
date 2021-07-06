@@ -1,12 +1,13 @@
 import { Wrapper, ButtonsContainer, WalletContainer } from './Wallet.style';
 import WalletTable from '../../components/molecules/WalletTable/WalletTable';
-import IndexMenu from '../../components/molecules/IndexMenu/IndexMenu';
+import FilteringMenu from '../../components/molecules/FilteringMenu/FilteringMenu';
 import Button from '../../components/atoms/Button/Button';
 import useModal from '../../hooks/useModal';
 import Modal from '../../components/organisms/Modal/Modal';
 import BuyStocksForm from '../../components/organisms/BuyStocksForm/BuyStocksForm';
 import { useDatabase } from '../../hooks/useDatabase';
 import TextInfo from '../../components/atoms/TextInfo.js/TextInfo';
+import { indexes } from '../../assets/menus';
 
 const Wallet = () => {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
@@ -18,7 +19,7 @@ const Wallet = () => {
         <TextInfo text="Your wallet is empty" />
       ) : (
         <WalletContainer>
-          <IndexMenu />
+          <FilteringMenu route="wallet" items={indexes} />
           <WalletTable />
         </WalletContainer>
       )}
