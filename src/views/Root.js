@@ -28,8 +28,11 @@ const AuthenticatedApp = () => {
           <Route exact path="/wallet/stock/:ticker">
             <StockDetails />
           </Route>
-          <Route path="/history">
+          <Route path="/history/:reward">
             <History />
+          </Route>
+          <Route path="/history">
+            <Redirect to="/history/all" />
           </Route>
         </Switch>
       </Wrapper>
