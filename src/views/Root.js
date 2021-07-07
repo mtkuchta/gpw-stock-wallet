@@ -7,8 +7,10 @@ import StockDetails from '../views/StockDetails/StockDetails';
 import History from './History/History';
 import Login from './Login/Login';
 import { useAuth } from '../hooks/useAuth';
+import { useDatabase } from '../hooks/useDatabase';
 
 const AuthenticatedApp = () => {
+  const { currentYear } = useDatabase();
   return (
     <MainTemplate>
       <Wrapper>
@@ -28,11 +30,11 @@ const AuthenticatedApp = () => {
           <Route exact path="/wallet/stock/:ticker">
             <StockDetails />
           </Route>
-          <Route path="/history/:reward">
+          <Route path="/history/:year/:reward">
             <History />
           </Route>
           <Route path="/history">
-            <Redirect to="/history/all" />
+            <Redirect to={'history/' + currentYear + '/' + 'all'} />
           </Route>
         </Switch>
       </Wrapper>

@@ -15,7 +15,13 @@ export const DatabaseProvider = ({ children }) => {
   const [deposit, setDeposit] = useState(0);
   const [wallet, setWallet] = useState({});
   const [archive, setArchive] = useState([]);
+  const [currentYear, setCurrentYear] = useState(null);
   const history = useHistory();
+
+  useEffect(() => {
+    const date = new Date();
+    setCurrentYear(date.getFullYear());
+  }, []);
 
   useEffect(() => {
     if (user) {
@@ -112,6 +118,7 @@ export const DatabaseProvider = ({ children }) => {
         deposit,
         wallet,
         archive,
+        currentYear,
         handleDepositOperations,
         handleAddStocksToWallet,
         handleSellStocks,

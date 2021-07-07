@@ -9,22 +9,26 @@ const ArchiveTable = () => {
   const [matchingItems, setMatchingItems] = useState([]);
   const params = useParams();
 
-  const test = new Date();
-  const year = test.getFullYear();
-  console.log(year);
+  const getMatchingArchiveItems = (archive, year, reward) => {
+    const archiveFilteredByYear = archive.filter((item) => {
+      return item.closeDate.slice(0, 4) === year;
+    });
 
-  const getMatchingArchiveItems = (archive, param) => {
-    if (param === 'all') return archive;
-    if (param === 'profit') {
-      return archive.filter((item) => calculateReward(item.openPrice, item.volume, item.closePrice, item.totalCommission) >= 0);
+    if (reward === 'all') return archiveFilteredByYear;
+    if (reward === 'profit') {
+      return archiveFilteredByYear.filter(
+        (item) => calculateReward(item.openPrice, item.volume, item.closePrice, item.totalCommission) >= 0
+      );
     }
 
-    return archive.filter((item) => calculateReward(item.openPrice, item.volume, item.closePrice, item.totalCommission) <= 0);
+    return archiveFilteredByYear.filter(
+      (item) => calculateReward(item.openPrice, item.volume, item.closePrice, item.totalCommission) <= 0
+    );
   };
 
   useEffect(() => {
-    setMatchingItems(getMatchingArchiveItems(archive, params.reward));
-  }, [params.reward]);
+    setMatchingItems(getMatchingArchiveItems(archive, params.year, params.reward));
+  }, [params.reward, params.year]);
 
   return (
     <Wrapper>
@@ -40,10 +44,9 @@ const ArchiveTable = () => {
           </tr>
         </thead>
         <tbody>
-          {archive.length !== 0 &&
+          {matchingItems &&
             matchingItems.map(({ ticker, closeDate, volume, openPrice, closePrice, totalCommission, id }) => {
               const reward = calculateReward(openPrice, volume, closePrice, totalCommission);
-
               return (
                 <tr className="active" key={id}>
                   <td>{ticker}</td>
