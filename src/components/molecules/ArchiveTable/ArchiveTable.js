@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import { calculateAbsoluteReward } from '../../../assets/helpers/calculateAbsoluteReward';
 import { calculateReward } from '../../../assets/helpers/calculateReward';
 import { useDatabase } from '../../../hooks/useDatabase';
 import { Wrapper, StyledReward } from '../Table/Table.style';
@@ -41,12 +42,14 @@ const ArchiveTable = () => {
             <th>Open Price</th>
             <th>Close Price</th>
             <th>Profit/Loss [PLN]</th>
+            <th>Profit/Loss [%]</th>
           </tr>
         </thead>
         <tbody>
           {matchingItems &&
             matchingItems.map(({ ticker, closeDate, volume, openPrice, closePrice, totalCommission, id }) => {
               const reward = calculateReward(openPrice, volume, closePrice, totalCommission);
+              const absoluteReward = calculateAbsoluteReward(openPrice, volume, closePrice, totalCommission);
               return (
                 <tr className="active" key={id}>
                   <td>{ticker}</td>
@@ -56,6 +59,9 @@ const ArchiveTable = () => {
                   <td>{closePrice}</td>
                   <td>
                     <StyledReward color={reward >= 0 ? 'lightgreen' : 'red'}>{reward}</StyledReward>
+                  </td>
+                  <td>
+                    <StyledReward color={absoluteReward >= 0 ? 'lightgreen' : 'red'}>{absoluteReward}%</StyledReward>
                   </td>
                 </tr>
               );
