@@ -4,15 +4,16 @@ import 'firebase/auth';
 import 'firebase/database';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyAmjolCteYK1wzadXpNyJ-2ROlP33SLyP4',
-  authDomain: 'gpwstockwallet.firebaseapp.com',
-  databaseURL: 'https://gpwstockwallet-default-rtdb.europe-west1.firebasedatabase.app',
-  projectId: 'gpwstockwallet',
-  storageBucket: 'gpwstockwallet.appspot.com',
-  messagingSenderId: '288000291557',
-  appId: '1:288000291557:web:7268b69b8a70f016d29a0c',
-  measurementId: 'G-SWT5BLFLNT',
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
+
 const app = firebase.initializeApp(firebaseConfig);
 
 export const authFirebase = app.auth();
