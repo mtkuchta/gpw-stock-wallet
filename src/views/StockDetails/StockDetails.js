@@ -7,6 +7,7 @@ import Modal from '../../components/organisms/Modal/Modal';
 import { useDatabase } from '../../hooks/useDatabase';
 import useModal from '../../hooks/useModal';
 import SellStocksForm from '../../components/organisms/SellStocksForm/SellStocksForm';
+import StockName from '../../components/atoms/StockName/StockName';
 
 const StockDetails = () => {
   const params = useParams();
@@ -34,10 +35,10 @@ const StockDetails = () => {
     <Wrapper>
       {activeStock && (
         <>
-          <StyledHeader>
+          <StockName>
             <h2>{activeStock.ticker}</h2>
             <h3>{activeStock.companyName} S.A.</h3>
-          </StyledHeader>
+          </StockName>
           <StockSummary stock={activeStock} />
           <PositionsTable stock={activeStock} handleSellStocks={handleSellStocks} />
           <Modal isOpen={isOpen} handleClose={handleCloseModal}>

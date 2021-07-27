@@ -2,11 +2,9 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { calculateAbsoluteReward } from '../../../assets/helpers/calculateAbsoluteReward';
 import { calculateReward } from '../../../assets/helpers/calculateReward';
-import { useDatabase } from '../../../hooks/useDatabase';
 import { Wrapper, StyledReward } from '../Table/Table.style';
 
-const ArchiveTable = () => {
-  const { archive } = useDatabase();
+const ArchiveTable = ({ openModal, archive }) => {
   const [matchingItems, setMatchingItems] = useState([]);
   const params = useParams();
 
@@ -38,9 +36,6 @@ const ArchiveTable = () => {
           <tr>
             <th>Ticker</th>
             <th>Close Date</th>
-            <th>Volume</th>
-            <th>Open Price</th>
-            <th>Close Price</th>
             <th>Profit/Loss [PLN]</th>
             <th>Profit/Loss [%]</th>
           </tr>
@@ -51,12 +46,9 @@ const ArchiveTable = () => {
               const reward = calculateReward(openPrice, volume, closePrice, totalCommission);
               const absoluteReward = calculateAbsoluteReward(openPrice, volume, closePrice, totalCommission);
               return (
-                <tr className="active" key={id}>
+                <tr className="active" key={id} id={id} onClick={openModal}>
                   <td>{ticker}</td>
                   <td>{closeDate}</td>
-                  <td>{volume}</td>
-                  <td>{openPrice}</td>
-                  <td>{closePrice}</td>
                   <td>
                     <StyledReward color={reward >= 0 ? 'lightgreen' : 'red'}>{reward}</StyledReward>
                   </td>

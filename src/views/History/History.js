@@ -6,11 +6,16 @@ import { reward } from '../../assets/menus';
 import YearSelector from '../../components/molecules/YearSelector/YearSelector';
 import { useHistory } from 'react-router';
 import { useDatabase } from '../../hooks/useDatabase';
+import Modal from '../../components/organisms/Modal/Modal';
+import useModal from '../../hooks/useModal';
+import ClosedPositionDetails from '../../components/organisms/ClosedPositionDetails/ClosedPositionDetails';
 
 const History = () => {
   const history = useHistory();
-  const { currentYear } = useDatabase();
+  const { archive, currentYear } = useDatabase();
   const [year, setYear] = useState(currentYear);
+  const [idModal, setIdModal] = useState(null);
+  const { isOpen, handleOpenModal, handleCloseModal } = useModal();
 
   useEffect(() => {
     if (year) history.push(`/history/${year}/all`);
@@ -24,11 +29,25 @@ const History = () => {
     }
   };
 
+  const openModal = (e) => {
+    setIdModal(Number(e.target.parentNode.id));
+    handleOpenModal();
+    findMatchingPosition(Number(e.target.parentNode.id));
+  };
+
+  const findMatchingPosition = (id) => {
+    const matchingItem = archive.findIndex((item) => item.id === id);
+    return archive[matchingItem];
+  };
+
   return (
     <Wrapper>
       <YearSelector year={year} handleChangeYear={handleChangeYear} />
       <FilteringMenu route={`history/${year}`} items={reward} />
-      <ArchiveTable />
+      <ArchiveTable openModal={openModal} archive={archive} />
+      <Modal isOpen={isOpen} handleClose={handleCloseModal}>
+        <ClosedPositionDetails position={findMatchingPosition(idModal)} />
+      </Modal>
     </Wrapper>
   );
 };

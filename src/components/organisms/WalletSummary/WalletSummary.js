@@ -1,4 +1,4 @@
-import { StocksList, StyledText } from './WalletSummary.style';
+import { StocksList } from './WalletSummary.style';
 import DashboardContainer from '../../molecules/DashboardContainer/DashboardContainer';
 import { sortByTotalPositionsValue } from '../../../assets/helpers/sortByTotalPositionsValue';
 import Stock from '../../atoms/Stock/Stock';
