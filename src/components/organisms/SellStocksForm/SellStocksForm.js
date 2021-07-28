@@ -1,43 +1,11 @@
 import React from 'react';
+import { StyledForm, StyledHeader, ButtonContainer } from './SellStocksForm.style';
 import FormInput from '../../molecules/FormInput/FormInput';
 import Button from '../../atoms/Button/Button';
 import { useForm } from 'react-hook-form';
-import styled from 'styled-components';
 import FormError from '../../atoms/FormError/FormError';
 import DateInput from '../../atoms/DateInput/DateInput';
 import { useDatabase } from '../../../hooks/useDatabase';
-
-const StyledForm = styled.form`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 20px 0;
-  align-items: center;
-`;
-
-export const StyledHeader = styled.h2`
-  width: 100%;
-  margin-bottom: 20px;
-  padding-left: 10px;
-  color: ${({ theme: { colors } }) => colors.default.textPrimary};
-  font-size: ${({ theme: { fontSize } }) => fontSize.m};
-  letter-spacing: 1px;
-  font-weight: normal;
-  text-align: center;
-
-  @media (min-width: 1024px) {
-    font-size: ${({ theme: { fontSize } }) => fontSize.l};
-  }
-`;
-
-export const ButtonContainer = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px 0;
-`;
 
 const SellStocksForm = ({ idToSell, stock: { ticker, positions }, handleCloseModal, setIdToSell }) => {
   const {
