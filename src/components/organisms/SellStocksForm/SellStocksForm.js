@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyledForm, StyledHeader, ButtonContainer } from './SellStocksForm.style';
 import FormInput from '../../molecules/FormInput/FormInput';
 import Button from '../../atoms/Button/Button';
@@ -13,6 +13,17 @@ const SellStocksForm = ({ idToSell, stock: { ticker, positions }, handleCloseMod
     formState: { errors },
     handleSubmit,
   } = useForm();
+  const [closeDateError, setCloseDateError] = useState(false);
+
+  const validateCloseDate = (openDate, closeDate) => {
+    console.log(openDate, closeDate);
+    console.log(closeDate < openDate);
+    if (closeDate < openDate) {
+      setCloseDateError('Close date cannot be earlier than open date');
+      return true;
+    }
+    return false;
+  };
 
   const { handleSellStocks, handleAddOperationToHistory } = useDatabase();
 
@@ -22,6 +33,9 @@ const SellStocksForm = ({ idToSell, stock: { ticker, positions }, handleCloseMod
   const commissionRef = React.createRef();
 
   const onSubmit = (data) => {
+    console.log(positionToSell);
+    setCloseDateError(false);
+    if (validateCloseDate(positions[positionToSell].openDate, data.date)) return;
     const operationValue = Number(data.volume) * Number(data.sellPrice) - Number(data.commission);
     handleSellStocks(ticker, Number(data.volume), positionToSell, operationValue);
     handleAddOperationToHistory(
@@ -50,6 +64,7 @@ const SellStocksForm = ({ idToSell, stock: { ticker, positions }, handleCloseMod
       />
       {errors.volume ? <FormError text="Volume cannot be greater than position size!" /> : null}
       <DateInput title="Sell date" {...register('date')} />
+      {closeDateError && <FormError text={closeDateError} />}
       <FormInput
         type="number"
         id="sellPrice"
