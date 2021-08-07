@@ -15,16 +15,6 @@ const SellStocksForm = ({ idToSell, stock: { ticker, positions }, handleCloseMod
   } = useForm();
   const [closeDateError, setCloseDateError] = useState(false);
 
-  const validateCloseDate = (openDate, closeDate) => {
-    console.log(openDate, closeDate);
-    console.log(closeDate < openDate);
-    if (closeDate < openDate) {
-      setCloseDateError('Close date cannot be earlier than open date');
-      return true;
-    }
-    return false;
-  };
-
   const { handleSellStocks, handleAddOperationToHistory } = useDatabase();
 
   const positionToSell = positions.findIndex((position) => position.id === idToSell);
@@ -33,7 +23,6 @@ const SellStocksForm = ({ idToSell, stock: { ticker, positions }, handleCloseMod
   const commissionRef = React.createRef();
 
   const onSubmit = (data) => {
-    console.log(positionToSell);
     setCloseDateError(false);
     if (validateCloseDate(positions[positionToSell].openDate, data.date)) return;
     const operationValue = Number(data.volume) * Number(data.sellPrice) - Number(data.commission);
@@ -48,6 +37,14 @@ const SellStocksForm = ({ idToSell, stock: { ticker, positions }, handleCloseMod
     );
     setIdToSell(null);
     handleCloseModal();
+  };
+
+  const validateCloseDate = (openDate, closeDate) => {
+    if (closeDate < openDate) {
+      setCloseDateError('Close date cannot be earlier than open date');
+      return true;
+    }
+    return false;
   };
 
   return (

@@ -49,10 +49,6 @@ export const DatabaseProvider = ({ children }) => {
     if (snapshot.val().archive) setArchive(snapshot.val().archive);
   };
 
-  const handleEmptyWallet = () => {
-    setWallet({});
-  };
-
   const handleDepositOperations = (operation, value) => {
     let newMargin = deposit.amount;
     const depositRef = database.ref(`${user.uid}/deposit`);
@@ -79,24 +75,20 @@ export const DatabaseProvider = ({ children }) => {
 
   const handleSellStocks = (ticker, sellVolume, positionToSell, operationValue) => {
     const positionToUpdate = wallet[ticker].positions[positionToSell];
+
     if (positionToUpdate.volume !== sellVolume) {
-      const updatedVolume = positionToUpdate.volume - sellVolume;
-      database.ref(`${user.uid}/wallet/${ticker}/positions/`).child(positionToSell).update({ volume: updatedVolume });
+      updatePositionVolume(positionToUpdate, positionToSell, sellVolume, ticker);
       handleDepositOperations('Sell', operationValue);
       return;
     }
 
     if (wallet[ticker].positions.length === 1) {
-      database.ref(`${user.uid}/wallet/${ticker}/`).remove();
+      handleRemoveLastPosition(ticker);
       handleDepositOperations('Sell', operationValue);
-      if (Object.keys(wallet).length === 1) handleEmptyWallet();
-      history.push('/wallet');
       return;
     }
 
-    const updatedPositions = [...wallet[ticker].positions];
-    updatedPositions.splice(positionToSell, 1);
-    database.ref(`${user.uid}/wallet/${ticker}/`).update({ positions: updatedPositions });
+    handleRemovePosition(ticker, positionToSell);
     handleDepositOperations('Sell', operationValue);
   };
 
@@ -110,6 +102,27 @@ export const DatabaseProvider = ({ children }) => {
           createPositionToHistory(ticker, wallet[ticker].companyName, sellVolume, sellPrice, sellDate, commission, position)
         )
       );
+  };
+
+  const updatePositionVolume = (positionToUpdate, positionIndex, sellVolume, ticker) => {
+    const updatedVolume = positionToUpdate.volume - sellVolume;
+    database.ref(`${user.uid}/wallet/${ticker}/positions/`).child(positionIndex).update({ volume: updatedVolume });
+  };
+
+  const handleRemoveLastPosition = (ticker) => {
+    database.ref(`${user.uid}/wallet/${ticker}/`).remove();
+    if (Object.keys(wallet).length === 1) handleEmptyWallet();
+    history.push('/wallet');
+  };
+
+  const handleRemovePosition = (ticker, positionToSell) => {
+    const updatedPositions = [...wallet[ticker].positions];
+    updatedPositions.splice(positionToSell, 1);
+    database.ref(`${user.uid}/wallet/${ticker}/`).update({ positions: updatedPositions });
+  };
+
+  const handleEmptyWallet = () => {
+    setWallet({});
   };
 
   return (
