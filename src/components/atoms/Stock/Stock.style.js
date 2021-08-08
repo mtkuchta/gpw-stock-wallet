@@ -10,12 +10,18 @@ export const Wrapper = styled.div`
   border-radius: 6px;
   margin: 5px 5px;
   padding: 5px;
+  transition: 0.5s;
 
   @media (min-width: 1200px) {
     width: 22%;
     height: 35px;
     margin: 10px 10px;
     border-radius: 10px;
+    cursor: pointer;
+
+    &:hover {
+      border-color: ${({ theme: { colors } }) => colors.default.textHeaders};
+    }
   }
 `;
 
