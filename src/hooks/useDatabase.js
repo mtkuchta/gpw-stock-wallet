@@ -63,14 +63,23 @@ export const DatabaseProvider = ({ children }) => {
 
   const handleAddStocksToWallet = (data) => {
     const operationValue = Number(data.openPrice) * Number(data.volume) + Number(data.commission);
+
     if (wallet[data.ticker.toLowerCase()]) {
-      const updatedPositions = [...wallet[data.ticker].positions];
-      updatedPositions.push(createNewPosition(data, wallet[data.ticker]));
-      database.ref(`${user.uid}/wallet/${data.ticker.toLowerCase()}/positions`).update(updatedPositions);
+      addPositionToExistingTicker(data);
     } else {
-      database.ref(`${user.uid}/wallet/`).update({ [data.ticker.toLowerCase()]: createNewStock(data) });
+      createNewTicker(data);
     }
     handleDepositOperations('Buy', operationValue);
+  };
+
+  const addPositionToExistingTicker = (data) => {
+    const updatedPositions = [...wallet[data.ticker].positions];
+    updatedPositions.push(createNewPosition(data, wallet[data.ticker]));
+    database.ref(`${user.uid}/wallet/${data.ticker.toLowerCase()}/positions`).update(updatedPositions);
+  };
+
+  const createNewTicker = (data) => {
+    database.ref(`${user.uid}/wallet/`).update({ [data.ticker.toLowerCase()]: createNewStock(data) });
   };
 
   const handleSellStocks = (ticker, sellVolume, positionToSell, operationValue) => {
