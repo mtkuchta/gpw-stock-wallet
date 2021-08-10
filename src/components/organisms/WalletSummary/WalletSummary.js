@@ -1,16 +1,21 @@
-import { StocksList } from './WalletSummary.style';
+import { StocksList, ButtonsContainer } from './WalletSummary.style';
 import DashboardContainer from '../../molecules/DashboardContainer/DashboardContainer';
-import { sortByTotalPositionsValue } from '../../../assets/helpers/sortByTotalPositionsValue';
+import TextInfo from '../../atoms/TextInfo.js/TextInfo';
+import Modal from '../Modal/Modal';
 import Stock from '../../atoms/Stock/Stock';
+import BuyStocksForm from '../BuyStocksForm/BuyStocksForm';
+import Button from '../../atoms/Button/Button';
+import { sortByTotalPositionsValue } from '../../../assets/helpers/sortByTotalPositionsValue';
 import { useDatabase } from '../../../hooks/useDatabase';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import TextInfo from '../../atoms/TextInfo.js/TextInfo';
+import useModal from '../../../hooks/useModal';
 
 const WalletSummary = () => {
   const { wallet } = useDatabase();
   const [stocks, setStocks] = useState([]);
   const [sortedStocks, setSortedStocks] = useState([]);
+  const { isOpen, handleOpenModal, handleCloseModal } = useModal();
   let history = useHistory();
 
   useEffect(() => {
@@ -40,6 +45,12 @@ const WalletSummary = () => {
           return <Stock onClick={handleClick} key={index} stock={stock.ticker} index={stock.index} />;
         })}
       </StocksList>
+      <ButtonsContainer>
+        <Button title="Add Stocks" onClick={handleOpenModal} />
+      </ButtonsContainer>
+      <Modal isOpen={isOpen} handleClose={handleCloseModal}>
+        <BuyStocksForm handleCloseModal={handleCloseModal} />
+      </Modal>
     </DashboardContainer>
   );
 };
