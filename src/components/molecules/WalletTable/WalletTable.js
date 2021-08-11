@@ -5,6 +5,7 @@ import { sortByTotalPositionsValue } from '../../../assets/helpers/sortByTotalPo
 import { createStockTableData } from '../../../assets/helpers/createStockTableData';
 import { getMatchingStocks } from '../../../assets/helpers/getMatchingStocks';
 import { useDatabase } from '../../../hooks/useDatabase';
+import { calculateTotalStocksValue } from '../../../assets/helpers/calculateTotalStocksValue';
 
 const WalletTable = () => {
   const params = useParams();
@@ -12,6 +13,7 @@ const WalletTable = () => {
   const [stocksTable, setStocksTable] = useState([]);
   const [matchingStocks, setMatchingStocks] = useState([]);
   let history = useHistory();
+  const totalWalletValue = calculateTotalStocksValue(wallet);
 
   const routePath = (e) => {
     e.preventDefault();
@@ -42,6 +44,7 @@ const WalletTable = () => {
             <th>Avg Price</th>
             <th>Vol.</th>
             <th>Value [PLN]</th>
+            <th>Wallet %</th>
           </tr>
         </thead>
         <tbody>
@@ -53,6 +56,7 @@ const WalletTable = () => {
                 <td>{averagePrice}</td>
                 <td>{volume}</td>
                 <td>{value}</td>
+                <td>{((value * 100) / totalWalletValue).toFixed(1)}%</td>
               </tr>
             ))}
         </tbody>
