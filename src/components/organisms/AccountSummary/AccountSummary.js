@@ -1,16 +1,15 @@
 import { useState } from 'react';
 import DashboardContainer from '../../molecules/DashboardContainer/DashboardContainer';
-import { StyledText, ButtonsContainer } from './AccountSummary.style';
+import { StyledText, ButtonsContainer } from './../../molecules/DashboardContainer/DashboardContainer.style';
 import Button from '../../atoms/Button/Button';
 import useModal from '../../../hooks/useModal';
 import Modal from '../Modal/Modal';
 import AccountForm from '../../molecules/AccountForm/AccountForm';
 import { useDatabase } from '../../../hooks/useDatabase';
-import { calculateTotalStocksValue } from '../../../assets/helpers/calculateTotalStocksValue';
 import { calculateSumOfPayments } from '../../../assets/helpers/calculateSumOfPayments';
 
 const AccountSummary = () => {
-  const { deposit, wallet } = useDatabase();
+  const { deposit } = useDatabase();
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
   const [operation, setOperation] = useState();
 
@@ -26,9 +25,6 @@ const AccountSummary = () => {
       </StyledText>
       <StyledText>
         Free margin: <span> {deposit.amount}</span> PLN
-      </StyledText>
-      <StyledText>
-        Total stocks value: <span>{calculateTotalStocksValue(wallet)} </span>PLN
       </StyledText>
       <ButtonsContainer>
         <Button title="Deposit" onClick={handleClick} />
