@@ -33,6 +33,13 @@ export const StyledText = styled.h3`
   margin: 10px 0;
   span {
     font-weight: bold;
+
+    &.red {
+      color: red;
+    }
+    &.green {
+      color: lightgreen;
+    }
   }
 
   @media (min-width: 1024px) {
