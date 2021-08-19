@@ -4,6 +4,7 @@ import { calculateReward } from '../../../assets/helpers/calculateReward';
 import { calculateAbsoluteReward } from '../../../assets/helpers/calculateAbsoluteReward';
 
 const ClosedPositionDetails = ({ position }) => {
+  console.log(position);
   const reward = calculateReward(position.openPrice, position.volume, position.closePrice, position.totalCommission);
   const absoluteReward = calculateAbsoluteReward(
     position.openPrice,

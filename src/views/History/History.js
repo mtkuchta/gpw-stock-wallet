@@ -9,6 +9,7 @@ import { useDatabase } from '../../hooks/useDatabase';
 import Modal from '../../components/organisms/Modal/Modal';
 import useModal from '../../hooks/useModal';
 import ClosedPositionDetails from '../../components/organisms/ClosedPositionDetails/ClosedPositionDetails';
+import { findParent } from '../../assets/helpers/findParent';
 
 const History = () => {
   const history = useHistory();
@@ -30,9 +31,10 @@ const History = () => {
   };
 
   const openModal = (e) => {
-    setIdModal(Number(e.target.parentNode.id));
+    const parentElement = findParent(e.target);
+    setIdModal(Number(parentElement.id));
     handleOpenModal();
-    findMatchingPosition(Number(e.target.parentNode.id));
+    findMatchingPosition(Number(parentElement.id));
   };
 
   const findMatchingPosition = (id) => {

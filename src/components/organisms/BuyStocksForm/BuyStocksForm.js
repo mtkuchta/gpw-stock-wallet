@@ -61,6 +61,7 @@ const BuyStocksForm = ({ handleCloseModal }) => {
         </StyledSelect>
       </InputContainer>
       <DateInput title="Open date" {...register('date')} />
+      <FormInput type="number" id="volume" placeholder="Volume" ref={volumeRef} {...register('volume')} required />
       <FormInput
         type="number"
         id="openPrice"
@@ -70,7 +71,6 @@ const BuyStocksForm = ({ handleCloseModal }) => {
         {...register('openPrice')}
         required
       />
-      <FormInput type="number" id="volume" placeholder="Volume" ref={volumeRef} {...register('volume')} required />
       <FormInput
         type="number"
         id="commission"
