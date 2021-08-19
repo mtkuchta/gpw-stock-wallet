@@ -2,12 +2,16 @@ import styled from 'styled-components';
 
 export const StocksList = styled.div`
   width: 100%;
-  min-height: 100px;
+  min-height: 50px;
   display: flex;
   align-content: flex-start;
   justify-content: center;
   flex-wrap: wrap;
   flex-grow: 0;
+
+  @media (min-width: 1200px) {
+    min-height: 100px;
+  }
 `;
 
 export const ButtonsContainer = styled.div`

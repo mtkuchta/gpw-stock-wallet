@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
 
 export const ContentContainer = styled.div`
   width: 100%;
-  padding: 10px 15px;
+  padding: 10px 12px;
 `;
 
 export const ContainerTitle = styled.h2`
