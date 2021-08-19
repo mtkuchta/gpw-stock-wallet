@@ -42,7 +42,7 @@ const History = () => {
 
   return (
     <Wrapper>
-      <YearSelector year={year} handleChangeYear={handleChangeYear} />
+      <YearSelector year={year} handleChangeYear={handleChangeYear} currentYear={currentYear} />
       <FilteringMenu route={`history/${year}`} items={reward} />
       <ArchiveTable openModal={openModal} archive={archive} />
       <Modal isOpen={isOpen} handleClose={handleCloseModal}>

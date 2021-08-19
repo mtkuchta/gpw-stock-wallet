@@ -15,6 +15,10 @@ export const StyledButton = styled.button`
   letter-spacing: 1px;
   padding: 0 10px;
 
+  &:disabled {
+    box-shadow: none;
+  }
+
   @media (min-width: 1024px) {
     /* width: 160px; */
     height: ${({ small }) => (small ? '26px' : '36px')};

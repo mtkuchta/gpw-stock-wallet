@@ -7,11 +7,7 @@ import FormError from '../../atoms/FormError/FormError';
 const LoginForm = ({ openModal }) => {
   const { signIn, authError } = useAuth();
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const onSubmit = async (data) => {
     await signIn(data.email, data.password);

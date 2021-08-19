@@ -4,7 +4,7 @@ import { calculateTotalVolume } from '../../assets/helpers/calculateTotalVolume'
 
 export const createStockTableData = (stocks) => {
   const stocksTable = [];
-  stocks.map((stock) => {
+  stocks.forEach((stock) => {
     const totalVolume = calculateTotalVolume(stock);
     const averagePrice = calculateAveragePrice(stock);
     const stockToTable = {

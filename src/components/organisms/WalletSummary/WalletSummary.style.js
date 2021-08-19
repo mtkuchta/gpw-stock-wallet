@@ -8,6 +8,7 @@ export const StocksList = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   flex-grow: 0;
+  padding-bottom: 10px;
 
   @media (min-width: 1200px) {
     min-height: 100px;

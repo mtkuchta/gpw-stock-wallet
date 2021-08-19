@@ -1,4 +1,5 @@
 import { Wrapper, StyledTitle, StyledValue } from './StockInfo.style';
+import PropTypes from 'prop-types';
 
 const StockInfo = ({ title, value }) => {
   return (
@@ -9,4 +10,8 @@ const StockInfo = ({ title, value }) => {
   );
 };
 
+StockInfo.propTypes = {
+  title: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+};
 export default StockInfo;

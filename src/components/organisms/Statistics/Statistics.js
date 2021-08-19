@@ -16,7 +16,7 @@ const Statistics = () => {
 
   const calculateCurrentYearOpenedPositions = (positions) => {
     let totalPositionsNumber = 0;
-    for (const [key, value] of Object.entries(wallet)) {
+    for (const value of Object.values(wallet)) {
       const currentYearPositions = value.positions.filter((item) => {
         const year = item.openDate.slice(0, 4);
         return Number(year) === currentYear;

@@ -34,7 +34,6 @@ export const StyledInput = styled.input`
     font-weight: 300;
   }
 
-
   &:focus {
     outline: none;
 
@@ -47,6 +46,4 @@ export const StyledInput = styled.input`
       opacity: 1;
     }
   }
-
-
 `;

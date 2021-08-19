@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 import { calculateAbsoluteReward } from '../../../assets/helpers/calculateAbsoluteReward';
 import { calculateReward } from '../../../assets/helpers/calculateReward';
 import { Wrapper, StyledReward } from '../Table/Table.style';
+import TextInfo from '../../atoms/TextInfo.js/TextInfo';
 
 const ArchiveTable = ({ openModal, archive }) => {
   const [matchingItems, setMatchingItems] = useState([]);
@@ -27,39 +28,42 @@ const ArchiveTable = ({ openModal, archive }) => {
 
   useEffect(() => {
     setMatchingItems(getMatchingArchiveItems(archive, params.year, params.reward));
-  }, [params.reward, params.year]);
+  }, [params.reward, params.year, archive]);
 
   return (
     <Wrapper>
-      <table>
-        <thead>
-          <tr>
-            <th>Ticker</th>
-            <th>Close Date</th>
-            <th>Profit/Loss [PLN]</th>
-            <th>Profit/Loss [%]</th>
-          </tr>
-        </thead>
-        <tbody>
-          {matchingItems &&
-            matchingItems.map(({ ticker, closeDate, volume, openPrice, closePrice, totalCommission, id }) => {
-              const reward = calculateReward(openPrice, volume, closePrice, totalCommission);
-              const absoluteReward = calculateAbsoluteReward(openPrice, volume, closePrice, totalCommission);
-              return (
-                <tr className="active" key={id} id={id} onClick={openModal}>
-                  <td>{ticker}</td>
-                  <td>{closeDate}</td>
-                  <td>
-                    <StyledReward color={reward >= 0 ? 'lightgreen' : 'red'}>{reward}</StyledReward>
-                  </td>
-                  <td>
-                    <StyledReward color={absoluteReward >= 0 ? 'lightgreen' : 'red'}>{absoluteReward}%</StyledReward>
-                  </td>
-                </tr>
-              );
-            })}
-        </tbody>
-      </table>
+      {matchingItems.length === 0 && <TextInfo text={'No matching transactions'} />}
+      {matchingItems.length !== 0 && (
+        <table>
+          <thead>
+            <tr>
+              <th>Ticker</th>
+              <th>Close Date</th>
+              <th>Profit/Loss [PLN]</th>
+              <th>Profit/Loss [%]</th>
+            </tr>
+          </thead>
+          <tbody>
+            {matchingItems &&
+              matchingItems.map(({ ticker, closeDate, volume, openPrice, closePrice, totalCommission, id }) => {
+                const reward = calculateReward(openPrice, volume, closePrice, totalCommission);
+                const absoluteReward = calculateAbsoluteReward(openPrice, volume, closePrice, totalCommission);
+                return (
+                  <tr className="active" key={id} id={id} onClick={openModal}>
+                    <td>{ticker}</td>
+                    <td>{closeDate}</td>
+                    <td>
+                      <StyledReward color={reward >= 0 ? 'lightgreen' : 'red'}>{reward}</StyledReward>
+                    </td>
+                    <td>
+                      <StyledReward color={absoluteReward >= 0 ? 'lightgreen' : 'red'}>{absoluteReward}%</StyledReward>
+                    </td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </table>
+      )}
     </Wrapper>
   );
 };

@@ -9,11 +9,7 @@ import FormError from '../../atoms/FormError/FormError';
 const SignUpForm = () => {
   const { signUp, authError } = useAuth();
   const [isPasswordConfirmed, setIsPasswordConfirmed] = useState(true);
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
     setIsPasswordConfirmed(true);

@@ -21,13 +21,16 @@ const WalletTable = () => {
     history.push(newPath);
   };
 
-  useEffect(async () => {
-    if (wallet) {
-      const stocks = Object.values(wallet).sort(sortByTotalPositionsValue);
-      const stocksTable = createStockTableData(stocks);
-      await setStocksTable(stocksTable);
-      setMatchingStocks(stocksTable);
+  useEffect(() => {
+    async function getData() {
+      if (wallet) {
+        const stocks = Object.values(wallet).sort(sortByTotalPositionsValue);
+        const stocksTable = createStockTableData(stocks);
+        await setStocksTable(stocksTable);
+        setMatchingStocks(stocksTable);
+      }
     }
+    getData();
   }, [wallet]);
 
   useEffect(() => {

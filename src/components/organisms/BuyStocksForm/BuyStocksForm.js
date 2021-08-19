@@ -10,15 +10,11 @@ import PropTypes from 'prop-types';
 import { isMarginSufficient } from '../../../assets/helpers/isMarginSufficient';
 
 const BuyStocksForm = ({ handleCloseModal }) => {
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
+  const { register, handleSubmit } = useForm();
 
   const [tickerError, setTickerError] = useState(null);
   const [marginError, setMarginError] = useState(null);
-  const { deposit, wallet, handleAddStocksToWallet } = useDatabase();
+  const { deposit, handleAddStocksToWallet } = useDatabase();
 
   const onSubmit = (data) => {
     setTickerError(null);
