@@ -12,7 +12,7 @@ const DatabaseContext = React.createContext({});
 
 export const DatabaseProvider = ({ children }) => {
   const { user } = useAuth();
-  const [deposit, setDeposit] = useState(0);
+  const [deposit, setDeposit] = useState({ currency: 'PLN', amount: 0, operations: [] });
   const [wallet, setWallet] = useState({});
   const [archive, setArchive] = useState([]);
   const [currentYear, setCurrentYear] = useState(null);
@@ -27,7 +27,7 @@ export const DatabaseProvider = ({ children }) => {
     if (user) {
       const dbRef = database.ref(user.uid);
       dbRef.get().then((snapshot) => {
-        setUserData(snapshot);
+        if (snapshot.val()) setUserData(snapshot);
       });
     }
   }, [user]);
@@ -36,14 +36,14 @@ export const DatabaseProvider = ({ children }) => {
     if (user) {
       const userDataRef = database.ref(`${user.uid}`);
       const unsubscribe = userDataRef.on('value', (snapshot) => {
-        setUserData(snapshot);
+        if (snapshot) setUserData(snapshot);
       });
       return unsubscribe();
     }
   }, [user]);
 
   const setUserData = (snapshot) => {
-    if (!snapshot) return;
+    if (!snapshot.val()) return;
     if (snapshot.val().deposit) setDeposit(snapshot.val().deposit);
     if (snapshot.val().wallet) setWallet(snapshot.val().wallet);
     if (snapshot.val().archive) setArchive(snapshot.val().archive);

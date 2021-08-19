@@ -22,5 +22,6 @@ export const StyledMain = styled.main`
 
   @media (min-width: 1024px) {
     width: 75%;
+    max-width: 1000px;
   }
 `;
