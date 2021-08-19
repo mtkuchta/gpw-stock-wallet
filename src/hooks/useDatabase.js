@@ -29,7 +29,11 @@ export const DatabaseProvider = ({ children }) => {
       dbRef.get().then((snapshot) => {
         if (snapshot.val()) setUserData(snapshot);
       });
+      return;
     }
+    setDeposit({});
+    setWallet({});
+    setArchive([]);
   }, [user]);
 
   useEffect(() => {
