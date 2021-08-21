@@ -55,19 +55,20 @@ export const DatabaseProvider = ({ children }) => {
 
   const handleDepositOperations = (operation, value) => {
     let newMargin = deposit.amount;
+    console.log(typeof newMargin);
     const depositRef = database.ref(`${user.uid}/deposit`);
     if (operation === 'Withdrawal' || operation === 'Buy') {
       newMargin -= value;
     } else {
       newMargin += value;
     }
-    depositRef.update({ amount: newMargin });
+    console.log(typeof newMargin);
+    depositRef.update({ amount: Number(newMargin.toFixed(1)) });
     database.ref(`${user.uid}/deposit/operations`).set(updateDepositOperations(deposit, operation, value));
   };
 
   const handleAddStocksToWallet = (data) => {
     const operationValue = Number(data.openPrice) * Number(data.volume) + Number(data.commission);
-
     if (wallet[data.ticker.toLowerCase()]) {
       addPositionToExistingTicker(data);
     } else {
@@ -77,8 +78,9 @@ export const DatabaseProvider = ({ children }) => {
   };
 
   const addPositionToExistingTicker = (data) => {
-    const updatedPositions = [...wallet[data.ticker].positions];
+    const updatedPositions = [...wallet[data.ticker.toLowerCase()].positions];
     updatedPositions.push(createNewPosition(data, wallet[data.ticker]));
+
     database.ref(`${user.uid}/wallet/${data.ticker.toLowerCase()}/positions`).update(updatedPositions);
   };
 
@@ -88,7 +90,6 @@ export const DatabaseProvider = ({ children }) => {
 
   const handleSellStocks = (ticker, sellVolume, positionToSell, operationValue) => {
     const positionToUpdate = wallet[ticker].positions[positionToSell];
-
     if (positionToUpdate.volume !== sellVolume) {
       updatePositionVolume(positionToUpdate, positionToSell, sellVolume, ticker);
       handleDepositOperations('Sell', operationValue);

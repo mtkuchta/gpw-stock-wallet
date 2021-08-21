@@ -75,6 +75,7 @@ const BuyStocksForm = ({ handleCloseModal }) => {
         type="number"
         id="commission"
         placeholder="Commission"
+        step="0.01"
         ref={commissionRef}
         {...register('commission')}
         required
