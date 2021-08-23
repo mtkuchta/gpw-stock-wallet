@@ -1,4 +1,4 @@
-import { Wrapper, StyledHeader } from './StockDetails.style';
+import { Wrapper } from './StockDetails.style';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import StockSummary from '../../components/molecules/StockSummary/StockSummary';
@@ -24,7 +24,7 @@ const StockDetails = () => {
       if (stock) setActiveStock(stock[0]);
     };
     return unsubscribe();
-  }, [wallet]);
+  }, []);
 
   const handleSellStocks = (e) => {
     setIdToSell(Number(e.target.id));

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyledForm, StyledHeader, ButtonContainer } from './SellStocksForm.style';
+import { StyledForm, StyledHeader, ButtonContainer } from './../Form/Form.style';
 import FormInput from '../../molecules/FormInput/FormInput';
 import Button from '../../atoms/Button/Button';
 import { useForm } from 'react-hook-form';
@@ -14,9 +14,7 @@ const SellStocksForm = ({ idToSell, stock: { ticker, positions }, handleCloseMod
     handleSubmit,
   } = useForm();
   const [closeDateError, setCloseDateError] = useState(false);
-
   const { handleSellStocks, handleAddOperationToHistory } = useDatabase();
-
   const positionToSell = positions.findIndex((position) => position.id === idToSell);
   const volumeRef = React.createRef();
   const sellPriceRef = React.createRef();

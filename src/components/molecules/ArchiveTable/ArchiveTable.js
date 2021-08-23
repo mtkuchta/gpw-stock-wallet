@@ -4,6 +4,7 @@ import { calculateAbsoluteReward } from '../../../assets/helpers/calculateAbsolu
 import { calculateReward } from '../../../assets/helpers/calculateReward';
 import { Wrapper, StyledReward } from '../Table/Table.style';
 import TextInfo from '../../atoms/TextInfo.js/TextInfo';
+import Button from '../../atoms/Button/Button';
 
 const ArchiveTable = ({ openModal, archive }) => {
   const [matchingItems, setMatchingItems] = useState([]);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyledForm, StyledHeader, InputContainer, StyledSelect, ButtonContainer } from './BuyStocksForm.style';
+import { StyledForm, StyledHeader, InputContainer, StyledSelect, ButtonContainer } from './../Form/Form.style';
 import { useForm } from 'react-hook-form';
 import Button from '../../atoms/Button/Button';
 import FormInput from '../../molecules/FormInput/FormInput';
@@ -11,7 +11,6 @@ import { isMarginSufficient } from '../../../assets/helpers/isMarginSufficient';
 
 const BuyStocksForm = ({ handleCloseModal }) => {
   const { register, handleSubmit } = useForm();
-
   const [tickerError, setTickerError] = useState(null);
   const [marginError, setMarginError] = useState(null);
   const { deposit, handleAddStocksToWallet } = useDatabase();

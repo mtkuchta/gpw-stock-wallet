@@ -55,14 +55,12 @@ export const DatabaseProvider = ({ children }) => {
 
   const handleDepositOperations = (operation, value) => {
     let newMargin = deposit.amount;
-    console.log(typeof newMargin);
     const depositRef = database.ref(`${user.uid}/deposit`);
     if (operation === 'Withdrawal' || operation === 'Buy') {
       newMargin -= value;
     } else {
       newMargin += value;
     }
-    console.log(typeof newMargin);
     depositRef.update({ amount: Number(newMargin.toFixed(1)) });
     database.ref(`${user.uid}/deposit/operations`).set(updateDepositOperations(deposit, operation, value));
   };
@@ -118,6 +116,13 @@ export const DatabaseProvider = ({ children }) => {
       );
   };
 
+  const handleAddPositionToHistory = (position) => {
+    const positionReward =
+      position.closePrice * position.volume - position.openPrice * position.volume - position.totalCommission;
+    database.ref(`${user.uid}/archive`).set(createUpdatedArchive(archive, position));
+    handleDepositOperations('sell', positionReward);
+  };
+
   const updatePositionVolume = (positionToUpdate, positionIndex, sellVolume, ticker) => {
     const updatedVolume = positionToUpdate.volume - sellVolume;
     database.ref(`${user.uid}/wallet/${ticker}/positions/`).child(positionIndex).update({ volume: updatedVolume });
@@ -150,6 +155,7 @@ export const DatabaseProvider = ({ children }) => {
         handleAddStocksToWallet,
         handleSellStocks,
         handleAddOperationToHistory,
+        handleAddPositionToHistory,
         handleEmptyWallet,
       }}
     >

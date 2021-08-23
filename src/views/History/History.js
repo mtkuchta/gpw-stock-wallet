@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Wrapper } from './History.style';
+import { Wrapper, ButtonsContainer } from './History.style';
 import ArchiveTable from '../../components/molecules/ArchiveTable/ArchiveTable';
 import FilteringMenu from '../../components/molecules/FilteringMenu/FilteringMenu';
 import { reward } from '../../assets/menus';
@@ -10,12 +10,15 @@ import Modal from '../../components/organisms/Modal/Modal';
 import useModal from '../../hooks/useModal';
 import ClosedPositionDetails from '../../components/organisms/ClosedPositionDetails/ClosedPositionDetails';
 import { findParent } from '../../assets/helpers/findParent';
+import Button from '../../components/atoms/Button/Button';
+import AddToHistoryForm from '../../components/organisms/AddToHistoryForm/AddToHistoryForm';
 
 const History = () => {
   const history = useHistory();
   const { archive, currentYear } = useDatabase();
   const [year, setYear] = useState(currentYear);
   const [idModal, setIdModal] = useState(null);
+  const [isDetailsModal, setIsDetailsModal] = useState(true);
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
 
   useEffect(() => {
@@ -31,6 +34,7 @@ const History = () => {
   };
 
   const openModal = (e) => {
+    setIsDetailsModal(true);
     const parentElement = findParent(e.target);
     setIdModal(Number(parentElement.id));
     handleOpenModal();
@@ -42,13 +46,25 @@ const History = () => {
     return archive[matchingItem];
   };
 
+  const handleClick = (e) => {
+    setIsDetailsModal(false);
+    handleOpenModal();
+  };
+
   return (
     <Wrapper>
       <YearSelector year={year} handleChangeYear={handleChangeYear} currentYear={currentYear} />
       <FilteringMenu route={`history/${year}`} items={reward} />
       <ArchiveTable openModal={openModal} archive={archive} />
+      <ButtonsContainer>
+        <Button title="add position to history" onClick={handleClick} small id="add" />
+      </ButtonsContainer>
       <Modal isOpen={isOpen} handleClose={handleCloseModal}>
-        <ClosedPositionDetails position={findMatchingPosition(idModal)} />
+        {isDetailsModal ? (
+          <ClosedPositionDetails position={findMatchingPosition(idModal)} />
+        ) : (
+          <AddToHistoryForm closeModal={handleCloseModal} />
+        )}
       </Modal>
     </Wrapper>
   );
