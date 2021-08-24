@@ -1,6 +1,5 @@
 import Button from '../../atoms/Button/Button';
 import PropTypes from 'prop-types';
-
 import { Wrapper } from './YearSelector.style';
 
 const YearSelector = ({ year, handleChangeYear, currentYear }) => {

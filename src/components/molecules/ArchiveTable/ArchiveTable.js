@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useParams } from 'react-router';
 import { calculateAbsoluteReward } from '../../../assets/helpers/calculateAbsoluteReward';
 import { calculateReward } from '../../../assets/helpers/calculateReward';
 import { Wrapper, StyledReward } from '../Table/Table.style';
 import TextInfo from '../../atoms/TextInfo.js/TextInfo';
-import Button from '../../atoms/Button/Button';
 
 const ArchiveTable = ({ openModal, archive }) => {
   const [matchingItems, setMatchingItems] = useState([]);
@@ -67,6 +67,11 @@ const ArchiveTable = ({ openModal, archive }) => {
       )}
     </Wrapper>
   );
+};
+
+ArchiveTable.propTypes = {
+  openModal: PropTypes.func,
+  archive: PropTypes.array,
 };
 
 export default ArchiveTable;

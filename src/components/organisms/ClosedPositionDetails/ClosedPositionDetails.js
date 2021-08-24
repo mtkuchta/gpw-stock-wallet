@@ -2,6 +2,7 @@ import { Wrapper, StyledText, StyledReward, StyledValue } from './ClosedPosition
 import StockName from '../../atoms/StockName/StockName';
 import { calculateReward } from '../../../assets/helpers/calculateReward';
 import { calculateAbsoluteReward } from '../../../assets/helpers/calculateAbsoluteReward';
+import PropTypes from 'prop-types';
 
 const ClosedPositionDetails = ({ position }) => {
   const reward = calculateReward(position.openPrice, position.volume, position.closePrice, position.totalCommission);
@@ -44,6 +45,20 @@ const ClosedPositionDetails = ({ position }) => {
       </StyledText>
     </Wrapper>
   );
+};
+
+ClosedPositionDetails.propTypes = {
+  position: PropTypes.shape({
+    closeDate: PropTypes.string,
+    openDate: PropTypes.string,
+    companyName: PropTypes.string,
+    ticker: PropTypes.string,
+    id: PropTypes.number,
+    openPrice: PropTypes.number,
+    closePrice: PropTypes.number,
+    volume: PropTypes.number,
+    totalCommission: PropTypes.number,
+  }),
 };
 
 export default ClosedPositionDetails;

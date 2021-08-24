@@ -1,4 +1,5 @@
 import { NavWrapper, StyledLink } from './FilteringMenu.style';
+import PropTypes from 'prop-types';
 
 const FilteringMenu = ({ route, items }) => {
   return (
@@ -12,6 +13,11 @@ const FilteringMenu = ({ route, items }) => {
       })}
     </NavWrapper>
   );
+};
+
+FilteringMenu.propTypes = {
+  route: PropTypes.string,
+  items: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default FilteringMenu;

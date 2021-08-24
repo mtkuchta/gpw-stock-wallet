@@ -5,7 +5,7 @@ const FormError = ({ text }) => {
   return <StyledError>{text}</StyledError>;
 };
 FormError.propTypes = {
-  text: PropTypes.string,
+  text: PropTypes.string.isRequired,
 };
 
 export default FormError;

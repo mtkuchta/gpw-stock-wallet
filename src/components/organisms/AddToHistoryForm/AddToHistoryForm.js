@@ -6,6 +6,7 @@ import DateInput from '../../atoms/DateInput/DateInput';
 import FormError from './../../atoms/FormError/FormError';
 import { useForm } from 'react-hook-form';
 import { useDatabase } from '../../../hooks/useDatabase';
+import PropTypes from 'prop-types';
 
 const AddToHistoryForm = ({ closeModal }) => {
   const { register, handleSubmit } = useForm();
@@ -56,16 +57,20 @@ const AddToHistoryForm = ({ closeModal }) => {
       {tickerError && <FormError text={tickerError} />}
       <FormInput type="number" placeholder="Volume" {...register('historyVolume')} required />
       <DateInput title="Open date" {...register('historyOpenDate')} />
-      <FormInput type="number" placeholder="Open price" {...register('historyOpenPrice')} required />
+      <FormInput type="number" placeholder="Open price" step="0.001" {...register('historyOpenPrice')} required />
       <DateInput title="Close date" {...register('historyCloseDate')} />
       {dateError && <FormError text={dateError} />}
-      <FormInput type="number" placeholder="Close price" {...register('historyClosePrice')} required />
-      <FormInput type="number" placeholder="Total commission" {...register('historyTotalCommission')} required />
+      <FormInput type="number" placeholder="Close price" step="0.001" {...register('historyClosePrice')} required />
+      <FormInput type="number" placeholder="Total commission" step="0.01" {...register('historyTotalCommission')} required />
       <ButtonContainer>
         <Button type="submit" title="Add to history" />
       </ButtonContainer>
     </StyledForm>
   );
+};
+
+AddToHistoryForm.propTypes = {
+  closeModal: PropTypes.func,
 };
 
 export default AddToHistoryForm;

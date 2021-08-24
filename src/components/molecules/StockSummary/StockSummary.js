@@ -1,19 +1,9 @@
+import { Wrapper, InfoContainer } from './StockSummary.style';
 import { calculateTotalVolume } from '../../../assets/helpers/calculateTotalVolume';
 import { calculateAveragePrice } from '../../../assets/helpers/calculateAveragePrice';
-import styled from 'styled-components';
+
 import StockInfo from '../StockInfo/StockInfo';
-
-const Wrapper = styled.div`
-  width: 100%;
-  padding: 0 2%;
-  margin-bottom: 5%;
-`;
-
-const InfoContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-`;
+import PropTypes from 'prop-types';
 
 const StockSummary = ({ stock }) => {
   return (
@@ -25,6 +15,23 @@ const StockSummary = ({ stock }) => {
       </InfoContainer>
     </Wrapper>
   );
+};
+
+StockSummary.propTypes = {
+  stock: PropTypes.shape({
+    companyName: PropTypes.string,
+    index: PropTypes.string,
+    positions: PropTypes.arrayOf(
+      PropTypes.shape({
+        commission: PropTypes.number,
+        id: PropTypes.number,
+        openDate: PropTypes.string,
+        openPrice: PropTypes.number,
+        volume: PropTypes.number,
+      })
+    ),
+    ticker: PropTypes.string,
+  }),
 };
 
 export default StockSummary;

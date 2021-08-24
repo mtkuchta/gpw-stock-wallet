@@ -3,6 +3,7 @@ import { StyledForm, StyledInput, ButtonContainer, StyledHeader } from './LoginF
 import { useForm } from 'react-hook-form';
 import Button from '../../atoms/Button/Button';
 import FormError from '../../atoms/FormError/FormError';
+import PropTypes from 'prop-types';
 
 const LoginForm = ({ openModal }) => {
   const { signIn, authError } = useAuth();
@@ -28,6 +29,10 @@ const LoginForm = ({ openModal }) => {
       </ButtonContainer>
     </StyledForm>
   );
+};
+
+LoginForm.propTypes = {
+  openModal: PropTypes.func,
 };
 
 export default LoginForm;

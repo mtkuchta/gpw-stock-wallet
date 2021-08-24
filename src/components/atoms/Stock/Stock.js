@@ -13,6 +13,7 @@ const Stock = ({ stock, index, onClick }) => {
 Stock.propTypes = {
   stock: PropTypes.string,
   index: PropTypes.string,
+  onClick: PropTypes.func,
 };
 
 export default Stock;

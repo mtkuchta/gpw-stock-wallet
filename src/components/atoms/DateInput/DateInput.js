@@ -1,4 +1,5 @@
 import { StyledDate, DateContainer } from './DateInput.style';
+import PropTypes from 'prop-types';
 
 import React from 'react';
 
@@ -10,5 +11,9 @@ const DateInput = React.forwardRef(({ title, ...rest }, ref) => {
     </DateContainer>
   );
 });
+
+DateInput.propTypes = {
+  title: PropTypes.string,
+};
 
 export default DateInput;

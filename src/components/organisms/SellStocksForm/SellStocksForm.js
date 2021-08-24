@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import FormError from '../../atoms/FormError/FormError';
 import DateInput from '../../atoms/DateInput/DateInput';
 import { useDatabase } from '../../../hooks/useDatabase';
+import PropTypes from 'prop-types';
 
 const SellStocksForm = ({ idToSell, stock: { ticker, positions }, handleCloseModal, setIdToSell }) => {
   const {
@@ -83,6 +84,20 @@ const SellStocksForm = ({ idToSell, stock: { ticker, positions }, handleCloseMod
       </ButtonContainer>
     </StyledForm>
   );
+};
+
+SellStocksForm.propTypes = {
+  idToSell: PropTypes.number,
+  ticker: PropTypes.string,
+  positions: PropTypes.arrayOf(
+    PropTypes.shape({
+      commission: PropTypes.number,
+      id: PropTypes.number,
+      openDate: PropTypes.string,
+      openPrice: PropTypes.number,
+      volume: PropTypes.number,
+    })
+  ),
 };
 
 export default SellStocksForm;
