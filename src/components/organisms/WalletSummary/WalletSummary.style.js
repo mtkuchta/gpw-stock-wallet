@@ -5,7 +5,7 @@ export const StocksList = styled.div`
   min-height: 50px;
   display: flex;
   align-content: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
   flex-grow: 0;
   padding-bottom: 10px;

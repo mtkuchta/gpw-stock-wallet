@@ -65,7 +65,7 @@ const BuyStocksForm = ({ handleCloseModal }) => {
         type="number"
         id="openPrice"
         placeholder="Open price"
-        step="0.01"
+        step="0.001"
         ref={openPriceRef}
         {...register('openPrice')}
         required
