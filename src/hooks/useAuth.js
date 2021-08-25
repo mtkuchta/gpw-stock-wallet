@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  const signUp = async (email, password, userName, accountBalance) => {
+  const signUp = async (email, password, userName) => {
     await authFirebase
       .createUserWithEmailAndPassword(email, password)
       .then((userCredential) => {
@@ -29,17 +29,17 @@ export const AuthProvider = ({ children }) => {
         setAuthError(error);
       });
     await createUserName(userName);
-    await createUserInDatabase(accountBalance);
+    await createUserInDatabase();
   };
 
   const createUserName = async (userName) => {
     await authFirebase.currentUser.updateProfile({ displayName: userName });
   };
 
-  const createUserInDatabase = (accountBalance) => {
+  const createUserInDatabase = () => {
     const user = authFirebase.currentUser;
     const userRef = database.ref(user.uid);
-    userRef.set({ deposit: { currency: 'PLN', amount: accountBalance ? accountBalance : 0, operations: [] } });
+    userRef.set({ deposit: { currency: 'PLN', operations: [] } });
     // userRef.set(userData);
   };
 

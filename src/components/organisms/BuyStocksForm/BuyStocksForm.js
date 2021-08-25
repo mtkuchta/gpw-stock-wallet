@@ -13,7 +13,7 @@ const BuyStocksForm = ({ handleCloseModal }) => {
   const { register, handleSubmit } = useForm();
   const [tickerError, setTickerError] = useState(null);
   const [marginError, setMarginError] = useState(null);
-  const { deposit, handleAddStocksToWallet } = useDatabase();
+  const { freeMargin, handleAddStocksToWallet } = useDatabase();
 
   const onSubmit = (data) => {
     setTickerError(null);
@@ -23,7 +23,7 @@ const BuyStocksForm = ({ handleCloseModal }) => {
       return;
     }
 
-    if (isMarginSufficient(data, deposit.amount)) {
+    if (isMarginSufficient(data, freeMargin)) {
       handleAddStocksToWallet(data);
       handleCloseModal();
     } else {

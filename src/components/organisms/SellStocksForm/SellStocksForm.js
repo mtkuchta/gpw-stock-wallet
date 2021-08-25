@@ -24,8 +24,7 @@ const SellStocksForm = ({ idToSell, stock: { ticker, positions }, handleCloseMod
   const onSubmit = (data) => {
     setCloseDateError(false);
     if (validateCloseDate(positions[positionToSell].openDate, data.date)) return;
-    const operationValue = Number(data.volume) * Number(data.sellPrice) - Number(data.commission);
-    handleSellStocks(ticker, Number(data.volume), positionToSell, operationValue);
+    handleSellStocks(ticker, Number(data.volume), positionToSell);
     handleAddOperationToHistory(
       ticker,
       positionToSell,

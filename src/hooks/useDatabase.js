@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
+import { calculateTotalStocksValue } from '../assets/helpers/calculateTotalStocksValue';
+import { calculateTotalWalletCommission } from '../assets/helpers/calculateTotalWalletCommission';
 import { createNewPosition } from '../assets/helpers/createNewPosition';
 import { createNewStock } from '../assets/helpers/createNewStock';
 import { createPositionToHistory } from '../assets/helpers/createPositionToHistory';
@@ -12,10 +14,11 @@ const DatabaseContext = React.createContext({});
 
 export const DatabaseProvider = ({ children }) => {
   const { user } = useAuth();
-  const [deposit, setDeposit] = useState({ currency: 'PLN', amount: 0, operations: [] });
+  const [deposit, setDeposit] = useState({ currency: 'PLN', operations: [] });
   const [wallet, setWallet] = useState({});
   const [archive, setArchive] = useState([]);
   const [currentYear, setCurrentYear] = useState(null);
+  const [freeMargin, setFreeMargin] = useState(0);
   const history = useHistory();
 
   useEffect(() => {
@@ -46,6 +49,10 @@ export const DatabaseProvider = ({ children }) => {
     }
   }, [user]);
 
+  useEffect(() => {
+    if (deposit.operations) setFreeMargin(calculateFreeMargin());
+  }, [deposit, archive, wallet]);
+
   const setUserData = (snapshot) => {
     if (!snapshot.val()) return;
     if (snapshot.val().deposit) setDeposit(snapshot.val().deposit);
@@ -53,26 +60,32 @@ export const DatabaseProvider = ({ children }) => {
     if (snapshot.val().archive) setArchive(snapshot.val().archive);
   };
 
+  const calculateFreeMargin = () => {
+    const sumOfPayments = deposit.operations.reduce((prev, next) => {
+      return prev + next;
+    }, 0);
+
+    const archiveReward = archive.reduce((prev, next) => {
+      const itemValue = next.closePrice * next.volume - next.openPrice * next.volume - next.totalCommission;
+      return prev + itemValue;
+    }, 0);
+
+    const walletValue = calculateTotalStocksValue(wallet);
+    const totalWalletCommission = calculateTotalWalletCommission(wallet);
+    const freeMargin = sumOfPayments + archiveReward - walletValue - totalWalletCommission;
+    return freeMargin.toFixed(1);
+  };
+
   const handleDepositOperations = (operation, value) => {
-    let newMargin = deposit.amount;
-    const depositRef = database.ref(`${user.uid}/deposit`);
-    if (operation === 'Withdrawal' || operation === 'Buy') {
-      newMargin -= value;
-    } else {
-      newMargin += value;
-    }
-    depositRef.update({ amount: Number(newMargin.toFixed(1)) });
     database.ref(`${user.uid}/deposit/operations`).set(updateDepositOperations(deposit, operation, value));
   };
 
   const handleAddStocksToWallet = (data) => {
-    const operationValue = Number(data.openPrice) * Number(data.volume) + Number(data.commission);
     if (wallet[data.ticker.toLowerCase()]) {
       addPositionToExistingTicker(data);
     } else {
       createNewTicker(data);
     }
-    handleDepositOperations('Buy', operationValue);
   };
 
   const addPositionToExistingTicker = (data) => {
@@ -86,22 +99,17 @@ export const DatabaseProvider = ({ children }) => {
     database.ref(`${user.uid}/wallet/`).update({ [data.ticker.toLowerCase()]: createNewStock(data) });
   };
 
-  const handleSellStocks = (ticker, sellVolume, positionToSell, operationValue) => {
+  const handleSellStocks = (ticker, sellVolume, positionToSell) => {
     const positionToUpdate = wallet[ticker].positions[positionToSell];
     if (positionToUpdate.volume !== sellVolume) {
       updatePositionVolume(positionToUpdate, positionToSell, sellVolume, ticker);
-      handleDepositOperations('Sell', operationValue);
       return;
     }
-
     if (wallet[ticker].positions.length === 1) {
       handleRemoveLastPosition(ticker);
-      handleDepositOperations('Sell', operationValue);
       return;
     }
-
     handleRemovePosition(ticker, positionToSell);
-    handleDepositOperations('Sell', operationValue);
   };
 
   const handleAddOperationToHistory = (ticker, positionToSell, sellVolume, sellPrice, sellDate, commission) => {
@@ -117,10 +125,7 @@ export const DatabaseProvider = ({ children }) => {
   };
 
   const handleAddPositionToHistory = (position) => {
-    const positionReward =
-      position.closePrice * position.volume - position.openPrice * position.volume - position.totalCommission;
     database.ref(`${user.uid}/archive`).set(createUpdatedArchive(archive, position));
-    handleDepositOperations('sell', positionReward);
   };
 
   const updatePositionVolume = (positionToUpdate, positionIndex, sellVolume, ticker) => {
@@ -150,6 +155,7 @@ export const DatabaseProvider = ({ children }) => {
         deposit,
         wallet,
         archive,
+        freeMargin,
         currentYear,
         handleDepositOperations,
         handleAddStocksToWallet,

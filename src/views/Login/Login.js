@@ -1,8 +1,8 @@
 import { Wrapper, Logo } from './Login.style';
-import LoginForm from '../../components/molecules/LoginForm/LoginForm';
+import LoginForm from '../../components/organisms/LoginForm/LoginForm';
 import Modal from '../../components/organisms/Modal/Modal';
 import useModal from '../../hooks/useModal';
-import SignUpForm from '../../components/molecules/SignUpForm/SignUpForm';
+import SignUpForm from '../../components/organisms/SignUpForm/SignUpForm';
 
 const Login = () => {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();

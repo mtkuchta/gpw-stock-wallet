@@ -9,7 +9,7 @@ import { useDatabase } from '../../../hooks/useDatabase';
 import { calculateSumOfPayments } from '../../../assets/helpers/calculateSumOfPayments';
 
 const AccountSummary = () => {
-  const { deposit } = useDatabase();
+  const { deposit, freeMargin } = useDatabase();
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
   const [operation, setOperation] = useState();
 
@@ -24,7 +24,7 @@ const AccountSummary = () => {
         Sum of payments: <span>{calculateSumOfPayments(deposit.operations)} </span>PLN
       </StyledText>
       <StyledText>
-        Free margin: <span> {deposit.amount}</span> PLN
+        Free margin: <span> {freeMargin}</span> PLN
       </StyledText>
       <ButtonsContainer>
         <Button title="Deposit" onClick={handleClick} />
