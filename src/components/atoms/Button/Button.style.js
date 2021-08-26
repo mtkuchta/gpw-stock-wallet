@@ -19,8 +19,7 @@ export const StyledButton = styled.button`
     box-shadow: none;
   }
 
-  @media (min-width: 1024px) {
-    /* width: 160px; */
+  @media (min-width: 1200px) {
     height: ${({ small }) => (small ? '26px' : '36px')};
     margin: 0 20px;
     border-radius: 8px;
@@ -33,6 +32,10 @@ export const StyledButton = styled.button`
     cursor: pointer;
     &:hover {
       background-color: ${({ theme: { colors } }) => colors.default.buttonHover};
+    }
+
+    &:disabled:hover {
+      background-color: ${({ theme: { colors } }) => colors.default.button};
     }
   }
 `;

@@ -41,18 +41,18 @@ const Statistics = () => {
   }
 
   return (
-    <DashboardContainer title="statistics">
+    <DashboardContainer title="current year statistics">
       <StyledText>
-        Total stocks value: <span>{calculateTotalStocksValue(wallet)} </span>PLN
+        Total wallet value: <span>{calculateTotalStocksValue(wallet)} </span>PLN
       </StyledText>
       <StyledText>
-        Current year reward: <span className={currentYearReward < 0 ? 'red' : 'green'}>{currentYearReward}</span> PLN
+        Reward: <span className={currentYearReward < 0 ? 'red' : 'green'}>{currentYearReward}</span> PLN
       </StyledText>
       <StyledText>
-        Opened positions (current year): <span>{calculateCurrentYearOpenedPositions(wallet)}</span>
+        Opened positions: <span>{calculateCurrentYearOpenedPositions(wallet)}</span>
       </StyledText>
       <StyledText>
-        Closed positions (current year): <span>{currentYearOperations.length}</span>
+        Closed positions: <span>{currentYearOperations.length}</span>
       </StyledText>
     </DashboardContainer>
   );

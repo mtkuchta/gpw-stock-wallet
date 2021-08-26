@@ -9,7 +9,13 @@ export const Wrapper = styled.div`
 
   span {
     color: ${({ theme: { colors } }) => colors.default.textPrimary};
-    font-size: ${({ theme: { fontSize } }) => fontSize.l};
+    font-size: ${({ theme: { fontSize } }) => fontSize.s};
     padding: 0 10px;
+  }
+
+  @media (min-width: 1200px) {
+    span {
+      font-size: ${({ theme: { fontSize } }) => fontSize.l};
+    }
   }
 `;

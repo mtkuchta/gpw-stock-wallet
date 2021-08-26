@@ -17,6 +17,7 @@ export const StyledText = styled.p`
   padding: 10px 0;
 
   @media (min-width: 1200px) {
+    width: 30%;
     font-size: ${({ theme: { fontSize } }) => fontSize.m};
   }
 `;

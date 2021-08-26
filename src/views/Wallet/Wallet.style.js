@@ -5,7 +5,7 @@ export const Wrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  overflow: hidden;
 `;
 
 export const WalletContainer = styled.div`
@@ -15,7 +15,6 @@ export const WalletContainer = styled.div`
 export const ButtonsContainer = styled.div`
   width: 100%;
   display: flex;
-  padding: 10px;
-  padding-bottom: 100px;
+  padding: 20px 0;
   justify-content: center;
 `;

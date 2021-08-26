@@ -24,7 +24,7 @@ const StockDetails = () => {
       if (stock) setActiveStock(stock[0]);
     };
     return unsubscribe();
-  }, []);
+  }, [params.ticker, wallet]);
 
   const handleSellStocks = (e) => {
     setIdToSell(Number(e.target.id));

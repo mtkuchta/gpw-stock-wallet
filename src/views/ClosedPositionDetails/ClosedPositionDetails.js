@@ -2,7 +2,6 @@ import { Wrapper, StyledText, StyledReward, StyledValue } from './ClosedPosition
 import StockName from '../../components/atoms/StockName/StockName';
 import { calculateReward } from '../../assets/helpers/calculateReward';
 import { calculateAbsoluteReward } from '../../assets/helpers/calculateAbsoluteReward';
-import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDatabase } from '../../hooks/useDatabase';
@@ -23,7 +22,7 @@ const ClosedPositionDetails = () => {
       setPosition(archive[positionIndex]);
     }
     fetchPosition();
-  }, []);
+  }, [params.id, archive]);
 
   useEffect(() => {
     if (!position) return;
@@ -60,10 +59,10 @@ const ClosedPositionDetails = () => {
             Total Commission:<StyledValue>{position.totalCommission} PLN</StyledValue>
           </StyledText>
           <StyledText>
-            Profit/Loss:<StyledReward color={reward >= 0 ? 'lightgreen' : 'red'}>{reward} PLN</StyledReward>
+            Profit/Loss [PLN]:<StyledReward color={reward >= 0 ? 'lightgreen' : 'red'}>{reward} PLN</StyledReward>
           </StyledText>
           <StyledText>
-            Profit/Loss:<StyledReward color={absoluteReward >= 0 ? 'lightgreen' : 'red'}>{absoluteReward} %</StyledReward>
+            Profit/Loss [%]:<StyledReward color={absoluteReward >= 0 ? 'lightgreen' : 'red'}>{absoluteReward} %</StyledReward>
           </StyledText>
         </>
       )}

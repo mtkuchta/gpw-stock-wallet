@@ -8,7 +8,6 @@ import { useHistory } from 'react-router';
 import { useDatabase } from '../../hooks/useDatabase';
 import Modal from '../../components/organisms/Modal/Modal';
 import useModal from '../../hooks/useModal';
-import ClosedPositionDetails from '../../views/ClosedPositionDetails/ClosedPositionDetails';
 import { findParent } from '../../assets/helpers/findParent';
 import Button from '../../components/atoms/Button/Button';
 import AddToHistoryForm from '../../components/organisms/AddToHistoryForm/AddToHistoryForm';

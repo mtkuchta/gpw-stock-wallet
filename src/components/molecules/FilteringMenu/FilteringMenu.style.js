@@ -13,12 +13,12 @@ export const NavWrapper = styled.nav`
 `;
 
 export const StyledLink = styled(Link)`
-  min-width: 40px;
+  min-width: 50px;
   background-color: ${({ theme: { colors } }) => colors.default.button};
   color: ${({ theme: { colors } }) => colors.default.buttonText};
   font-size: ${({ theme: { fontSize } }) => fontSize.xs};
   margin: 0 5px;
-  padding: 5px;
+  padding: 4px;
   text-decoration: none;
   text-align: center;
   font-weight: bold;
