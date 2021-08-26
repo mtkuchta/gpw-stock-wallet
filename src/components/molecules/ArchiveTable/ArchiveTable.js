@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router';
 import { calculateAbsoluteReward } from '../../../assets/helpers/calculateAbsoluteReward';
 import { calculateReward } from '../../../assets/helpers/calculateReward';
 import { Wrapper, StyledReward } from '../Table/Table.style';
@@ -9,6 +9,7 @@ import TextInfo from '../../atoms/TextInfo.js/TextInfo';
 const ArchiveTable = ({ openModal, archive }) => {
   const [matchingItems, setMatchingItems] = useState([]);
   const params = useParams();
+  let history = useHistory();
 
   const getMatchingArchiveItems = (archive, year, reward) => {
     const archiveFilteredByYear = archive.filter((item) => {
@@ -25,6 +26,11 @@ const ArchiveTable = ({ openModal, archive }) => {
     return archiveFilteredByYear.filter(
       (item) => calculateReward(item.openPrice, item.volume, item.closePrice, item.totalCommission) <= 0
     );
+  };
+
+  const reoutePath = (e) => {
+    const newPath = `/history/details/${e.target.parentNode.id}`;
+    history.push(newPath);
   };
 
   useEffect(() => {
@@ -50,7 +56,7 @@ const ArchiveTable = ({ openModal, archive }) => {
                 const reward = calculateReward(openPrice, volume, closePrice, totalCommission);
                 const absoluteReward = calculateAbsoluteReward(openPrice, volume, closePrice, totalCommission);
                 return (
-                  <tr className="active" key={id} id={id} onClick={openModal}>
+                  <tr className="active" key={id} id={id} onClick={reoutePath}>
                     <td>{ticker}</td>
                     <td>{closeDate}</td>
                     <td>

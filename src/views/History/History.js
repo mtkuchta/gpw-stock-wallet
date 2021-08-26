@@ -8,7 +8,7 @@ import { useHistory } from 'react-router';
 import { useDatabase } from '../../hooks/useDatabase';
 import Modal from '../../components/organisms/Modal/Modal';
 import useModal from '../../hooks/useModal';
-import ClosedPositionDetails from '../../components/organisms/ClosedPositionDetails/ClosedPositionDetails';
+import ClosedPositionDetails from '../../views/ClosedPositionDetails/ClosedPositionDetails';
 import { findParent } from '../../assets/helpers/findParent';
 import Button from '../../components/atoms/Button/Button';
 import AddToHistoryForm from '../../components/organisms/AddToHistoryForm/AddToHistoryForm';
@@ -17,8 +17,6 @@ const History = () => {
   const history = useHistory();
   const { archive, currentYear } = useDatabase();
   const [year, setYear] = useState(currentYear);
-  const [idModal, setIdModal] = useState(null);
-  const [isDetailsModal, setIsDetailsModal] = useState(true);
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
 
   useEffect(() => {
@@ -34,9 +32,7 @@ const History = () => {
   };
 
   const openModal = (e) => {
-    setIsDetailsModal(true);
     const parentElement = findParent(e.target);
-    setIdModal(Number(parentElement.id));
     handleOpenModal();
     findMatchingPosition(Number(parentElement.id));
   };
@@ -47,7 +43,6 @@ const History = () => {
   };
 
   const handleClick = (e) => {
-    setIsDetailsModal(false);
     handleOpenModal();
   };
 
@@ -60,11 +55,7 @@ const History = () => {
         <Button title="add position to history" onClick={handleClick} small id="add" />
       </ButtonsContainer>
       <Modal isOpen={isOpen} handleClose={handleCloseModal}>
-        {isDetailsModal ? (
-          <ClosedPositionDetails position={findMatchingPosition(idModal)} />
-        ) : (
-          <AddToHistoryForm closeModal={handleCloseModal} />
-        )}
+        <AddToHistoryForm closeModal={handleCloseModal} />
       </Modal>
     </Wrapper>
   );
