@@ -1,12 +1,7 @@
 import { Wrapper } from './Root.style';
-import { Switch, Route, Redirect } from 'react-router-dom';
 import MainTemplate from '../components/templates/MainTemplate';
-import Dashboard from '../views/Dahboard/Dashboard';
-import Wallet from '../views/Wallet/Wallet';
-import StockDetails from '../views/StockDetails/StockDetails';
-import History from './History/History';
 import Login from './Login/Login';
-import ClosedPositionDetails from './ClosedPositionDetails/ClosedPositionDetails';
+import Routing from '../routing/Routing';
 import { useAuth } from '../hooks/useAuth';
 import { useDatabase } from '../hooks/useDatabase';
 
@@ -15,32 +10,7 @@ const AuthenticatedApp = () => {
   return (
     <MainTemplate>
       <Wrapper>
-        <Switch>
-          <Route exact path="/">
-            <Redirect to="/dashboard" />
-          </Route>
-          <Route path="/dashboard">
-            <Dashboard />
-          </Route>
-          <Route exact path="/wallet/:index">
-            <Wallet />
-          </Route>
-          <Route exact path="/wallet/">
-            <Redirect to="/wallet/all" />
-          </Route>
-          <Route exact path="/wallet/stock/:ticker">
-            <StockDetails />
-          </Route>
-          <Route path="/history/details/:id">
-            <ClosedPositionDetails />
-          </Route>
-          <Route path="/history/:year/:reward">
-            <History />
-          </Route>
-          <Route exact path="/history">
-            <Redirect to={'history/' + currentYear + '/all'} />
-          </Route>
-        </Switch>
+        <Routing currentYear={currentYear} />
       </Wrapper>
     </MainTemplate>
   );
