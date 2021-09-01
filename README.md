@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+# GPW Stock Wallet
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![gpw-stock-wallet](./src/assets/img/gpwStockWallet_main.JPG)
 
-## Available Scripts
+## Introduction
 
-In the project directory, you can run:
+I created GPW Stock Wallet because I wanted to learn React while creating usefull application thanks to which I will be able to analyze the stock portfolio.
+It is not finished app - I am going to develop it by creating new features and improving existing ones. Click [here](https://gpwstockwallet.netlify.app) to use GPW Stock Wallet.
 
-### `npm start`
+## Technologies:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Node 12.18.4,
+- React 17.0.2,
+- Styled-components 5.3.1,
+- Firebase,
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## How to start using GPW Stock Wallet ?
 
-### `npm test`
+In order to start using GPW Stock Wallet you need to create user account. If you want to just test application, you can try on test account :
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+userName: tester@gmail.com
+password: tester123
 
-### `npm run build`
+## Features:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- creating user account,
+- money management ( deposit, withdrawal),
+- adding stock to portfolio,
+- selling stocks from portfolio,
+- transaction details in wallet and archive,
+- stock portfolio history,
+- adding old transactions to the history,
+- profit calculation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Setup
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+To run this project, install it locally using npm:
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+$ cd ../lorem
+$ npm install
+$ npm start
+```
