@@ -18,7 +18,7 @@ It is not finished app - I am going to develop it by creating new features and i
 
 In order to start using GPW Stock Wallet you need to create user account. If you want to just test application, you can try on test account :
 
-userName: tester@gmail.com
+userName: tester@gmail.com,
 password: tester123
 
 ## Features:

@@ -14,6 +14,7 @@ export const Wrapper = styled.nav`
   border: none;
   transition: 0.6s;
   transform: translateX(-100%);
+  z-index: 100;
 
   &.opened {
     transform: translateX(0);
