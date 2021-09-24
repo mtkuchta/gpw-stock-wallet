@@ -1,4 +1,4 @@
-import { Wrapper } from '../Table/Table.style';
+import { Wrapper } from './WalletTable.style';
 import { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { createStockTableData } from '../../../assets/helpers/createStockTableData';
@@ -34,34 +34,18 @@ const WalletTable = () => {
     setMatchingStocks(getMatchingStocks(stocksTable, params.index));
   }, [params.index]);
 
+  const columns = [
+    { name: 'Ticker', selector: (row) => row.ticker, sortable: true },
+    { name: 'Index', selector: (row) => row.index, sortable: true },
+    { name: 'Avg Price', selector: (row) => row.averagePrice, sortable: true },
+    { name: 'Vol.', selector: (row) => row.volume, sortable: true },
+    { name: 'Value.', selector: (row) => row.value, sortable: true },
+    { name: 'Wallet %', selector: (row) => row.walletPercent, sortable: true },
+  ];
+
   return (
     <Wrapper>
-      {/* <table>
-        <thead>
-          <tr>
-            <th>Ticker</th>
-            <th>Index</th>
-            <th>Avg Price</th>
-            <th>Vol.</th>
-            <th>Value [PLN]</th>
-            <th>Wallet %</th>
-          </tr>
-        </thead>
-        <tbody>
-          {matchingStocks.length !== 0 &&
-            matchingStocks.map(({ averagePrice, index, ticker, value, volume }) => (
-              <tr className="active" key={ticker} id={ticker} onClick={routePath}>
-                <td>{ticker}</td>
-                <td color={index}>{index}</td>
-                <td>{averagePrice}</td>
-                <td>{volume}</td>
-                <td>{value}</td>
-                <td>{((value * 100) / totalWalletValue).toFixed(1)}%</td>
-              </tr>
-            ))}
-        </tbody>
-      </table> */}
-      <DataTableComponent data={matchingStocks} onRowClick={routePath} />
+      <DataTableComponent data={matchingStocks} onRowClick={routePath} columns={columns} />
     </Wrapper>
   );
 };

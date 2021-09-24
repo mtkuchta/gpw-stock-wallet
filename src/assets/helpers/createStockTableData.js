@@ -16,7 +16,7 @@ export const createStockTableData = (wallet) => {
 
     const stockToTable = {
       id: stock.ticker,
-      ticker: stock.ticker,
+      ticker: stock.ticker.toUpperCase(),
       volume: totalVolume,
       averagePrice,
       index: stock.index,
