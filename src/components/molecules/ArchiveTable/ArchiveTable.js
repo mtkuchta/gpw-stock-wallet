@@ -3,8 +3,8 @@ import { useParams, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { calculateAbsoluteReward } from '../../../assets/helpers/calculateAbsoluteReward';
 import { calculateReward } from '../../../assets/helpers/calculateReward';
-import { Wrapper, StyledReward } from '../Table/Table.style';
-import TextInfo from '../../atoms/TextInfo.js/TextInfo';
+import { Wrapper } from '../Table/Table.style';
+import DataTableComponent from '../DataTableComponent/DataTableComponent';
 
 const ArchiveTable = ({ openModal, archive }) => {
   const [matchingItems, setMatchingItems] = useState([]);
@@ -28,8 +28,8 @@ const ArchiveTable = ({ openModal, archive }) => {
     );
   };
 
-  const reoutePath = (e) => {
-    const newPath = `/history/details/${e.target.parentNode.id}`;
+  const routePath = (row) => {
+    const newPath = `/history/details/${row.id}`;
     history.push(newPath);
   };
 
@@ -37,41 +37,67 @@ const ArchiveTable = ({ openModal, archive }) => {
     setMatchingItems(getMatchingArchiveItems(archive, params.year, params.reward));
   }, [params.reward, params.year, archive]);
 
+  const columns = [
+    {
+      name: 'Ticker',
+      selector: (row) => row.ticker.toUpperCase(),
+      sortable: true,
+      minWidth: '50px',
+    },
+    {
+      name: 'Close Date',
+      selector: (row) => row.closeDate,
+      sortable: true,
+      minWidth: '50px',
+    },
+    {
+      name: 'Reward [PLN]',
+      selector: (row) => calculateReward(row.openPrice, row.volume, row.closePrice, row.totalCommission),
+      conditionalCellStyles: [
+        {
+          when: (row) => calculateReward(row.openPrice, row.volume, row.closePrice, row.totalCommission) >= 0,
+          style: {
+            color: 'lightgreen',
+          },
+        },
+        {
+          when: (row) => calculateReward(row.openPrice, row.volume, row.closePrice, row.totalCommission) < 0,
+          style: {
+            color: 'red',
+          },
+        },
+      ],
+      sortable: true,
+      style: {
+        fontWeight: 'bold',
+      },
+    },
+    {
+      name: 'Reward [%]',
+      cell: (row) => `${calculateAbsoluteReward(row.openPrice, row.volume, row.closePrice, row.totalCommission)} %`,
+      conditionalCellStyles: [
+        {
+          when: (row) => calculateAbsoluteReward(row.openPrice, row.volume, row.closePrice, row.totalCommission) >= 0,
+          style: {
+            color: 'lightgreen',
+          },
+        },
+        {
+          when: (row) => calculateAbsoluteReward(row.openPrice, row.volume, row.closePrice, row.totalCommission) < 0,
+          style: {
+            color: 'red',
+          },
+        },
+      ],
+      sortable: true,
+      style: {
+        fontWeight: 'bold',
+      },
+    },
+  ];
+
   return (
-    <Wrapper>
-      {matchingItems.length === 0 && <TextInfo text={'No matching transactions'} />}
-      {matchingItems.length !== 0 && (
-        <table>
-          <thead>
-            <tr>
-              <th>Ticker</th>
-              <th>Close Date</th>
-              <th>Profit/Loss [PLN]</th>
-              <th>Profit/Loss [%]</th>
-            </tr>
-          </thead>
-          <tbody>
-            {matchingItems &&
-              matchingItems.map(({ ticker, closeDate, volume, openPrice, closePrice, totalCommission, id }) => {
-                const reward = calculateReward(openPrice, volume, closePrice, totalCommission);
-                const absoluteReward = calculateAbsoluteReward(openPrice, volume, closePrice, totalCommission);
-                return (
-                  <tr className="active" key={id} id={id} onClick={reoutePath}>
-                    <td>{ticker}</td>
-                    <td>{closeDate}</td>
-                    <td>
-                      <StyledReward color={reward >= 0 ? 'lightgreen' : 'red'}>{reward}</StyledReward>
-                    </td>
-                    <td>
-                      <StyledReward color={absoluteReward >= 0 ? 'lightgreen' : 'red'}>{absoluteReward}%</StyledReward>
-                    </td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </table>
-      )}
-    </Wrapper>
+    <Wrapper>{matchingItems && <DataTableComponent columns={columns} data={matchingItems} onRowClick={routePath} />}</Wrapper>
   );
 };
 

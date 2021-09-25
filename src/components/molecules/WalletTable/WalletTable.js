@@ -4,7 +4,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { createStockTableData } from '../../../assets/helpers/createStockTableData';
 import { getMatchingStocks } from '../../../assets/helpers/getMatchingStocks';
 import { useDatabase } from '../../../hooks/useDatabase';
-import DataTableComponent from '../DataTable/DataTable';
+import DataTableComponent from '../DataTableComponent/DataTableComponent';
 
 const WalletTable = () => {
   const params = useParams();
@@ -35,11 +35,11 @@ const WalletTable = () => {
   }, [params.index]);
 
   const columns = [
-    { name: 'Ticker', selector: (row) => row.ticker, sortable: true },
-    { name: 'Index', selector: (row) => row.index, sortable: true },
-    { name: 'Avg Price', selector: (row) => row.averagePrice, sortable: true },
-    { name: 'Vol.', selector: (row) => row.volume, sortable: true },
-    { name: 'Value.', selector: (row) => row.value, sortable: true },
+    { name: 'Ticker', selector: (row) => row.ticker, sortable: true, minWidth: '60px' },
+    { name: 'Index', selector: (row) => row.index, sortable: true, minWidth: '60px' },
+    { name: 'Avg Price', selector: (row) => row.averagePrice, sortable: true, minWidth: '80px' },
+    { name: 'Vol.', selector: (row) => row.volume, sortable: true, minWidth: '50px' },
+    { name: 'Value', selector: (row) => row.value, sortable: true, minWidth: '60px' },
     { name: 'Wallet %', selector: (row) => row.walletPercent, sortable: true },
   ];
 

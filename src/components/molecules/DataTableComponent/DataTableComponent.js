@@ -1,5 +1,5 @@
 import DataTable, { createTheme } from 'react-data-table-component';
-import { customStyles } from './DataTable.style';
+import { customStyles } from './DataTableComponent.style';
 import PropTypes from 'prop-types';
 
 createTheme('myTheme', {
@@ -13,7 +13,9 @@ createTheme('myTheme', {
 });
 
 const DataTableComponent = ({ data, onRowClick, columns }) => {
-  return <DataTable columns={columns} data={data} onRowClicked={onRowClick} theme="myTheme" customStyles={customStyles} />;
+  return (
+    <DataTable columns={columns} data={data} onRowClicked={onRowClick} theme="myTheme" customStyles={customStyles} pagination />
+  );
 };
 
 DataTableComponent.propTypes = {
