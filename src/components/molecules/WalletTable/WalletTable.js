@@ -5,6 +5,7 @@ import { createStockTableData } from '../../../assets/helpers/createStockTableDa
 import { getMatchingStocks } from '../../../assets/helpers/getMatchingStocks';
 import { useDatabase } from '../../../hooks/useDatabase';
 import DataTableComponent from '../DataTableComponent/DataTableComponent';
+import { useWindowWidth } from '../../../hooks/useWindowWidth';
 
 const WalletTable = () => {
   const params = useParams();
@@ -12,6 +13,7 @@ const WalletTable = () => {
   const [stocksTable, setStocksTable] = useState([]);
   const [matchingStocks, setMatchingStocks] = useState([]);
   let history = useHistory();
+  const width = useWindowWidth();
 
   const routePath = (row, e) => {
     e.preventDefault();
@@ -43,9 +45,16 @@ const WalletTable = () => {
     { name: 'Wallet %', selector: (row) => row.walletPercent, sortable: true },
   ];
 
+  const columnsMobile = [
+    { name: 'Ticker', selector: (row) => row.ticker, sortable: true, minWidth: '60px' },
+    { name: 'Avg Price', selector: (row) => row.averagePrice, sortable: true, minWidth: '80px' },
+    { name: 'Vol.', selector: (row) => row.volume, sortable: true, minWidth: '50px' },
+    { name: 'Wallet %', selector: (row) => row.walletPercent, sortable: true },
+  ];
+
   return (
     <Wrapper>
-      <DataTableComponent data={matchingStocks} onRowClick={routePath} columns={columns} />
+      <DataTableComponent data={matchingStocks} onRowClick={routePath} columns={width >= 600 ? columns : columnsMobile} />
     </Wrapper>
   );
 };
