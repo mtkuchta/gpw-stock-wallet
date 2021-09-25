@@ -23,6 +23,7 @@ export const customStyles = {
         },
       },
     },
+    classNames: ['test'],
   },
   headCells: {
     style: {
@@ -38,6 +39,17 @@ export const customStyles = {
 
       '@media (min-width:1200px)': {
         fontSize: theme.fontSize.m,
+      },
+    },
+    sortStyle: {
+      '&:hover': {
+        color: theme.colors.default.textPrimary,
+      },
+      '&:hover:focus': {
+        color: theme.colors.default.textPrimary,
+      },
+      '&:hover:active': {
+        color: theme.colors.default.textPrimary,
       },
     },
   },

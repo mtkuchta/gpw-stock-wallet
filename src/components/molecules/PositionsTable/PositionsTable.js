@@ -1,40 +1,78 @@
 import { Wrapper } from '../Table/Table.style';
 import Button from '../../atoms/Button/Button';
 import PropTypes from 'prop-types';
+import DataTableComponent from '../DataTableComponent/DataTableComponent';
+import { useWindowWidth } from '../../../hooks/useWindowWidth';
 
 const PositionsTable = ({ stock: { positions }, handleSellStocks }) => {
-  const isDesktop = window.innerWidth >= 1200 ? true : false;
+  const windowWidth = useWindowWidth();
+  const columns = [
+    {
+      name: 'Open Date',
+      selector: (row) => row.openDate,
+      sortable: true,
+      minWidth: '60px',
+    },
+    {
+      name: 'Open Price',
+      selector: (row) => row.openPrice,
+      sortable: true,
+      minWidth: '80px',
+    },
+    {
+      name: 'Volume',
+      selector: (row) => row.volume,
+      sortable: true,
+    },
+    {
+      name: 'Commission',
+      selector: (row) => row.commission,
+      sortable: true,
+    },
+    {
+      name: 'Value',
+      selector: (row) => row.openPrice * row.volume,
+      sortable: true,
+    },
+    {
+      cell: (row) => <Button small title="sell" onClick={handleSellStocks} id={row.id} />,
+    },
+  ];
+
+  const columnsMobile = [
+    {
+      name: 'Open Dt',
+      selector: (row) => row.openDate,
+      sortable: true,
+      minWidth: '70px',
+    },
+    {
+      name: 'Open Pr.',
+      selector: (row) => row.openPrice,
+      sortable: true,
+      minWidth: '70px',
+    },
+    {
+      name: 'Vol.',
+      selector: (row) => row.volume,
+      sortable: true,
+      minWidth: '50px',
+    },
+    {
+      name: 'Value',
+      selector: (row) => row.openPrice * row.volume,
+      sortable: true,
+      minWidth: '60px',
+    },
+    {
+      cell: (row) => <Button small title="sell" onClick={handleSellStocks} id={row.id} />,
+      minWidth: '60px',
+    },
+  ];
+
   return (
     <Wrapper>
-      <table>
-        <thead>
-          <tr>
-            <th>Open Date</th>
-            <th>Open Price</th>
-            <th>Vol.</th>
-            {isDesktop && <th>Com.</th>}
-            <th>{'Val. [PLN]'}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {positions.length !== 0 &&
-            positions.map(({ id, openDate, openPrice, volume, commission }) => {
-              const value = openPrice * volume;
-              return (
-                <tr key={id}>
-                  <td>{openDate}</td>
-                  <td>{openPrice.toFixed(2)} </td>
-                  <td>{volume}</td>
-                  {isDesktop && <td>{commission}</td>}
-                  <td>{value.toFixed(1)}</td>
-                  <td>
-                    <Button small title="sell" onClick={handleSellStocks} id={id} />
-                  </td>
-                </tr>
-              );
-            })}
-        </tbody>
-      </table>
+      <DataTableComponent columns={windowWidth > 600 ? columns : columnsMobile} data={positions} />
     </Wrapper>
   );
 };
