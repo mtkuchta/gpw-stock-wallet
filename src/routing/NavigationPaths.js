@@ -9,11 +9,12 @@ export const NavigationPaths = {
     path: '/wallet',
     all: '/wallet/all',
     index: '/wallet/:index',
-    stock: '/wallet/stock/:ticker',
+    // stock: '/wallet/stock/:ticker',
+    stock: '/wallet/stock/',
   },
   HISTORY: {
     path: '/history',
-    details: '/history/details/:id',
+    details: '/history/details',
     filtered: '/history/:year/:reward',
   },
 };

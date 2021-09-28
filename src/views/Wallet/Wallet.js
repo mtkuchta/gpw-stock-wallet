@@ -19,7 +19,7 @@ const Wallet = () => {
         <TextInfo text="Your wallet is empty" />
       ) : (
         <WalletContainer>
-          <FilteringMenu route="wallet" items={indexes} />
+          <FilteringMenu query="index" items={indexes} />
           <WalletTable />
         </WalletContainer>
       )}

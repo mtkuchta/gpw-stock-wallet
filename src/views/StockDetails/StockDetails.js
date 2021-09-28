@@ -1,6 +1,6 @@
 import { Wrapper } from './StockDetails.style';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import StockSummary from '../../components/molecules/StockSummary/StockSummary';
 import PositionsTable from '../../components/molecules/PositionsTable/PositionsTable';
 import Modal from '../../components/organisms/Modal/Modal';
@@ -8,23 +8,26 @@ import { useDatabase } from '../../hooks/useDatabase';
 import useModal from '../../hooks/useModal';
 import SellStocksForm from '../../components/organisms/SellStocksForm/SellStocksForm';
 import StockName from '../../components/atoms/StockName/StockName';
+import queryString from 'query-string';
 
 const StockDetails = () => {
-  const params = useParams();
   const [activeStock, setActiveStock] = useState(null);
   const [idToSell, setIdToSell] = useState(null);
   const { wallet } = useDatabase();
   const { isOpen, handleCloseModal, handleOpenModal } = useModal();
 
+  const { search } = useLocation();
+  const { ticker } = queryString.parse(search);
+
   useEffect(() => {
     const unsubscribe = () => {
       const stock = Object.values(wallet).filter((stock) => {
-        return stock.ticker === params.ticker;
+        return stock.ticker === ticker;
       });
       if (stock) setActiveStock(stock[0]);
     };
     return unsubscribe();
-  }, [params.ticker, wallet]);
+  }, [ticker, wallet]);
 
   const handleSellStocks = (e) => {
     setIdToSell(Number(e.target.id));

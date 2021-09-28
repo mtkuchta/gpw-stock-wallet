@@ -14,7 +14,7 @@ export const Wrapper = styled.nav`
   border: none;
   transition: 0.6s;
   transform: translateX(-100%);
-  z-index: 100;
+  z-index: 2;
 
   &.opened {
     transform: translateX(0);
@@ -26,6 +26,7 @@ export const Wrapper = styled.nav`
     align-items: flex-end;
     padding-right: 20px;
     margin-top: 50px;
+    z-index: 0;
   }
 `;
 

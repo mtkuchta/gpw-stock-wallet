@@ -15,11 +15,8 @@ const Routing = ({ currentYear }) => {
       <Route path={NavigationPaths.DASHBOARD.path}>
         <Dashboard />
       </Route>
-      <Route exact path={NavigationPaths.WALLET.index}>
-        <Wallet />
-      </Route>
       <Route exact path={NavigationPaths.WALLET.path}>
-        <Redirect to={NavigationPaths.WALLET.all} />
+        <Wallet />
       </Route>
       <Route exact path={NavigationPaths.WALLET.stock}>
         <StockDetails />
@@ -27,11 +24,8 @@ const Routing = ({ currentYear }) => {
       <Route path={NavigationPaths.HISTORY.details}>
         <ClosedPositionDetails />
       </Route>
-      <Route path={NavigationPaths.HISTORY.filtered}>
-        <History />
-      </Route>
       <Route exact path={NavigationPaths.HISTORY.path}>
-        <Redirect to={NavigationPaths.HISTORY.path + '/' + currentYear + '/all'} />
+        <History />
       </Route>
     </Switch>
   );

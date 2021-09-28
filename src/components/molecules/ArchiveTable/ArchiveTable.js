@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
+import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import { calculateAbsoluteReward } from '../../../assets/helpers/calculateAbsoluteReward';
 import { calculateReward } from '../../../assets/helpers/calculateReward';
 import { Wrapper } from '../Table/Table.style';
 import DataTableComponent from '../DataTableComponent/DataTableComponent';
 
-const ArchiveTable = ({ openModal, archive }) => {
+const ArchiveTable = ({ archive }) => {
   const [matchingItems, setMatchingItems] = useState([]);
-  const params = useParams();
   let history = useHistory();
+
+  const { search } = useLocation();
+  const { year, filter } = queryString.parse(search);
 
   const getMatchingArchiveItems = (archive, year, reward) => {
     const archiveFilteredByYear = archive.filter((item) => {
@@ -29,13 +32,13 @@ const ArchiveTable = ({ openModal, archive }) => {
   };
 
   const routePath = (row) => {
-    const newPath = `/history/details/${row.id}`;
+    const newPath = `/history/details?id=${row.id}`;
     history.push(newPath);
   };
 
   useEffect(() => {
-    setMatchingItems(getMatchingArchiveItems(archive, params.year, params.reward));
-  }, [params.reward, params.year, archive]);
+    setMatchingItems(getMatchingArchiveItems(archive, year, filter));
+  }, [filter, year, archive]);
 
   const columns = [
     {
@@ -102,7 +105,6 @@ const ArchiveTable = ({ openModal, archive }) => {
 };
 
 ArchiveTable.propTypes = {
-  openModal: PropTypes.func,
   archive: PropTypes.array,
 };
 

@@ -1,23 +1,25 @@
 import { Wrapper } from './WalletTable.style';
 import { useEffect, useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { createStockTableData } from '../../../assets/helpers/createStockTableData';
 import { getMatchingStocks } from '../../../assets/helpers/getMatchingStocks';
 import { useDatabase } from '../../../hooks/useDatabase';
 import DataTableComponent from '../DataTableComponent/DataTableComponent';
 import { useWindowWidth } from '../../../hooks/useWindowWidth';
+import queryString from 'query-string';
 
 const WalletTable = () => {
-  const params = useParams();
   const { wallet } = useDatabase();
   const [stocksTable, setStocksTable] = useState([]);
   const [matchingStocks, setMatchingStocks] = useState([]);
+  const { search } = useLocation();
+  const { index } = queryString.parse(search);
   let history = useHistory();
   const width = useWindowWidth();
 
   const routePath = (row, e) => {
     e.preventDefault();
-    const newPath = `/wallet/stock/${row.id}`;
+    const newPath = `/wallet/stock?ticker=${row.id}`;
     history.push(newPath);
   };
 
@@ -33,8 +35,8 @@ const WalletTable = () => {
   }, [wallet]);
 
   useEffect(() => {
-    setMatchingStocks(getMatchingStocks(stocksTable, params.index));
-  }, [params.index]);
+    setMatchingStocks(getMatchingStocks(stocksTable, index));
+  }, [index, stocksTable]);
 
   const columns = [
     { name: 'Ticker', selector: (row) => row.ticker, sortable: true, minWidth: '60px' },

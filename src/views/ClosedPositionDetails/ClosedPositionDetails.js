@@ -1,8 +1,9 @@
 import { Wrapper, StyledText, StyledReward, StyledValue } from './ClosedPositionDetails.style';
+import { useLocation } from 'react-router-dom';
+import queryString from 'query-string';
 import StockName from '../../components/atoms/StockName/StockName';
 import { calculateReward } from '../../assets/helpers/calculateReward';
 import { calculateAbsoluteReward } from '../../assets/helpers/calculateAbsoluteReward';
-import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDatabase } from '../../hooks/useDatabase';
 
@@ -10,19 +11,19 @@ const ClosedPositionDetails = () => {
   const [position, setPosition] = useState(null);
   const [reward, setReward] = useState(0);
   const [absoluteReward, setAbsoluteReward] = useState(0);
-
-  const params = useParams();
+  const { search } = useLocation();
+  const { id } = queryString.parse(search);
   const { archive } = useDatabase();
 
   useEffect(() => {
     function fetchPosition() {
       const positionIndex = archive.findIndex((item) => {
-        return item.id === Number(params.id);
+        return item.id === Number(id);
       });
       setPosition(archive[positionIndex]);
     }
     fetchPosition();
-  }, [params.id, archive]);
+  }, [id, archive]);
 
   useEffect(() => {
     if (!position) return;
