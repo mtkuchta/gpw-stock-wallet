@@ -31,7 +31,7 @@ const PositionsTable = ({ stock: { positions }, handleSellStocks }) => {
     },
     {
       name: 'Value',
-      selector: (row) => row.openPrice * row.volume,
+      selector: (row) => (row.openPrice * row.volume).toFixed(1),
       sortable: true,
     },
     {

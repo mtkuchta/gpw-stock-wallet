@@ -9,7 +9,7 @@ const StockSummary = ({ stock }) => {
     const totalValue = stock.positions.reduce((prev, value) => {
       return prev + value.openPrice * value.volume;
     }, 0);
-    return totalValue;
+    return totalValue.toFixed(1);
   };
 
   return (

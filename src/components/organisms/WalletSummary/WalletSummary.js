@@ -34,7 +34,7 @@ const WalletSummary = () => {
       ticker = e.target.parentNode.id;
     }
 
-    history.push(`/wallet/stock/${ticker}`);
+    history.push(`/wallet/stock?ticker=${ticker}`);
   };
 
   return (
