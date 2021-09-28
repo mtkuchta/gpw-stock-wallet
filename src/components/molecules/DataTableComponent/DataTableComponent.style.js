@@ -16,6 +16,14 @@ export const customStyles = {
         fontSize: theme.fontSize.s,
         minHeight: '45px',
         transition: '.4s ease-in-out',
+        '&.noHover:hover': {
+          backgroundColor: theme.colors.default.backgroundPrimary,
+          color: theme.colors.default.textPrimary,
+          fontWeight: 'normal',
+          '&:nth-child(odd)': {
+            backgroundColor: theme.colors.default.tableRow,
+          },
+        },
         '&:hover': {
           backgroundColor: theme.colors.default.backgroundSecondary,
           color: theme.colors.default.textSecondary,

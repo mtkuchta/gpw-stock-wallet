@@ -12,9 +12,17 @@ createTheme('myTheme', {
   },
 });
 
-const DataTableComponent = ({ data, onRowClick, columns }) => {
+const DataTableComponent = ({ data, onRowClick, columns, ...rest }) => {
   return (
-    <DataTable columns={columns} data={data} onRowClicked={onRowClick} theme="myTheme" customStyles={customStyles} pagination />
+    <DataTable
+      columns={columns}
+      data={data}
+      onRowClicked={onRowClick}
+      theme="myTheme"
+      customStyles={customStyles}
+      pagination
+      {...rest}
+    />
   );
 };
 

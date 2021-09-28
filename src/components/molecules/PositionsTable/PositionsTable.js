@@ -70,9 +70,20 @@ const PositionsTable = ({ stock: { positions }, handleSellStocks }) => {
     },
   ];
 
+  const conditionalRowStyles = [
+    {
+      when: (row) => row.volume > 0,
+      classNames: ['noHover'],
+    },
+  ];
+
   return (
     <Wrapper>
-      <DataTableComponent columns={windowWidth > 600 ? columns : columnsMobile} data={positions} />
+      <DataTableComponent
+        columns={windowWidth > 600 ? columns : columnsMobile}
+        data={positions}
+        conditionalRowStyles={conditionalRowStyles}
+      />
     </Wrapper>
   );
 };
