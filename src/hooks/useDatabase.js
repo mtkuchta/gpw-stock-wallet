@@ -112,6 +112,10 @@ export const DatabaseProvider = ({ children }) => {
     handleRemovePosition(ticker, positionToSell);
   };
 
+  const handleSellAllPositions = (ticker) => {
+    handleRemoveLastPosition(ticker);
+  };
+
   const handleAddOperationToHistory = (ticker, positionToSell, sellVolume, sellPrice, sellDate, commission) => {
     const position = wallet[ticker].positions[positionToSell];
     database
@@ -163,6 +167,7 @@ export const DatabaseProvider = ({ children }) => {
         handleAddOperationToHistory,
         handleAddPositionToHistory,
         handleEmptyWallet,
+        handleSellAllPositions,
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import { Wrapper } from './StockDetails.style';
+import { Wrapper, ButtonsContainer } from './StockDetails.style';
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import StockSummary from '../../components/molecules/StockSummary/StockSummary';
@@ -9,13 +9,14 @@ import useModal from '../../hooks/useModal';
 import SellStocksForm from '../../components/organisms/SellStocksForm/SellStocksForm';
 import StockName from '../../components/atoms/StockName/StockName';
 import queryString from 'query-string';
+import Button from '../../components/atoms/Button/Button';
+import SellAllPositionsForm from '../../components/organisms/SellAllPositionsForm/SellAllPositionsForm';
 
 const StockDetails = () => {
   const [activeStock, setActiveStock] = useState(null);
   const [idToSell, setIdToSell] = useState(null);
   const { wallet } = useDatabase();
   const { isOpen, handleCloseModal, handleOpenModal } = useModal();
-
   const { search } = useLocation();
   const { ticker } = queryString.parse(search);
 
@@ -34,6 +35,11 @@ const StockDetails = () => {
     handleOpenModal();
   };
 
+  const handleSellAll = () => {
+    setIdToSell('all');
+    handleOpenModal();
+  };
+
   return (
     <Wrapper>
       {activeStock && (
@@ -44,15 +50,21 @@ const StockDetails = () => {
           </StockName>
           <StockSummary stock={activeStock} />
           <PositionsTable stock={activeStock} handleSellStocks={handleSellStocks} />
+          <ButtonsContainer>
+            <Button title="Buy more" />
+            <Button title="Sell all" onClick={handleSellAll} />
+          </ButtonsContainer>
           <Modal isOpen={isOpen} handleClose={handleCloseModal}>
-            {idToSell ? (
+            {idToSell && idToSell !== 'all' ? (
               <SellStocksForm
                 idToSell={idToSell}
                 stock={activeStock}
                 handleCloseModal={handleCloseModal}
                 setIdToSell={setIdToSell}
               />
-            ) : null}
+            ) : (
+              <SellAllPositionsForm stock={activeStock} handleCloseModal={handleCloseModal} setIdToSell={setIdToSell} />
+            )}
           </Modal>
         </>
       )}

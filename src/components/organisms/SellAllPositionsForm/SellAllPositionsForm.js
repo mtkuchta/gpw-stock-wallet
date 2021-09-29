@@ -1,39 +1,43 @@
 import React, { useState } from 'react';
-import { StyledForm, StyledHeader, ButtonContainer } from './../Form/Form.style';
+import { StyledForm, StyledHeader, ButtonContainer } from '../Form/Form.style';
 import FormInput from '../../molecules/FormInput/FormInput';
 import Button from '../../atoms/Button/Button';
 import { useForm } from 'react-hook-form';
 import FormError from '../../atoms/FormError/FormError';
 import DateInput from '../../atoms/DateInput/DateInput';
 import { useDatabase } from '../../../hooks/useDatabase';
+import { calculateTotalVolume } from '../../../assets/helpers/calculateTotalVolume';
 import { validateCloseDate } from '../../../assets/helpers/validateCloseDate';
 import PropTypes from 'prop-types';
 
-const SellStocksForm = ({ idToSell, stock: { ticker, positions }, handleCloseModal, setIdToSell }) => {
+const SellAllPositionsForm = ({ stock, handleCloseModal, setIdToSell }) => {
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
   const [closeDateError, setCloseDateError] = useState(false);
-  const { handleSellStocks, handleAddOperationToHistory } = useDatabase();
-  const positionToSell = positions.findIndex((position) => position.id === idToSell);
+  const { handleAddOperationToHistory, handleSellAllPositions } = useDatabase();
   const volumeRef = React.createRef();
   const sellPriceRef = React.createRef();
   const commissionRef = React.createRef();
 
+  const validatePositionDates = (positions, data) => {
+    let isDateValid = true;
+    positions.forEach((position) => {
+      if (!validateCloseDate(position.openDate, data.date, setCloseDateError)) isDateValid = false;
+    });
+    return isDateValid;
+  };
+
   const onSubmit = (data) => {
     setCloseDateError(false);
-    if (!validateCloseDate(positions[positionToSell].openDate, data.date, setCloseDateError)) return;
-    handleSellStocks(ticker, Number(data.volume), positionToSell);
-    handleAddOperationToHistory(
-      ticker,
-      positionToSell,
-      Number(data.volume),
-      Number(data.sellPrice),
-      data.date,
-      Number(data.commission)
-    );
+    if (!validatePositionDates(stock.positions, data)) return;
+    const ticker = stock.ticker;
+    stock.positions.forEach((position, index) => {
+      handleAddOperationToHistory(ticker, index, position.volume, Number(data.sellPrice), data.date, Number(data.commission));
+    });
+    handleSellAllPositions(ticker);
     setIdToSell(null);
     handleCloseModal();
   };
@@ -46,9 +50,10 @@ const SellStocksForm = ({ idToSell, stock: { ticker, positions }, handleCloseMod
         id="volume"
         placeholder="Volume"
         ref={volumeRef}
-        defaultValue={positions[positionToSell] ? positions[positionToSell].volume : 0}
-        {...register('volume', { min: 1, max: `${positions[positionToSell] ? positions[positionToSell].volume : 'none'}` })}
+        defaultValue={calculateTotalVolume(stock)}
+        {...register('volume')}
         required
+        disabled
       />
       {errors.volume ? <FormError text="Volume cannot be greater than position size!" /> : null}
       <DateInput title="Sell date" {...register('date')} />
@@ -78,18 +83,21 @@ const SellStocksForm = ({ idToSell, stock: { ticker, positions }, handleCloseMod
   );
 };
 
-SellStocksForm.propTypes = {
-  idToSell: PropTypes.number,
-  ticker: PropTypes.string,
-  positions: PropTypes.arrayOf(
-    PropTypes.shape({
-      commission: PropTypes.number,
-      id: PropTypes.number,
-      openDate: PropTypes.string,
-      openPrice: PropTypes.number,
-      volume: PropTypes.number,
-    })
-  ),
+SellAllPositionsForm.propTypes = {
+  stock: PropTypes.shape({
+    ticker: PropTypes.string,
+    positions: PropTypes.arrayOf(
+      PropTypes.shape({
+        commission: PropTypes.number,
+        id: PropTypes.number,
+        openDate: PropTypes.string,
+        openPrice: PropTypes.number,
+        volume: PropTypes.number,
+      })
+    ),
+  }),
+  handleCloseModal: PropTypes.func,
+  setIdToSell: PropTypes.func,
 };
 
-export default SellStocksForm;
+export default SellAllPositionsForm;

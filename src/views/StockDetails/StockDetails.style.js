@@ -38,3 +38,10 @@ export const StyledHeader = styled.header`
     }
   }
 `;
+
+export const ButtonsContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+`;
