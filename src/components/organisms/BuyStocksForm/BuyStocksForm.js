@@ -9,7 +9,7 @@ import { useDatabase } from '../../../hooks/useDatabase';
 import PropTypes from 'prop-types';
 import { isMarginSufficient } from '../../../assets/helpers/isMarginSufficient';
 
-const BuyStocksForm = ({ handleCloseModal }) => {
+const BuyStocksForm = ({ handleCloseModal, ticker, companyName, stockIndex }) => {
   const { register, handleSubmit } = useForm();
   const [tickerError, setTickerError] = useState(null);
   const [marginError, setMarginError] = useState(null);
@@ -46,13 +46,22 @@ const BuyStocksForm = ({ handleCloseModal }) => {
         placeholder="Company name"
         ref={companyNameRef}
         required
+        defaultValue={companyName ? companyName : ''}
         {...register('companyName')}
       />
-      <FormInput type="text" id="ticker" placeholder="Ticker" ref={tickerRef} {...register('ticker')} required />
+      <FormInput
+        type="text"
+        id="ticker"
+        placeholder="Ticker"
+        ref={tickerRef}
+        {...register('ticker')}
+        required
+        defaultValue={ticker ? ticker : ''}
+      />
       {tickerError && <FormError text={tickerError} />}
       <InputContainer>
         <p>Select index:</p>
-        <StyledSelect {...register('index')}>
+        <StyledSelect {...register('index')} defaultValue={stockIndex}>
           <option value="none">none</option>
           <option value="WIG20">WIG20</option>
           <option value="mWIG40">mWIG40</option>
@@ -89,6 +98,9 @@ const BuyStocksForm = ({ handleCloseModal }) => {
 
 BuyStocksForm.propTypes = {
   handleCloseModal: PropTypes.func,
+  ticker: PropTypes.string,
+  companyName: PropTypes.string,
+  stockIndex: PropTypes.string,
 };
 
 export default BuyStocksForm;

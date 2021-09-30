@@ -11,10 +11,12 @@ import StockName from '../../components/atoms/StockName/StockName';
 import queryString from 'query-string';
 import Button from '../../components/atoms/Button/Button';
 import SellAllPositionsForm from '../../components/organisms/SellAllPositionsForm/SellAllPositionsForm';
+import BuyStocksForm from '../../components/organisms/BuyStocksForm/BuyStocksForm';
 
 const StockDetails = () => {
   const [activeStock, setActiveStock] = useState(null);
   const [idToSell, setIdToSell] = useState(null);
+  const [buyForm, setBuyForm] = useState(false);
   const { wallet } = useDatabase();
   const { isOpen, handleCloseModal, handleOpenModal } = useModal();
   const { search } = useLocation();
@@ -40,6 +42,12 @@ const StockDetails = () => {
     handleOpenModal();
   };
 
+  const handleBuyMore = () => {
+    setBuyForm(true);
+    setIdToSell(null);
+    handleOpenModal();
+  };
+
   return (
     <Wrapper>
       {activeStock && (
@@ -51,7 +59,7 @@ const StockDetails = () => {
           <StockSummary stock={activeStock} />
           <PositionsTable stock={activeStock} handleSellStocks={handleSellStocks} />
           <ButtonsContainer>
-            <Button title="Buy more" />
+            <Button title="Buy more" onClick={handleBuyMore} />
             <Button title="Sell all" onClick={handleSellAll} />
           </ButtonsContainer>
           <Modal isOpen={isOpen} handleClose={handleCloseModal}>
@@ -62,8 +70,17 @@ const StockDetails = () => {
                 handleCloseModal={handleCloseModal}
                 setIdToSell={setIdToSell}
               />
-            ) : (
+            ) : null}
+            {idToSell === 'all' && (
               <SellAllPositionsForm stock={activeStock} handleCloseModal={handleCloseModal} setIdToSell={setIdToSell} />
+            )}
+            {buyForm && (
+              <BuyStocksForm
+                companyName={activeStock.companyName}
+                ticker={activeStock.ticker}
+                stockIndex={activeStock.index}
+                handleCloseModal={handleCloseModal}
+              />
             )}
           </Modal>
         </>
