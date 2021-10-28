@@ -17,4 +17,7 @@ export const NavigationPaths = {
     details: '/history/details',
     filtered: '/history/:year/:reward',
   },
+  DIVIDENDS: {
+    path: '/dividends',
+  },
 };

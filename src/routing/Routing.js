@@ -18,6 +18,9 @@ const Routing = ({ currentYear }) => {
       <Route exact path={NavigationPaths.WALLET.path}>
         <Wallet />
       </Route>
+      <Route exact path={NavigationPaths.DIVIDENDS.path}>
+        dividends
+      </Route>
       <Route exact path={NavigationPaths.WALLET.stock}>
         <StockDetails />
       </Route>

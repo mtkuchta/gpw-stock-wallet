@@ -1,7 +1,7 @@
 import { Wrapper, StyledLink } from './Menu.style';
 import PropTypes from 'prop-types';
 
-const routes = ['dashboard', 'wallet', 'history', 'taxes'];
+const routes = ['dashboard', 'wallet', 'dividends', 'history', 'taxes'];
 
 const Menu = ({ isOpen, handleIsOpen }) => {
   return (
