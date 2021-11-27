@@ -17,6 +17,7 @@ export const DatabaseProvider = ({ children }) => {
   const [deposit, setDeposit] = useState({ currency: 'PLN', operations: [] });
   const [wallet, setWallet] = useState({});
   const [archive, setArchive] = useState([]);
+  const [dividends, setDividends] = useState({});
   const [currentYear, setCurrentYear] = useState(null);
   const [freeMargin, setFreeMargin] = useState(0);
   const history = useHistory();
@@ -58,6 +59,7 @@ export const DatabaseProvider = ({ children }) => {
     if (snapshot.val().deposit) setDeposit(snapshot.val().deposit);
     if (snapshot.val().wallet) setWallet(snapshot.val().wallet);
     if (snapshot.val().archive) setArchive(snapshot.val().archive);
+    if (snapshot.val().dividends) setDividends(snapshot.val().dividends);
   };
 
   const calculateFreeMargin = () => {
@@ -72,8 +74,17 @@ export const DatabaseProvider = ({ children }) => {
 
     const walletValue = calculateTotalStocksValue(wallet);
     const totalWalletCommission = calculateTotalWalletCommission(wallet);
-    const freeMargin = sumOfPayments + archiveReward - walletValue - totalWalletCommission;
+    const sumOfDividends = calculateSumOfDividends(dividends);
+    const freeMargin = sumOfPayments + archiveReward + sumOfDividends - walletValue - totalWalletCommission;
     return freeMargin.toFixed(1);
+  };
+
+  const calculateSumOfDividends = (dividends) => {
+    let sumOfDividends = 0;
+    for (const [__, value] of Object.entries(dividends)) {
+      sumOfDividends += value.netAmount;
+    }
+    return sumOfDividends;
   };
 
   const handleDepositOperations = (operation, value) => {
@@ -149,6 +160,11 @@ export const DatabaseProvider = ({ children }) => {
     database.ref(`${user.uid}/wallet/${ticker}/`).update({ positions: updatedPositions });
   };
 
+  const handleAddDividend = (data) => {
+    console.log(data);
+    database.ref(`${user.uid}/dividends/`).update({ [data.id]: data.dividend });
+  };
+
   const handleEmptyWallet = () => {
     setWallet({});
   };
@@ -168,6 +184,7 @@ export const DatabaseProvider = ({ children }) => {
         handleAddPositionToHistory,
         handleEmptyWallet,
         handleSellAllPositions,
+        handleAddDividend,
       }}
     >
       {children}

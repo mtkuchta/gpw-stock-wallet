@@ -3,16 +3,26 @@ import FormInput from '../../molecules/FormInput/FormInput';
 import Button from '../../atoms/Button/Button';
 import DateInput from '../../atoms/DateInput/DateInput';
 import { useForm } from 'react-hook-form';
+import { useDatabase } from '../../../hooks/useDatabase';
 
-const AddDividentForm = () => {
+const AddDividentForm = ({ handleCloseModal }) => {
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
+  const { handleAddDividend } = useDatabase();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = ({ dividendCompany, dividendDate, dividendAmount, dividendTax }) => {
+    const timeStamp = Date.now();
+    const dividend = {
+      companyName: dividendCompany,
+      date: dividendDate,
+      netAmount: Number(dividendAmount),
+      tax: Number(dividendTax),
+    };
+    handleAddDividend({ id: timeStamp, dividend });
+    handleCloseModal();
   };
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)}>

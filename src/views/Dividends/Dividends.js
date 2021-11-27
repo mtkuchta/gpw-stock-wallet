@@ -14,7 +14,7 @@ const Dividends = () => {
         <Button title="Add dividend" onClick={handleOpenModal} />
       </ButtonContainer>
       <Modal isOpen={isOpen} handleClose={handleCloseModal}>
-        <AddDividentForm />
+        <AddDividentForm handleCloseModal={handleCloseModal} />
       </Modal>
     </Wrapper>
   );
