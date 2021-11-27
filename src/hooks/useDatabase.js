@@ -177,6 +177,7 @@ export const DatabaseProvider = ({ children }) => {
         archive,
         freeMargin,
         currentYear,
+        dividends,
         handleDepositOperations,
         handleAddStocksToWallet,
         handleSellStocks,

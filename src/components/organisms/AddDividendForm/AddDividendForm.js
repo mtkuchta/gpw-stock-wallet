@@ -4,6 +4,7 @@ import Button from '../../atoms/Button/Button';
 import DateInput from '../../atoms/DateInput/DateInput';
 import { useForm } from 'react-hook-form';
 import { useDatabase } from '../../../hooks/useDatabase';
+import PropTypes from 'prop-types';
 
 const AddDividentForm = ({ handleCloseModal }) => {
   const {
@@ -36,6 +37,10 @@ const AddDividentForm = ({ handleCloseModal }) => {
       </ButtonContainer>
     </StyledForm>
   );
+};
+
+AddDividentForm.propTypes = {
+  handleCloseModal: PropTypes.func,
 };
 
 export default AddDividentForm;

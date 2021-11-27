@@ -3,13 +3,14 @@ import { Wrapper, ButtonContainer } from './Dividends.style';
 import Modal from '../../components/organisms/Modal/Modal';
 import useModal from '../../hooks/useModal';
 import AddDividentForm from '../../components/organisms/AddDividendForm/AddDividendForm';
+import DividendsTable from '../../components/molecules/DividendsTable/DividendsTable';
 
 const Dividends = () => {
   const { isOpen, handleCloseModal, handleOpenModal } = useModal();
 
   return (
     <Wrapper>
-      Dividends
+      <DividendsTable />
       <ButtonContainer>
         <Button title="Add dividend" onClick={handleOpenModal} />
       </ButtonContainer>

@@ -1,0 +1,37 @@
+import { Wrapper } from './DividendsTable.style';
+import { useDatabase } from '../../../hooks/useDatabase';
+import DataTableComponent from '../DataTableComponent/DataTableComponent';
+import { useEffect, useState } from 'react/cjs/react.development';
+
+const DividendsTable = () => {
+  const { dividends } = useDatabase();
+  const [data, setData] = useState([]);
+
+  const createDividendsTable = (dividends) => {
+    const dividendsTable = [];
+    if (dividends)
+      for (const [key, value] of Object.entries(dividends)) {
+        dividendsTable.push(value);
+      }
+
+    return dividendsTable;
+  };
+
+  useEffect(() => {
+    setData(createDividendsTable(dividends));
+  }, [dividends]);
+
+  const columns = [
+    { name: 'Company Name', selector: (row) => row.companyName, sortable: true, minWidth: '60px' },
+    { name: 'Date', selector: (row) => row.date, sortable: true, minWidth: '60px' },
+    { name: 'Net amount', selector: (row) => row.netAmount, sortable: true, minWidth: '80px' },
+    { name: 'Tax.', selector: (row) => row.tax, sortable: true, minWidth: '50px' },
+  ];
+  return (
+    <Wrapper>
+      <DataTableComponent data={data} columns={columns} />
+    </Wrapper>
+  );
+};
+
+export default DividendsTable;
