@@ -4,6 +4,7 @@ import Wallet from '../views/Wallet/Wallet';
 import StockDetails from '../views/StockDetails/StockDetails';
 import ClosedPositionDetails from '../views/ClosedPositionDetails/ClosedPositionDetails';
 import History from '../views/History/History';
+import Dividends from '../views/Dividends/Dividends';
 import { NavigationPaths } from './NavigationPaths';
 
 const Routing = ({ currentYear }) => {
@@ -19,7 +20,7 @@ const Routing = ({ currentYear }) => {
         <Wallet />
       </Route>
       <Route exact path={NavigationPaths.DIVIDENDS.path}>
-        dividends
+        <Dividends />
       </Route>
       <Route exact path={NavigationPaths.WALLET.stock}>
         <StockDetails />
