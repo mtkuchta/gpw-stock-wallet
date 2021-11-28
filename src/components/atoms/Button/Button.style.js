@@ -1,37 +1,55 @@
 import styled from 'styled-components';
 
 export const StyledButton = styled.button`
-  /* width: ${({ small }) => (small ? '60px' : '125px')}; */
   min-width: 60px;
   height: ${({ small }) => (small ? '20px' : '28px')};
   margin: 0 5px;
   font-size: ${({ theme: { fontSize }, small }) => (small ? fontSize.xs : fontSize.s)};
   font-weight: bold;
-  color: ${({ theme: { colors } }) => colors.default.buttonText};
+  color: ${({ theme: { colors } }) => colors.default.button};
   border-radius: 6px;
-  border: none;
-  background-color: ${({ theme: { colors } }) => colors.default.button};
+  background-color: transparent;
+  border: 2px solid ${({ theme: { colors } }) => colors.default.button};
   box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
   letter-spacing: 1px;
   padding: 0 10px;
+  overflow: hidden;
+  z-index: 1;
 
   &:disabled {
     box-shadow: none;
   }
 
   @media (min-width: 1200px) {
+    position: relative;
     height: ${({ small }) => (small ? '26px' : '36px')};
     margin: 0 20px;
-    border-radius: 8px;
     font-size: ${({ theme: { fontSize }, small }) => (small ? fontSize.s : fontSize.m)};
     padding: 0 20px;
-  }
-
-  @media (min-width: 1200px) {
-    transition: 0.6s;
+    transition: color 0.4s cubic-bezier(0.61, 0.07, 0.23, 0.89);
     cursor: pointer;
+
+    &::after {
+      position: absolute;
+      content: '';
+      width: 300px;
+      height: 300px;
+      background-color: ${({ theme: { colors } }) => colors.default.button};
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      border-radius: 300px;
+      transform-origin: 50%;
+      transition: transform 0.4s cubic-bezier(0.61, 0.07, 0.23, 0.89);
+      z-index: -1;
+    }
+
+    &:hover::after {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
     &:hover {
-      background-color: ${({ theme: { colors } }) => colors.default.buttonHover};
+      color: ${({ theme: { colors } }) => colors.default.buttonText};
     }
 
     &:disabled:hover {
