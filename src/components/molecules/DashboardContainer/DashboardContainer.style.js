@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
   border: 2px solid ${({ theme: { colors } }) => colors.default.borderColor};
   border-radius: 10px;
   margin: 10px 0;
+  opacity: 0;
 `;
 
 export const ContentContainer = styled.div`

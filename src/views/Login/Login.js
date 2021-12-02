@@ -6,6 +6,7 @@ import SignUpForm from '../../components/organisms/SignUpForm/SignUpForm';
 
 const Login = () => {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
+
   return (
     <Wrapper>
       <Logo>GPW Stock Wallet</Logo>

@@ -10,6 +10,7 @@ export const ModalWrapper = styled(ReactModal)`
   transform: translate(-50%, -50%);
   background-color: ${({ theme: { colors } }) => colors.default.backgroundPrimary};
   border-radius: 15px;
+  z-index: 1000;
 
   &:focus {
     outline: none;

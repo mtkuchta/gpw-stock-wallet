@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { useState } from 'react';
 import DashboardContainer from '../../molecules/DashboardContainer/DashboardContainer';
 import { StyledText, ButtonsContainer } from './../../molecules/DashboardContainer/DashboardContainer.style';
@@ -8,7 +9,7 @@ import AccountForm from '../../molecules/AccountForm/AccountForm';
 import { useDatabase } from '../../../hooks/useDatabase';
 import { calculateSumOfPayments } from '../../../assets/helpers/calculateSumOfPayments';
 
-const AccountSummary = () => {
+const AccountSummary = React.forwardRef((props, ref) => {
   const { deposit, freeMargin } = useDatabase();
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
   const [operation, setOperation] = useState();
@@ -19,7 +20,7 @@ const AccountSummary = () => {
   };
 
   return (
-    <DashboardContainer title="account">
+    <DashboardContainer title="account" ref={ref}>
       <StyledText>
         Sum of payments: <span>{calculateSumOfPayments(deposit.operations)} </span>PLN
       </StyledText>
@@ -35,6 +36,6 @@ const AccountSummary = () => {
       </Modal>
     </DashboardContainer>
   );
-};
+});
 
 export default AccountSummary;

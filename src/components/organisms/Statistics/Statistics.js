@@ -1,10 +1,11 @@
+import React from 'react';
 import DashboardContainer from '../../molecules/DashboardContainer/DashboardContainer';
 import { StyledText } from './../../molecules/DashboardContainer/DashboardContainer.style';
 import { calculateTotalStocksValue } from '../../../assets/helpers/calculateTotalStocksValue';
 import { useDatabase } from '../../../hooks/useDatabase';
 import { calculateReward } from '../../../assets/helpers/calculateReward';
 
-const Statistics = () => {
+const Statistics = React.forwardRef((props, ref) => {
   const { wallet, archive, currentYear } = useDatabase();
 
   const currentYearOperations = archive.filter((item) => {
@@ -41,7 +42,7 @@ const Statistics = () => {
   }
 
   return (
-    <DashboardContainer title="current year statistics">
+    <DashboardContainer title="current year statistics" ref={ref}>
       <StyledText>
         Total wallet value: <span>{calculateTotalStocksValue(wallet)} </span>PLN
       </StyledText>
@@ -56,6 +57,6 @@ const Statistics = () => {
       </StyledText>
     </DashboardContainer>
   );
-};
+});
 
 export default Statistics;

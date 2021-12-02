@@ -1,3 +1,4 @@
+import React from 'react';
 import { StocksList, ButtonsContainer } from './WalletSummary.style';
 import DashboardContainer from '../../molecules/DashboardContainer/DashboardContainer';
 import TextInfo from '../../atoms/TextInfo.js/TextInfo';
@@ -11,7 +12,7 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import useModal from '../../../hooks/useModal';
 
-const WalletSummary = () => {
+const WalletSummary = React.forwardRef((props, ref) => {
   const { wallet } = useDatabase();
   const [stocks, setStocks] = useState([]);
   const [sortedStocks, setSortedStocks] = useState([]);
@@ -38,7 +39,7 @@ const WalletSummary = () => {
   };
 
   return (
-    <DashboardContainer title="stocks">
+    <DashboardContainer title="stocks" ref={ref}>
       {stocks.length === 0 && <TextInfo text="Your wallet is empty" />}
       <StocksList>
         {sortedStocks.map((stock, index) => {
@@ -53,6 +54,6 @@ const WalletSummary = () => {
       </Modal>
     </DashboardContainer>
   );
-};
+});
 
 export default WalletSummary;

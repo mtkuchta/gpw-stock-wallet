@@ -56,7 +56,7 @@ const History = () => {
       <FilteringMenu query="filter" items={reward} />
       <ArchiveTable openModal={openModal} archive={archive} />
       <ButtonsContainer>
-        <Button title="add position to history" onClick={handleClick} small id="add" />
+        <Button title="Add position to history" onClick={handleClick} id="add" />
       </ButtonsContainer>
       <Modal isOpen={isOpen} handleClose={handleCloseModal}>
         <AddToHistoryForm closeModal={handleCloseModal} />
