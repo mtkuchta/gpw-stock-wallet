@@ -6,13 +6,13 @@ export const StyledButton = styled.button`
   height: ${({ small }) => (small ? '20px' : '26px')};
   margin: 0 5px;
   font-size: ${({ theme: { fontSize }, small }) => (small ? fontSize.xs : fontSize.s)};
-  font-weight: bold;
+  /* font-weight: bold; */
   color: ${({ theme: { colors } }) => colors.default.button};
   border-radius: 6px;
   background-color: transparent;
   border: 2px solid ${({ theme: { colors } }) => colors.default.button};
   box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
-  letter-spacing: 1px;
+  /* letter-spacing: 1px; */
   padding: 0 8px;
   overflow: hidden;
   z-index: 0;
