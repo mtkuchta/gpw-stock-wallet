@@ -17,6 +17,8 @@ export const Logo = styled.h1`
   border-radius: 15px;
   margin: 20px 0;
   text-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
+  transform: scale(0);
+  opacity: 0;
 
   @media (min-width: 1200px) {
     font-size: ${({ theme: { fontSize } }) => fontSize.xxl};

@@ -1,5 +1,16 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import ReactModal from 'react-modal';
+
+const ModalAnimation = keyframes` 
+from{
+  opacity:0;
+ transform:translate(-50%, -50%) scale(0);
+}
+to{
+  opacity:1;
+  transform: translate(-50%, -50%) scale(1);
+}
+}`;
 
 export const ModalWrapper = styled(ReactModal)`
   position: absolute;
@@ -11,6 +22,7 @@ export const ModalWrapper = styled(ReactModal)`
   background-color: ${({ theme: { colors } }) => colors.default.backgroundPrimary};
   border-radius: 15px;
   z-index: 1000;
+  animation: ${ModalAnimation} 0.5s;
 
   &:focus {
     outline: none;

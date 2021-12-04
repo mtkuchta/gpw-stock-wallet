@@ -1,3 +1,4 @@
+import React from 'react';
 import { useAuth } from '../../../hooks/useAuth';
 import { StyledForm, StyledInput, ButtonContainer, StyledHeader } from './LoginForm.style';
 import { useForm } from 'react-hook-form';
@@ -5,7 +6,7 @@ import Button from '../../atoms/Button/Button';
 import FormError from '../../atoms/FormError/FormError';
 import PropTypes from 'prop-types';
 
-const LoginForm = ({ openModal }) => {
+const LoginForm = React.forwardRef(({ openModal }, ref) => {
   const { signIn, authError } = useAuth();
 
   const { register, handleSubmit } = useForm();
@@ -15,7 +16,7 @@ const LoginForm = ({ openModal }) => {
   };
 
   return (
-    <StyledForm onSubmit={handleSubmit(onSubmit)}>
+    <StyledForm onSubmit={handleSubmit(onSubmit)} ref={ref}>
       <StyledHeader>Login</StyledHeader>
       <StyledInput type="email" placeholder="e-mail" id="email" {...register('email', { required: true })} />
       <StyledInput type="password" placeholder="password" id="password" {...register('password', { required: true })} />
@@ -29,7 +30,7 @@ const LoginForm = ({ openModal }) => {
       </ButtonContainer>
     </StyledForm>
   );
-};
+});
 
 LoginForm.propTypes = {
   openModal: PropTypes.func,

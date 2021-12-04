@@ -6,6 +6,8 @@ export const StyledForm = styled.form`
   flex-direction: column;
   align-items: center;
   padding: 40px 0;
+  transform: scale(0);
+  opacity: 0;
 
   div {
     font-size: ${({ theme: { fontSize } }) => fontSize.s};
@@ -45,7 +47,7 @@ export const StyledInput = styled.input`
   font-size: ${({ theme: { fontSize } }) => fontSize.m};
   background-color: ${({ theme: { colors } }) => colors.default.inputBackground};
   border: none;
-  border-radius: 20px;
+  border-radius: 8px;
   padding: 8px 15px;
   color: ${({ theme: { colors } }) => colors.default.textPrimary};
   letter-spacing: 1px;
