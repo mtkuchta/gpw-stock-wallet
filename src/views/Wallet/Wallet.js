@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
 import { Wrapper, ButtonsContainer, WalletContainer } from './Wallet.style';
 import WalletTable from '../../components/molecules/WalletTable/WalletTable';
 import FilteringMenu from '../../components/molecules/FilteringMenu/FilteringMenu';
@@ -12,6 +14,19 @@ import { indexes } from '../../assets/menus';
 const Wallet = () => {
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
   const { wallet } = useDatabase();
+  const tl = useRef(null);
+  const filteringMenuRef = useRef(null);
+  const walletTableRef = useRef(null);
+
+  useEffect(() => {
+    tl.current = gsap.timeline();
+
+    if (tl.current) {
+      tl.current
+        .to(walletTableRef.current, { opacity: 1, duration: 1 })
+        .to(filteringMenuRef.current, { opacity: 1, duration: 1 }, '+=0.4');
+    }
+  }, []);
 
   return (
     <Wrapper>
@@ -19,8 +34,8 @@ const Wallet = () => {
         <TextInfo text="Your wallet is empty" />
       ) : (
         <WalletContainer>
-          <FilteringMenu query="index" items={indexes} />
-          <WalletTable />
+          <FilteringMenu query="index" items={indexes} ref={filteringMenuRef} />
+          <WalletTable ref={walletTableRef} />
         </WalletContainer>
       )}
       <ButtonsContainer>

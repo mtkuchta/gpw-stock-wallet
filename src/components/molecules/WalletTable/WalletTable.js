@@ -1,3 +1,4 @@
+import React from 'react';
 import { Wrapper } from './WalletTable.style';
 import { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -8,7 +9,7 @@ import DataTableComponent from '../DataTableComponent/DataTableComponent';
 import { useWindowWidth } from '../../../hooks/useWindowWidth';
 import queryString from 'query-string';
 
-const WalletTable = () => {
+const WalletTable = React.forwardRef((props, ref) => {
   const { wallet } = useDatabase();
   const [stocksTable, setStocksTable] = useState([]);
   const [matchingStocks, setMatchingStocks] = useState([]);
@@ -55,10 +56,9 @@ const WalletTable = () => {
   ];
 
   return (
-    <Wrapper>
+    <Wrapper ref={ref}>
       <DataTableComponent data={matchingStocks} onRowClick={routePath} columns={width >= 600 ? columns : columnsMobile} />
     </Wrapper>
   );
-};
-
+});
 export default WalletTable;

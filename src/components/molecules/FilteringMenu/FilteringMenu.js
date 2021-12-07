@@ -1,20 +1,20 @@
+import React from 'react';
 import { NavWrapper, StyledLink } from './FilteringMenu.style';
 import PropTypes from 'prop-types';
 
-const FilteringMenu = ({ query, items }) => {
+const FilteringMenu = React.forwardRef(({ query, items }, ref) => {
   return (
-    <NavWrapper>
+    <NavWrapper ref={ref}>
       {items.map((item) => {
         return (
           <StyledLink key={item} to={`?${query}=${item}`}>
-            {/* <StyledLink key={item} to={`/${route}/${item}`}></StyledLink> */}
             {item}
           </StyledLink>
         );
       })}
     </NavWrapper>
   );
-};
+});
 
 FilteringMenu.propTypes = {
   route: PropTypes.string,

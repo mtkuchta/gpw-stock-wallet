@@ -6,6 +6,7 @@ export const NavWrapper = styled.nav`
   margin: 12px 0;
   padding: 0 10px;
   display: flex;
+  opacity: 0;
 
   @media (min-width: 1200px) {
     margin: 20px 0;
