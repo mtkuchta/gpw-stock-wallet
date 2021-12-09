@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import gsap from 'gsap';
 import { useLocation } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { useDatabase } from '../../hooks/useDatabase';
@@ -19,13 +20,26 @@ const History = () => {
   const { archive, currentYear } = useDatabase();
   const [year, setYear] = useState(currentYear);
   const { isOpen, handleOpenModal, handleCloseModal } = useModal();
-
   const { search } = useLocation();
   const { filter } = queryString.parse(search);
+  const tl = useRef(null);
+  const yearSelectorRef = useRef(null);
+  const filteringMenuRef = useRef(null);
+  const archiveTableRef = useRef(null);
 
   useEffect(() => {
     if (year) history.push(`/history?year=${year}&filter=${filter || 'all'}`);
   }, [year, filter]);
+
+  useEffect(() => {
+    tl.current = gsap.timeline();
+
+    if (tl.current) {
+      tl.current
+        .to(archiveTableRef.current, { opacity: 1, duration: 1 })
+        .to([filteringMenuRef.current, yearSelectorRef.current], { opacity: 1, duration: 1 }, '+=0.4');
+    }
+  }, []);
 
   const handleChangeYear = (e) => {
     if (e.target.id === 'next') {
@@ -52,9 +66,9 @@ const History = () => {
 
   return (
     <Wrapper>
-      <YearSelector year={year} handleChangeYear={handleChangeYear} currentYear={currentYear} />
-      <FilteringMenu query="filter" items={reward} />
-      <ArchiveTable openModal={openModal} archive={archive} />
+      <YearSelector year={year} handleChangeYear={handleChangeYear} currentYear={currentYear} ref={yearSelectorRef} />
+      <FilteringMenu query="filter" items={reward} ref={filteringMenuRef} />
+      <ArchiveTable openModal={openModal} archive={archive} ref={archiveTableRef} />
       <ButtonsContainer>
         <Button title="Add position to history" onClick={handleClick} id="add" />
       </ButtonsContainer>

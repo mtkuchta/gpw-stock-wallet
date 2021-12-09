@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
@@ -7,7 +7,7 @@ import { calculateReward } from '../../../assets/helpers/calculateReward';
 import { Wrapper } from '../Table/Table.style';
 import DataTableComponent from '../DataTableComponent/DataTableComponent';
 
-const ArchiveTable = ({ archive }) => {
+const ArchiveTable = React.forwardRef(({ archive }, ref) => {
   const [matchingItems, setMatchingItems] = useState([]);
   let history = useHistory();
 
@@ -100,9 +100,11 @@ const ArchiveTable = ({ archive }) => {
   ];
 
   return (
-    <Wrapper>{matchingItems && <DataTableComponent columns={columns} data={matchingItems} onRowClick={routePath} />}</Wrapper>
+    <Wrapper ref={ref}>
+      {matchingItems && <DataTableComponent columns={columns} data={matchingItems} onRowClick={routePath} />}
+    </Wrapper>
   );
-};
+});
 
 ArchiveTable.propTypes = {
   archive: PropTypes.array,

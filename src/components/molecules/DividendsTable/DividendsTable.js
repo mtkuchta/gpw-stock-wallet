@@ -1,9 +1,10 @@
+import React from 'react';
 import { Wrapper } from './DividendsTable.style';
 import { useDatabase } from '../../../hooks/useDatabase';
 import DataTableComponent from '../DataTableComponent/DataTableComponent';
 import { useEffect, useState } from 'react/cjs/react.development';
 
-const DividendsTable = () => {
+const DividendsTable = React.forwardRef((prop, ref) => {
   const { dividends } = useDatabase();
   const [data, setData] = useState([]);
 
@@ -28,10 +29,9 @@ const DividendsTable = () => {
     { name: 'Tax.', selector: (row) => row.tax, sortable: true, minWidth: '50px' },
   ];
   return (
-    <Wrapper>
+    <Wrapper ref={ref}>
       <DataTableComponent data={data} columns={columns} />
     </Wrapper>
   );
-};
-
+});
 export default DividendsTable;

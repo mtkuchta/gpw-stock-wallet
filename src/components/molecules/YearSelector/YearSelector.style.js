@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   padding: 15px 0;
+  opacity: 0;
 
   span {
     color: ${({ theme: { colors } }) => colors.default.textPrimary};

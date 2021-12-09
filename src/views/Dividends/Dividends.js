@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
 import Button from '../../components/atoms/Button/Button';
 import { Wrapper, ButtonContainer } from './Dividends.style';
 import Modal from '../../components/organisms/Modal/Modal';
@@ -7,10 +9,20 @@ import DividendsTable from '../../components/molecules/DividendsTable/DividendsT
 
 const Dividends = () => {
   const { isOpen, handleCloseModal, handleOpenModal } = useModal();
+  const tl = useRef(null);
+  const dividendsTableRef = useRef(null);
+
+  useEffect(() => {
+    tl.current = gsap.timeline();
+
+    if (tl.current) {
+      tl.current.to(dividendsTableRef.current, { opacity: 1, duration: 1 });
+    }
+  }, []);
 
   return (
     <Wrapper>
-      <DividendsTable />
+      <DividendsTable ref={dividendsTableRef} />
       <ButtonContainer>
         <Button title="Add dividend" onClick={handleOpenModal} />
       </ButtonContainer>
