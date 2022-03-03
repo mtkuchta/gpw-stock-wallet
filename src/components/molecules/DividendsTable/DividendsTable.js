@@ -2,7 +2,7 @@ import React from 'react';
 import { Wrapper } from './DividendsTable.style';
 import { useDatabase } from '../../../hooks/useDatabase';
 import DataTableComponent from '../DataTableComponent/DataTableComponent';
-import { useEffect, useState } from 'react/cjs/react.development';
+import { useEffect, useState } from 'react';
 
 const DividendsTable = React.forwardRef((prop, ref) => {
   const { dividends } = useDatabase();
@@ -21,7 +21,6 @@ const DividendsTable = React.forwardRef((prop, ref) => {
 
   useEffect(() => {
     setData(createDividendsTable(dividends));
-    console.log(dividends);
   }, [dividends]);
 
   const columns = [
