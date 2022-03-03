@@ -10,16 +10,18 @@ const DividendsTable = React.forwardRef((prop, ref) => {
 
   const createDividendsTable = (dividends) => {
     const dividendsTable = [];
-    if (dividends)
+    if (Object.keys(dividends).length !== 0) {
       for (const [key, value] of Object.entries(dividends)) {
         dividendsTable.push(value);
       }
+    }
 
     return dividendsTable;
   };
 
   useEffect(() => {
     setData(createDividendsTable(dividends));
+    console.log(dividends);
   }, [dividends]);
 
   const columns = [

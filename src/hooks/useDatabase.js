@@ -161,7 +161,6 @@ export const DatabaseProvider = ({ children }) => {
   };
 
   const handleAddDividend = (data) => {
-    console.log(data);
     database.ref(`${user.uid}/dividends/`).update({ [data.id]: data.dividend });
   };
 
