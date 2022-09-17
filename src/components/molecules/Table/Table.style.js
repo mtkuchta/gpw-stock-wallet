@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   width: 100%;
   overflow: hidden;
-  opacity: 0;
+  /* opacity: 0; */
 
   table {
     width: 100%;

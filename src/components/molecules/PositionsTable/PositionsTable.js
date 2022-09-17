@@ -77,6 +77,8 @@ const PositionsTable = ({ stock: { positions }, handleSellStocks }) => {
     },
   ];
 
+  console.log('jestsm');
+
   return (
     <Wrapper>
       <DataTableComponent
