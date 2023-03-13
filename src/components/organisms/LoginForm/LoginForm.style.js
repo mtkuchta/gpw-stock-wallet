@@ -6,8 +6,8 @@ export const StyledForm = styled.form`
   flex-direction: column;
   align-items: center;
   padding: 40px 0;
-  transform: scale(0);
-  opacity: 0;
+  /* transform: scale(0);
+  opacity: 1; */
 
   div {
     font-size: ${({ theme: { fontSize } }) => fontSize.s};
